@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Carter.mov" />
+  <title>Carter.mov — Création</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #e8ff4d;
+      --accent2: #4dffb8;
+      --text: #f0f0f0;
+      --muted: #666;
+      --red: #ff4d4d;
+      --orange: #ff9f4d;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .header {
+      padding: 56px 20px 20px;
+      padding-top: calc(56px + env(safe-area-inset-top));
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    .header h1 span { color: var(--accent); }
+    .header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+    .nav {
+      display: flex;
+      gap: 6px;
+      padding: 12px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+    .screen { display: none; padding: 20px; }
+    .screen.active { display: block; }
+
+    .section { margin-bottom: 22px; }
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .label-note { font-size: 10px; font-weight: 400; color: var(--muted); text-transform: none; letter-spacing: 0; margin-left: 6px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 9px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .chip.selected { border-color: var(--accent); background: rgba(232,255,77,0.12); color: var(--accent); }
+    .chip.sound.selected { border-color: var(--accent2); background: rgba(77,255,184,0.12); color: var(--accent2); }
+
+    .input-field {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .input-field:focus { border-color: var(--accent); }
+    .input-field::placeholder { color: var(--muted); }
+    textarea.input-field { resize: none; height: 72px; line-height: 1.5; }
+
+    .music-suggest {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: rgba(77,255,184,0.08);
+      border: 1px solid rgba(77,255,184,0.25);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--accent2);
+    }
+    .music-suggest strong { color: #fff; }
+    .music-suggest button {
+      flex-shrink: 0;
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--accent2);
+      background: transparent;
+      color: var(--accent2);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .substance-box {
+      background: var(--surface);
+      border: 1px solid rgba(232,255,77,0.25);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .substance-box textarea {
+      background: transparent;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 15px;
+      color: var(--text);
+      width: 100%;
+      resize: none;
+      height: 60px;
+      outline: none;
+      font-family: inherit;
+    }
+    .substance-box textarea::placeholder { color: var(--muted); }
+    .substance-gate {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .substance-gate span { line-height: 1.4; }
+    .gate-btn {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .gate-btn.valid { border-color: var(--accent2); color: var(--accent2); background: rgba(77,255,184,0.1); }
+
+    .cta {
+      width: 100%;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      margin-top: 8px;
+    }
+    .cta:active { opacity: 0.85; }
+    .cta:disabled { opacity: 0.3; cursor: default; }
+
+    /* RESULTS */
+    .result-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .block-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    /* KALLAWAY 3-STEP */
+    .k-formula { display: flex; flex-direction: column; gap: 0; }
+    .k-step {
+      display: flex;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .k-step:last-child { border-bottom: none; }
+    .k-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(232,255,77,0.12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .k-content { flex: 1; }
+    .k-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .k-rule { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .k-rule em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+    /* HOOK SEQUENCES */
+    .hook-seq {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .hook-seq:last-child { margin-bottom: 0; }
+    .hook-seq:active { border-color: var(--accent); }
+    .hook-seq-title { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+    .overlay-line {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .overlay-line:last-child { margin-bottom: 0; }
+    .overlay-tag {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .tag-lean { background: rgba(232,255,77,0.15); color: var(--accent); }
+    .tag-stop { background: rgba(255,159,77,0.15); color: var(--orange); }
+    .tag-snap { background: rgba(77,255,184,0.15); color: var(--accent2); }
+
+    .overlay-text { font-size: 15px; font-weight: 700; line-height: 1.3; }
+
+    .hook-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .gate-box {
+      margin-top: 10px;
+      padding: 12px;
+      background: rgba(255,77,77,0.08);
+      border: 1px solid rgba(255,77,77,0.2);
+      border-radius: 8px;
+      font-size: 12px;
+      color: #ff8080;
+      line-height: 1.5;
+    }
+
+    /* SHOT LIST */
+    .shot-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .shot-item:last-child { border-bottom: none; }
+    .shot-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .shot-num.star { background: rgba(232,255,77,0.15); color: var(--accent); }
+    .shot-content { flex: 1; }
+    .shot-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .shot-detail { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .shot-context { font-size: 12px; color: #a0c040; margin-top: 3px; }
+    .shot-flag { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 3px; }
+
+    .tool-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .tool-dji { background: rgba(77,255,184,0.15); color: var(--accent2); }
+    .tool-iphone { background: rgba(255,255,255,0.1); color: #ccc; }
+
+    /* INFO BARS */
+    .warning-bar {
+      background: rgba(255,77,77,0.1);
+      border: 1px solid rgba(255,77,77,0.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #ff9090;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .info-bar {
+      background: rgba(232,255,77,0.07);
+      border: 1px solid rgba(232,255,77,0.18);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #c8e060;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .timer-bar {
+      background: rgba(255,159,77,0.1);
+      border: 1px solid rgba(255,159,77,0.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--orange);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    /* CHECKLIST */
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .checklist-item.done .check-box { background: var(--accent); border-color: var(--accent); }
+    .checklist-item.done .check-box::after { content: '✓'; font-size: 12px; color: #000; font-weight: 800; }
+    .checklist-item.done span { color: var(--muted); text-decoration: line-through; }
+
+    /* JOURNAL */
+    .journal-entry {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .journal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .journal-title { font-size: 15px; font-weight: 700; }
+    .stat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .stat-pill { font-size: 12px; padding: 4px 10px; border-radius: 8px; background: var(--surface2); color: var(--muted); }
+    .stat-pill.good { background: rgba(77,255,184,0.12); color: var(--accent2); }
+    .stat-pill.bad { background: rgba(255,77,77,0.12); color: var(--red); }
+    .pattern-item { font-size: 13px; color: var(--muted); line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .pattern-item:last-child { border-bottom: none; }
+    .pattern-item strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>carter<span>.mov</span></h1>
+  <p>Système de création TikTok cinématique — v2.2</p>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showScreen('projet', this)">Nouveau projet</button>
+  <button class="nav-btn" onclick="showScreen('checklist', this)">Checklist tournage</button>
+  <button class="nav-btn" onclick="showScreen('journal', this)">Journal</button>
+</div>
+
+<!-- ===== ÉCRAN 1 : NOUVEAU PROJET ===== -->
+<div id="screen-projet" class="screen active">
+
+  <div class="section">
+    <div class="label">Émotion cible</div>
+    <div class="chips" id="emotions">
+      <div class="chip" onclick="selectChip(this,'emotion')">Mélancolie</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Énergie</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Sérénité</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Émerveillement</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Nostalgie</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Tension</div>
+      <div class="chip" onclick="selectChip(this,'emotion')">Euphorie</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">Axe sonore</div>
+    <div class="chips" id="sons">
+      <div class="chip sound" onclick="selectChip(this,'son')">TikTok natif</div>
+      <div class="chip sound" onclick="selectChip(this,'son')">Son commercial</div>
+      <div class="chip sound" onclick="selectChip(this,'son')">Hybride (les deux)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">Musique<span class="label-note">— artiste, genre ou ambiance</span></div>
+    <input type="text" class="input-field" id="musique"
+      placeholder="ex: Nils Frahm, phonk, slowed reverb, lo-fi…"
+      oninput="detectMusique()" />
+    <div id="music-detect"></div>
+  </div>
+
+  <div class="section">
+    <div class="label">Sujet de la vidéo<span class="label-note">— pour les hooks & plans</span></div>
+    <textarea class="input-field" id="sujet"
+      placeholder="ex: Magic Mask DaVinci, golden hour Montpellier, color grade cinématique…"></textarea>
+  </div>
+
+  <div class="section">
+    <div class="label">Angle unique (Substance)<span class="label-note">— gate obligatoire</span></div>
+    <div class="substance-box">
+      <textarea id="substance"
+        placeholder="Ce que tu montres que les autres créateurs DaVinci / cinéma ne montrent pas…"></textarea>
+      <div class="substance-gate">
+        <span>Est-ce que tu as quelque chose d'original à dire que les autres ne montrent pas ?</span>
+        <button class="gate-btn" id="substanceBtn" onclick="toggleSubstance()">Oui ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta" id="btn-generer" onclick="generer()" disabled>Générer les recommandations</button>
+
+  <div id="results" style="margin-top: 28px;"></div>
+
+</div>
+
+<!-- ===== ÉCRAN 2 : CHECKLIST TOURNAGE ===== -->
+<div id="screen-checklist" class="screen">
+  <div class="info-bar">À compléter sur place avant de filmer le premier plan.</div>
+  <div class="result-block"><div class="block-title">Matériel</div><div id="checklist-materiel"></div></div>
+  <div class="result-block"><div class="block-title">DJI Osmo Pocket</div><div id="checklist-dji"></div></div>
+  <div class="result-block"><div class="block-title">iPhone</div><div id="checklist-iphone"></div></div>
+  <div class="result-block"><div class="block-title">Composition & intention</div><div id="checklist-compo"></div></div>
+  <button class="cta" onclick="resetChecklist()"
+    style="background:var(--surface);color:var(--text);border:1px solid var(--border);margin-top:8px;">
+    Réinitialiser
+  </button>
+</div>
+
+<!-- ===== ÉCRAN 3 : JOURNAL ===== -->
+<div id="screen-journal" class="screen">
+
+  <div class="journal-entry">
+    <div class="journal-header">
+      <div class="journal-title">Day 06</div>
+      <div style="font-size:12px;color:var(--muted)">7 mai 2026</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-pill good">530 vues</div>
+      <div class="stat-pill good">37 likes (7%)</div>
+      <div class="stat-pill bad">4.1s watch time</div>
+      <div class="stat-pill bad">1.67% completion</div>
+      <div class="stat-pill bad">0 shares / 0 saves</div>
+    </div>
+    <div class="pattern-item"><strong>Hook raté :</strong> "DAY 06 EXPERIMENTING MAGIC Mask" — technique avant bénéfice, aucune séquence Lean→Stop→Snap, zéro staccato. Drop à 0:01.</div>
+    <div class="pattern-item"><strong>Enseignement :</strong> DAY XX en position hook = invisible pour nouveaux viewers. Toujours benefit-first en overlay 1.</div>
+    <div class="pattern-item"><strong>Opportunité :</strong> "Davinci resolve free magic mask" est une query réelle — bon sujet, mauvais hook.</div>
+  </div>
+
+  <div class="result-block">
+    <div class="block-title">Patterns confirmés</div>
+    <div class="pattern-item"><strong>Timer 4s :</strong> Day 06 = 4.1s exactement sur la ligne d'explosion. Placer le plan le plus fort en 0-2s.</div>
+    <div class="pattern-item"><strong>Algo :</strong> 94.4% For You — l'algo distribue bien. Le problème est toujours le hook, pas la distribution.</div>
+    <div class="pattern-item"><strong>Son :</strong> Son commercial = 0% traffic via Sound. Ajouter son natif en surcouche à la publication.</div>
+    <div class="pattern-item"><strong>Benefit-first :</strong> Citer la douleur/bénéfice AVANT la technique en overlay 1.</div>
+  </div>
+
+</div>
+
+<script>
+// ---- STATE ----
+let selectedEmotion = '';
+let selectedSon = '';
+let substanceValid = false;
+const checklistState = {};
+
+// ---- NAVIGATION ----
+function showScreen(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'checklist') buildChecklist();
+}
+
+// ---- SUBSTANCE GATE ----
+function toggleSubstance() {
+  substanceValid = !substanceValid;
+  const btn = document.getElementById('substanceBtn');
+  btn.textContent = substanceValid ? '✓ Validé' : 'Oui ✓';
+  btn.classList.toggle('valid', substanceValid);
+  checkReady();
+}
+
+// ---- CHIP SELECTION ----
+function selectChip(el, type) {
+  const group = type === 'emotion' ? 'emotions' : 'sons';
+  document.querySelectorAll('#' + group + ' .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (type === 'emotion') selectedEmotion = el.textContent;
+  else selectedSon = el.textContent;
+  checkReady();
+}
+
+function checkReady() {
+  document.getElementById('btn-generer').disabled = !(selectedEmotion && selectedSon);
+}
+
+// ---- MUSIC DETECTION ----
+const musicMoodMap = [
+  { patterns: ['nils frahm','ólafur','olafur','piano ambiant','neo-classical','neoclassical','classical','classique'], emotion: 'Mélancolie' },
+  { patterns: ['bonobo','nujabes','tycho','trip hop','downtempo'], emotion: 'Mélancolie' },
+  { patterns: ['slowed','reverb','sad','melancholic','mélancolique','triste','heartbreak'], emotion: 'Mélancolie' },
+  { patterns: ['phonk','hard trap','drill','dark trap','agressif','aggressive'], emotion: 'Énergie' },
+  { patterns: ['trap','hip hop','rap beat','bass boosted','instrumental beat'], emotion: 'Énergie' },
+  { patterns: ['lo-fi','lofi','lo fi','chill hop','study music','coffee shop'], emotion: 'Sérénité' },
+  { patterns: ['acoustic','folk','guitare acoustique','nature sounds','fingerpicking'], emotion: 'Sérénité' },
+  { patterns: ['ambient calm','meditation','zen','peaceful','reposant'], emotion: 'Sérénité' },
+  { patterns: ['epic','cinematic','orchestral','two steps','trailer','hans zimmer'], emotion: 'Émerveillement' },
+  { patterns: ['uplifting','inspirant','motivant','motivational','inspiring'], emotion: 'Émerveillement' },
+  { patterns: ['vintage','vinyl','jazz','blues','soul','rétro','retro','70s','80s','90s'], emotion: 'Nostalgie' },
+  { patterns: ['dark ambient','drone','thriller','suspense','horror','sombre'], emotion: 'Tension' },
+  { patterns: ['dance','edm','house','techno','hyperpop','festival','rave','club'], emotion: 'Euphorie' },
+  { patterns: ['synthwave','80s electro','neon','electro pop'], emotion: 'Euphorie' },
+];
+
+function detectMusique() {
+  const input = document.getElementById('musique').value.toLowerCase().trim();
+  const container = document.getElementById('music-detect');
+  if (input.length < 3) { container.innerHTML = ''; return; }
+  for (const entry of musicMoodMap) {
+    for (const pattern of entry.patterns) {
+      if (input.includes(pattern)) {
+        container.innerHTML = `<div class="music-suggest">
+          Ambiance détectée → <strong>${entry.emotion}</strong>
+          <button onclick="autoSelectEmotion('${entry.emotion}')">Appliquer ↑</button>
+        </div>`;
+        return;
+      }
+    }
+  }
+  container.innerHTML = '';
+}
+
+function autoSelectEmotion(emotion) {
+  document.querySelectorAll('#emotions .chip').forEach(c => {
+    c.classList.remove('selected');
+    if (c.textContent.trim() === emotion) { c.classList.add('selected'); selectedEmotion = emotion; }
+  });
+  checkReady();
+}
+
+// ---- HOOK SEQUENCE GENERATION (3-step: Lean → Stop → Snapback) ----
+function generateHookSequences(sujet) {
+  const s = sujet.toLowerCase();
+  const isDaVinci = /davinci|resolve|magic mask|color grade|lut|étalonnage|masque/.test(s);
+  const isLocation = /montpellier|toulouse|paris|marseille|lyon|bordeaux|ville|spot|lieu|endroit/.test(s);
+  const isTutorial = /tuto|tutoriel|technique|astuce|méthode|réglage|apprendre/.test(s);
+  const isGear = /iphone|dji|osmo|pocket|caméra|camera|objectif|matériel/.test(s);
+  const isFilm = /tournage|filmer|golden hour|heure dorée|lever|coucher|soleil|lumière/.test(s);
+
+  const stopWords = ['le','la','les','de','du','des','un','une','et','ou','en','sur','pour','avec','dans','par','au','aux','ce','cette','ces','mon','ma','ton','ta','son','sa','je','tu','il','elle'];
+  const words = s.split(/[\s,\.;:!?]+/).filter(w => w.length > 2 && !stopWords.includes(w));
+  const kw = words[0] ? (words[0].charAt(0).toUpperCase() + words[0].slice(1)) : 'ça';
+
+  if (isDaVinci) return [
+    {
+      label: 'Douleur → Révélation → Choc',
+      overlays: [
+        { tag: 'lean', text: '"Tu passes des heures à détourer ?"' },
+        { tag: 'stop', text: '"Mais DaVinci le fait seul."' },
+        { tag: 'snap', text: '"Gratuit. 30 secondes."' },
+      ],
+      badges: ['Benefit-first','Cult hopping DaVinci','Staccato','Implied contrast']
+    },
+    {
+      label: 'Chiffre → Retournement → Résultat',
+      overlays: [
+        { tag: 'lean', text: '"Ton rendu perd 80% en export ?"' },
+        { tag: 'stop', text: '"C\'est pas le codec."' },
+        { tag: 'snap', text: '"C\'est ce réglage DaVinci."' },
+      ],
+      badges: ['Chiffre','Stated contrast','Cult hopping DaVinci']
+    },
+    {
+      label: 'Question → Promesse → Proof',
+      overlays: [
+        { tag: 'lean', text: '"Tu veux ce masque propre ?"' },
+        { tag: 'stop', text: '"La plupart le font à la main."' },
+        { tag: 'snap', text: '"DaVinci. 0€. 3 clics."' },
+      ],
+      badges: ['Tu','Stated contrast','Staccato','Cult hopping']
+    }
+  ];
+
+  if (isLocation) {
+    const lieu = (sujet.match(/montpellier|toulouse|paris|marseille|lyon|bordeaux/i) || ['ce spot'])[0];
+    const L = lieu.charAt(0).toUpperCase() + lieu.slice(1);
+    return [
+      {
+        label: 'Découverte locale → Retournement → Révélation',
+        overlays: [
+          { tag: 'lean', text: `"Tu connais ${L} la nuit ?"` },
+          { tag: 'stop', text: '"La plupart passent à côté."' },
+          { tag: 'snap', text: '"Ce spot change tout."' },
+        ],
+        badges: ['Tu','Local','Stated contrast']
+      },
+      {
+        label: 'Exclusivité → Choc → Preuve visuelle',
+        overlays: [
+          { tag: 'lean', text: `"${L} cache encore ça."` },
+          { tag: 'stop', text: '"0 touriste. 0 bruit."' },
+          { tag: 'snap', text: '"Voilà ce que tu rates."' },
+        ],
+        badges: ['Implied contrast','Local','Curiosité']
+      },
+      {
+        label: 'Heure → Retournement → Accès',
+        overlays: [
+          { tag: 'lean', text: '"Avant 7h, la ville est à toi."' },
+          { tag: 'stop', text: '"Personne ne filme à cette heure."' },
+          { tag: 'snap', text: '"Regarde ce que ça donne."' },
+        ],
+        badges: ['Implied contrast','Spécifique','Curiosité']
+      }
+    ];
+  }
+
+  if (isGear) return [
+    {
+      label: 'Matériel → Retournement → Résultat',
+      overlays: [
+        { tag: 'lean', text: '"Ton DJI peut faire ça ?"' },
+        { tag: 'stop', text: '"La plupart ignorent ce réglage."' },
+        { tag: 'snap', text: '"Voilà ce que ça change."' },
+      ],
+      badges: ['Tu','Cult hopping DJI','Stated contrast']
+    },
+    {
+      label: 'Économie → Surprise → Preuve',
+      overlays: [
+        { tag: 'lean', text: '"Ce plan = 0€ de matériel."' },
+        { tag: 'stop', text: '"Juste ton iPhone."' },
+        { tag: 'snap', text: '"Résultat en 30 secondes."' },
+      ],
+      badges: ['Implied contrast','Cult hopping iPhone','Chiffre']
+    },
+    {
+      label: 'Douleur → Retournement → Solution',
+      overlays: [
+        { tag: 'lean', text: '"Ton footage tremble encore ?"' },
+        { tag: 'stop', text: '"C\'est pas le DJI."' },
+        { tag: 'snap', text: '"C\'est ce réglage gimbal."' },
+      ],
+      badges: ['Tu','Cult hopping DJI','Stated contrast']
+    }
+  ];
+
+  if (isFilm) return [
+    {
+      label: 'Lumière → Retournement → Urgence',
+      overlays: [
+        { tag: 'lean', text: '"Tu rates cette lumière."' },
+        { tag: 'stop', text: '"Elle dure 8 minutes."' },
+        { tag: 'snap', text: '"Voilà comment la capturer."' },
+      ],
+      badges: ['Tu','Chiffre','Implied contrast']
+    },
+    {
+      label: 'Heure → Choc → Accès',
+      overlays: [
+        { tag: 'lean', text: '"5h du matin. Personne."' },
+        { tag: 'stop', text: '"Pourtant c\'est l\'heure la plus belle."' },
+        { tag: 'snap', text: '"Ce plan prouve tout."' },
+      ],
+      badges: ['Chiffre','Implied contrast','Curiosité']
+    },
+    {
+      label: 'Douleur → Retournement → Technique',
+      overlays: [
+        { tag: 'lean', text: '"Ton footage manque de vie ?"' },
+        { tag: 'stop', text: '"C\'est pas la caméra."' },
+        { tag: 'snap', text: '"C\'est cette lumière."' },
+      ],
+      badges: ['Tu','Stated contrast','Benefit-first']
+    }
+  ];
+
+  // Fallback générique
+  return [
+    {
+      label: 'Douleur → Retournement → Révélation',
+      overlays: [
+        { tag: 'lean', text: `"Tu rates encore ${kw} ?"` },
+        { tag: 'stop', text: '"La plupart font ça à l\'envers."' },
+        { tag: 'snap', text: '"Voici la vraie méthode."' },
+      ],
+      badges: ['Tu','Implied contrast','Staccato']
+    },
+    {
+      label: 'Affirmation → Choc → Preuve',
+      overlays: [
+        { tag: 'lean', text: `"${kw} change tout ici."` },
+        { tag: 'stop', text: '"Personne n\'en parle."' },
+        { tag: 'snap', text: '"Regarde la différence."' },
+      ],
+      badges: ['Implied contrast','Curiosité']
+    },
+    {
+      label: 'Question → Surprise → Résultat',
+      overlays: [
+        { tag: 'lean', text: `"Tu connais ${kw} ?"` },
+        { tag: 'stop', text: '"La plupart passent à côté."' },
+        { tag: 'snap', text: '"Voilà ce que tu rates."' },
+      ],
+      badges: ['Tu','Stated contrast','Curiosité']
+    }
+  ];
+}
+
+// ---- EMOTION DATA ----
+const data = {
+  Mélancolie: {
+    palette: 'Bleus désaturés, ombres cyan, hautes lumières teal — évite le warm',
+    lumiere: 'Heure bleue (20 min après coucher du soleil), ciel couvert, pluie',
+    rythme: 'Lent — clips 3-4s, coupes douces, ralentis 60fps → 24fps',
+    sons_natifs: ['Sad Lo-fi trending','Melancholic piano viral','Slowed + reverb'],
+    sons_commerciaux: ['Nils Frahm type — Artlist','Bonobo — ambient','Ólafur Arnalds'],
+    shots: [
+      { titre: 'Hook fort — sujet en mouvement', detail: 'Frame 0 : sujet déjà en action. Mouvement juste suffisant pour retenir sans surcharger.', outil: 'DJI', star: true },
+      { titre: 'Pan gimbal ultra-lent', detail: 'Architecture ou paysage urbain — mouvement horizontal 4-6s sans pause', outil: 'DJI', star: false },
+      { titre: 'Insert texture mélancolique', detail: 'Reflet flaque, verre embué, lumière diffuse sur mur — très serré', outil: 'iPhone', star: false },
+      { titre: 'Portrait isolé', detail: 'Sujet net sur fond flou (3x zoom iPhone) — regard hors cadre', outil: 'iPhone', star: false },
+      { titre: 'Loop miroir', detail: 'Plan final = mouvement d\'ouverture à l\'envers — le viewer veut revoir', outil: 'DJI', star: false },
+    ]
+  },
+  Énergie: {
+    palette: 'Contraste élevé, warm orange/jaune, noirs profonds — style Blade Runner',
+    lumiere: 'Nuit urbaine, néons, contre-jour soleil bas, lumière artificielle dure',
+    rythme: 'Rapide — clips 1-2s, jump cuts, sync sur les beats, pas de ralenti',
+    sons_natifs: ['Phonk trending','Hard trap instrumental','Bass boosted edit viral'],
+    sons_commerciaux: ['Artlist — Electronic / Cinematic','Epidemic Sound — Hype','Drum-heavy instrumental'],
+    shots: [
+      { titre: 'Hook — jump cut brutal', detail: 'Frame 0 : plan ultra serré → coupe immédiate sur le beat. Durée 0.5s max.', outil: 'DJI', star: true },
+      { titre: 'Tilt-up dynamique', detail: 'Du sol vers le ciel ou bâtiment — continu, sans pause', outil: 'DJI', star: false },
+      { titre: 'Walking shot ActiveTrack', detail: 'DJI suit le sujet en marche rapide — stabilisation full', outil: 'DJI', star: false },
+      { titre: 'Silhouette contre-jour', detail: 'Sujet silhouette devant source lumineuse forte — iPhone expo -1', outil: 'iPhone', star: false },
+      { titre: 'Insert action < 1s', detail: 'Mains, pieds, objet en mouvement — plan très serré, coupe sur beat', outil: 'iPhone', star: false },
+    ]
+  },
+  Sérénité: {
+    palette: 'Tons naturels, verts doux, beiges chauds, ciel pastel — évite la saturation',
+    lumiere: 'Golden hour (30 min après lever / avant coucher), lumière diffuse naturelle',
+    rythme: 'Très lent — clips 3-5s, transitions douces, ralentis longs',
+    sons_natifs: ['Morning lo-fi trending','Nature + ambient viral','Acoustic chill'],
+    sons_commerciaux: ['Artlist — Folk / Acoustic','Hammock type — ambient','Peaceful piano'],
+    shots: [
+      { titre: 'Hook — lumière ou eau en mouvement', detail: 'Frame 0 : élément naturel animé. Mouvement doux mais présent.', outil: 'DJI', star: true },
+      { titre: 'Pan horizontal ultra-lent', detail: 'Pan 0.3°/s sur paysage — gimbal mode POV', outil: 'DJI', star: false },
+      { titre: 'Rayon de lumière dorée', detail: 'Rayons dans poussière ou fumée — iPhone manuel, AE bloqué', outil: 'iPhone', star: false },
+      { titre: 'Macro texture naturelle', detail: 'Herbe, mousse, grain de bois très proche — focus manuel', outil: 'iPhone', star: false },
+      { titre: 'Timelapse court', detail: 'Nuages ou lumière changeante — 10 min condensé en 3s', outil: 'DJI', star: false },
+    ]
+  },
+  Émerveillement: {
+    palette: 'Couleurs vives naturelles, ciel bleu profond, lumière spectaculaire',
+    lumiere: 'Magic hour, météo dramatique, lumière rasante sur architecture, contre-jour',
+    rythme: 'Mixte — lent sur les révélations, rapide sur les cuts de découverte',
+    sons_natifs: ['Cinematic trending','Epic ambient viral','Montage sound trending'],
+    sons_commerciaux: ['Artlist — Cinematic / Epic','Ambient orchestral','Two Steps From Hell lite'],
+    shots: [
+      { titre: 'Hook — reveal partiel du lieu', detail: 'Frame 0 : cadrage serré sur un détail architectural. Le viewer veut voir la suite.', outil: 'DJI', star: true },
+      { titre: 'Reveal progressif complet', detail: 'Départ ultra serré → recul lent qui révèle le décor entier', outil: 'DJI', star: false },
+      { titre: 'Contre-plongée architecture', detail: 'DJI vers le ciel, rotation lente — montre l\'échelle', outil: 'DJI', star: false },
+      { titre: 'Reflet miroir double', detail: 'Façade vitrée, eau au sol — sujet et décor simultanés', outil: 'iPhone', star: false },
+      { titre: 'Cadre dans le cadre', detail: 'À travers une arche, fenêtre, grille — profondeur maximale', outil: 'iPhone', star: false },
+    ]
+  },
+  Nostalgie: {
+    palette: 'Film grain prononcé, orange/marron vintage, désaturation partielle, vignette forte',
+    lumiere: 'Lumière chaude artificielle, lampadaires, intérieurs dorés, fin de journée',
+    rythme: 'Lent à très lent — ralentis, footage légèrement sous-exposé',
+    sons_natifs: ['Slowed reverb trending','Vintage sample flip viral','Lo-fi nostalgique'],
+    sons_commerciaux: ['Artlist — Vintage / Folk','Piano + grain cinématique','Film score nostalgique'],
+    shots: [
+      { titre: 'Hook — objet ou geste chargé', detail: 'Frame 0 : détail familier mais inattendu. Grain fort immédiat.', outil: 'iPhone', star: true },
+      { titre: 'Slow motion geste simple', detail: '60fps → 24fps : verser café, tourner une page, allumer une lampe', outil: 'iPhone', star: false },
+      { titre: 'Reflet miroir vieilli', detail: 'Miroir ancien, vitrine — distorsion légère', outil: 'iPhone', star: false },
+      { titre: 'Macro objet personnel', detail: 'Livre, vinyle, photo — focus très serré', outil: 'iPhone', star: false },
+      { titre: 'Loop fondu croisé', detail: 'Retour au premier plan par fondu ou match cut sur même texture', outil: 'DJI', star: false },
+    ]
+  },
+  Tension: {
+    palette: 'Désaturé sauf une couleur dominante froide (bleu/vert), ombres très denses',
+    lumiere: 'Contre-jour dur, ombres prononcées, lumière directionnelle unique',
+    rythme: 'Lent puis accélération brutale — montée de tension, cut sur le beat fort',
+    sons_natifs: ['Dark ambient trending','Thriller cinematic sound','Suspense build viral'],
+    sons_commerciaux: ['Artlist — Dark / Tense','Drone ambient','Ominous orchestral'],
+    shots: [
+      { titre: 'Hook — élément inquiétant figé', detail: 'Frame 0 : plan fixe sur détail inattendu ou ambigu. Immobilité totale.', outil: 'DJI', star: true },
+      { titre: 'Attente longue — rien ne se passe', detail: 'Plan fixe 3-4s sans action — le viewer attend, la tension monte', outil: 'DJI', star: false },
+      { titre: 'Tilt lent découverte', detail: 'Du bas vers le haut — révèle progressivement un élément inattendu', outil: 'DJI', star: false },
+      { titre: 'POV très serré', detail: 'Caméra à hauteur d\'objet — désorientation, immersion', outil: 'iPhone', star: false },
+      { titre: 'Cut brutal noir → impact', detail: 'Noir complet → plan d\'impact sur le beat fort — 0.5s max', outil: 'DJI', star: false },
+    ]
+  },
+  Euphorie: {
+    palette: 'Hyper-saturé, couleurs primaires vives, lumières colorées, surbrillances assumées',
+    lumiere: 'Nuit avec sources colorées, néons, lumières de concert, feux d\'artifice',
+    rythme: 'Ultra rapide — 0.5s à 1s par clip, sync beatdrop, transitions agressives',
+    sons_natifs: ['Dance trending','Viral remix beatdrop','Hyperpop / EDM clip'],
+    sons_commerciaux: ['Artlist — Electronic / Dance','Epidemic Sound — Party','Festival anthem'],
+    shots: [
+      { titre: 'Hook — burst 3 coupes en 1s', detail: 'Frame 0 : 3 plans différents en 1 seconde. Rythme établi immédiatement.', outil: 'DJI', star: true },
+      { titre: 'Whip pan entre deux lieux', detail: 'Rotation rapide pour cut invisible entre deux endroits', outil: 'iPhone', star: false },
+      { titre: 'Bokeh coloré en mouvement', detail: 'Sources lumineuses hors focus en mouvement — iPhone focus infini', outil: 'iPhone', star: false },
+      { titre: 'Jump cut même sujet', detail: 'Même plan, angles légèrement différents — dynamisme sans déplacement', outil: 'iPhone', star: false },
+      { titre: 'Beatdrop reveal', detail: 'Noir → plan le plus fort sur le drop — 0.3s max', outil: 'DJI', star: false },
+    ]
+  }
+};
+
+// ---- GENERATION ----
+function generer() {
+  const d = data[selectedEmotion];
+  if (!d) return;
+
+  const sujet = document.getElementById('sujet').value.trim();
+  const musique = document.getElementById('musique').value.trim();
+  const substance = document.getElementById('substance').value.trim();
+
+  const sonInfo = selectedSon === 'Hybride (les deux)'
+    ? { msg: '🎵 Monte sur son commercial, puis ajoute un son natif trending en surcouche basse (10-20% volume) à la publication.', warn: false }
+    : selectedSon === 'TikTok natif'
+    ? { msg: '🎵 Choisis le son trending dans la bibliothèque TikTok AVANT de monter — construis sur ses beats.', warn: false }
+    : { msg: '⚠️ Son commercial : Day 06 confirme Sound = 0% du traffic. Compense avec hook texte fort + hashtags.', warn: true };
+
+  let html = '';
+
+  // Timer 4s
+  html += `<div class="timer-bar">⏱ <strong>Timer 4 secondes.</strong> Le viewer explose à 4s si rien ne le retient. Plan le plus fort obligatoirement en position 0-2s.</div>`;
+
+  // Kallaway formula reminder
+  html += `<div class="result-block" style="border-color:rgba(232,255,77,0.25);">
+    <div class="block-title">Formule Kallaway — Curiosity Loop</div>
+    <div class="k-formula">
+      <div class="k-step"><div class="k-num">1</div><div class="k-content">
+        <div class="k-name">Context Lean</div>
+        <div class="k-rule"><em>Benefit-first</em> — citer la douleur/bénéfice avant la technique. Commence par "Tu" ou "Ton". 3-5 mots staccato.</div>
+      </div></div>
+      <div class="k-step"><div class="k-num">2</div><div class="k-content">
+        <div class="k-name">Scroll Stop Interjection</div>
+        <div class="k-rule">Mot de contraste : <em>"Mais…"</em> / "Pourtant…" / "Sauf que…" — stoppe le thumb, setup pour la révélation.</div>
+      </div></div>
+      <div class="k-step"><div class="k-num">3</div><div class="k-content">
+        <div class="k-name">Contrarian Snapback</div>
+        <div class="k-rule">Direction opposée au lean. <em>Plus le choc est grand, plus la curiosité est forte.</em> Staccato maximal.</div>
+      </div></div>
+    </div>
+  </div>`;
+
+  // Son
+  html += `<div class="${sonInfo.warn ? 'warning-bar' : 'info-bar'}">${sonInfo.msg}</div>`;
+
+  // Substance note
+  if (substance) {
+    html += `<div class="info-bar">🎯 <strong>Angle unique :</strong> ${substance}</div>`;
+  }
+
+  // Ambiances sonores
+  const sons = selectedSon === 'TikTok natif' ? d.sons_natifs
+    : selectedSon === 'Son commercial' ? d.sons_commerciaux
+    : [...d.sons_natifs.slice(0,2), ...d.sons_commerciaux.slice(0,1)];
+
+  html += `<div class="result-block">
+    <div class="block-title">Ambiances sonores — ${selectedEmotion}${musique ? ' · "' + musique + '"' : ''}</div>
+    ${sons.map(s => `<div class="shot-item"><div class="shot-content"><div class="shot-title">🎵 ${s}</div></div></div>`).join('')}
+  </div>`;
+
+  // Hook sequences
+  const sequences = sujet ? generateHookSequences(sujet) : null;
+
+  html += `<div class="result-block">
+    <div class="block-title">3 séquences hook${sujet ? ' · "' + sujet + '"' : ' · ' + selectedEmotion}</div>`;
+
+  const tagClass = { lean: 'tag-lean', stop: 'tag-stop', snap: 'tag-snap' };
+  const tagLabel = { lean: 'Lean', stop: 'Stop', snap: 'Snap' };
+
+  if (sequences) {
+    sequences.forEach(seq => {
+      html += `<div class="hook-seq">
+        <div class="hook-seq-title">${seq.label}</div>
+        ${seq.overlays.map(o => `<div class="overlay-line">
+          <span class="overlay-tag ${tagClass[o.tag]}">${tagLabel[o.tag]}</span>
+          <span class="overlay-text">${o.text}</span>
+        </div>`).join('')}
+        <div class="hook-badges">${seq.badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>
+      </div>`;
+    });
+  } else {
+    // Generic emotion hooks as sequences
+    const generic = [
+      { label: 'Douleur → Retournement → Révélation',
+        overlays: [
+          { tag: 'lean', text: '"Tu rates encore ça ?"' },
+          { tag: 'stop', text: '"La plupart ne voient pas pourquoi."' },
+          { tag: 'snap', text: '"Voici la vraie raison."' },
+        ], badges: ['Tu','Implied contrast','Staccato'] },
+      { label: 'Bénéfice → Choc → Accès',
+        overlays: [
+          { tag: 'lean', text: '"Ce rendu change tout."' },
+          { tag: 'stop', text: '"Personne n\'en parle."' },
+          { tag: 'snap', text: '"Regarde la différence."' },
+        ], badges: ['Benefit-first','Curiosité'] },
+    ];
+    generic.forEach(seq => {
+      html += `<div class="hook-seq">
+        <div class="hook-seq-title">${seq.label}</div>
+        ${seq.overlays.map(o => `<div class="overlay-line">
+          <span class="overlay-tag ${tagClass[o.tag]}">${tagLabel[o.tag]}</span>
+          <span class="overlay-text">${o.text}</span>
+        </div>`).join('')}
+        <div class="hook-badges">${seq.badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>
+      </div>`;
+    });
+  }
+
+  html += `<div class="gate-box">🚨 <strong>Gate :</strong> Choisis 1 séquence. Lis les 3 overlays en 4 secondes. Est-ce que le viewer DOIT savoir ce qui vient ensuite ? Si non → réécrire. On ne tourne pas sans.</div>
+  </div>`;
+
+  // Shot list
+  html += `<div class="result-block">
+    <div class="block-title">Plans à filmer — ${selectedEmotion} · ${d.rythme}</div>`;
+
+  d.shots.forEach((s, i) => {
+    const numClass = s.star ? 'shot-num star' : 'shot-num';
+    const ctx = sujet ? buildShotContext(s, sujet) : '';
+    html += `<div class="shot-item">
+      <div class="${numClass}">${s.star ? '★' : i + 1}</div>
+      <div class="shot-content">
+        <div class="shot-title">${s.titre}</div>
+        <div class="shot-detail">${s.detail}</div>
+        ${s.star ? '<div class="shot-flag">→ Plan le plus fort · Position 0-2s obligatoire</div>' : ''}
+        ${ctx ? `<div class="shot-context">→ Adapte : ${ctx}</div>` : ''}
+        <span class="tool-badge ${s.outil === 'DJI' ? 'tool-dji' : 'tool-iphone'}">${s.outil === 'DJI' ? 'DJI Osmo Pocket' : 'iPhone'}</span>
+        <span class="tool-badge tool-iphone" style="margin-left:4px;">+ 1 backup</span>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Étalonnage
+  html += `<div class="result-block">
+    <div class="block-title">Étalonnage DaVinci — ${selectedEmotion}</div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Palette</div><div class="shot-detail">${d.palette}</div></div></div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Lumière idéale</div><div class="shot-detail">${d.lumiere}</div></div></div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Workflow</div><div class="shot-detail">Correction primaire → LUT D-Log M → palette ${selectedEmotion.toLowerCase()} → grain léger + vignette</div></div></div>
+  </div>`;
+
+  // Durée & loop
+  html += `<div class="result-block">
+    <div class="block-title">Structure finale</div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Timeline</div><div class="shot-detail">Hook 0-3s (plan ★ + overlays 1→2→3) → Développement 3-25s → Loop/fin 25-35s</div></div></div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Value loop</div><div class="shot-detail">Context → hit de valeur → context → hit de valeur — front-loader au maximum</div></div></div>
+    <div class="shot-item"><div class="shot-content"><div class="shot-title">Publication</div><div class="shot-detail">Mardi 23h30 · Description = overlay 1 de la séquence choisie · 5-8 hashtags</div></div></div>
+  </div>`;
+
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildShotContext(shot, sujet) {
+  const s = sujet.toLowerCase();
+  const isDaVinci = /davinci|resolve|magic mask|color grade|lut/.test(s);
+  const isLocation = /montpellier|toulouse|paris|marseille|spot|lieu/.test(s);
+  const isGolden = /golden hour|heure dorée|lever|coucher|soleil/.test(s);
+  if (isDaVinci && shot.titre.includes('texture')) return 'Interface DaVinci en mouvement, timeline en cours d\'étalonnage';
+  if (isDaVinci && shot.titre.includes('Loop')) return 'Retour à l\'écran DaVinci comme à l\'ouverture';
+  if (isLocation && shot.titre.includes('Reveal')) return 'Départ détail architectural → recul pour révéler le lieu complet';
+  if (isLocation && shot.titre.includes('Cadre')) return 'Filme le lieu à travers une arche ou fenêtre locale';
+  if (isGolden && (shot.titre.includes('lumière') || shot.titre.includes('Hook'))) return 'Capte les rayons rasants dans les 5 premières minutes du golden hour';
+  return '';
+}
+
+// ---- CHECKLIST ----
+const checklistData = {
+  materiel: ['Batterie DJI ≥ 80%','Stockage dispo (min 10 Go)','Stabilisation DJI : ON','ND filter adapté à la lumière','Câble de charge dans le sac'],
+  dji: ['4K 24fps (ou 60fps si ralentis prévus)','D-Log M activé','ActiveTrack : calibré','Gimbal lock pour plans fixes','Horizon : niveau vérifié'],
+  iphone: ['AE/AF verrouillé (appui long)','Mode Cinématique : DÉSACTIVÉ','4K 24fps (ou 60fps si ralentis)','Grille 3x3 activée','Zones safe text overlay vérifiées (haut/bas 15%)'],
+  compo: ['Plan ★ : plan le plus fort en position 0-2s','Séquence hook 3 overlays : Lean → Stop → Snap validée','Benefit-first : overlay 1 cite la douleur/bénéfice','Chaque plan sert l\'émotion cible','Loop de fin : identifié AVANT de filmer','Backup shot prévu pour chaque plan clé']
+};
+
+function buildChecklist() {
+  ['materiel','dji','iphone','compo'].forEach(cat => {
+    const container = document.getElementById('checklist-' + cat);
+    container.innerHTML = checklistData[cat].map((item, i) => {
+      const key = cat + '_' + i;
+      const done = checklistState[key] || false;
+      return `<div class="checklist-item ${done ? 'done' : ''}" onclick="toggleCheck('${key}', this)">
+        <div class="check-box"></div><span>${item}</span>
+      </div>`;
+    }).join('');
+  });
+}
+
+function toggleCheck(key, el) {
+  checklistState[key] = !checklistState[key];
+  el.classList.toggle('done');
+}
+
+function resetChecklist() {
+  Object.keys(checklistState).forEach(k => delete checklistState[k]);
+  buildChecklist();
+}
+
+buildChecklist();
+</script>
+</body>
+</html>
