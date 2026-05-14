@@ -418,6 +418,62 @@
     .pattern-item { font-size: 13px; color: var(--muted); line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border); }
     .pattern-item:last-child { border-bottom: none; }
     .pattern-item strong { color: var(--text); }
+
+    /* PUBLICATION */
+    .pub-field {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-field:last-child { border-bottom: none; }
+    .pub-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pub-note { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 10px; color: var(--muted); }
+    .pub-content {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--surface2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .hashtag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .hashtag-chip {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .hashtag-chip.niche { background: rgba(232,255,77,0.12); color: var(--accent); border: 1px solid rgba(232,255,77,0.2); }
+    .hashtag-chip.medium { background: rgba(77,255,184,0.1); color: var(--accent2); border: 1px solid rgba(77,255,184,0.2); }
+    .hashtag-chip.large { background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid var(--border); }
+    .copy-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-btn:active { background: rgba(255,255,255,0.05); }
+    .copy-btn.copied { border-color: var(--accent2); color: var(--accent2); }
+    .hashtag-legend { display: flex; gap: 12px; margin-bottom: 10px; font-size: 11px; color: var(--muted); }
+    .hashtag-legend span { display: flex; align-items: center; gap: 4px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; }
   </style>
 </head>
 <body>
@@ -1029,11 +1085,113 @@ function generer() {
     <div class="block-title">Structure finale</div>
     <div class="shot-item"><div class="shot-content"><div class="shot-title">Timeline</div><div class="shot-detail">Hook 0-3s (plan ★ + overlays 1→2→3) → Développement 3-25s → Loop/fin 25-35s</div></div></div>
     <div class="shot-item"><div class="shot-content"><div class="shot-title">Value loop</div><div class="shot-detail">Context → hit de valeur → context → hit de valeur — front-loader au maximum</div></div></div>
-    <div class="shot-item"><div class="shot-content"><div class="shot-title">Publication</div><div class="shot-detail">Mardi 23h30 · Description = overlay 1 de la séquence choisie · 5-8 hashtags</div></div></div>
+  </div>`;
+
+  // Publication
+  const pub = generatePublication(sujet, sequences, selectedEmotion);
+  const allTags = [...pub.hashtags.niche, ...pub.hashtags.medium, ...pub.hashtags.large].join(' ');
+  html += `<div class="result-block" style="border-color:rgba(77,255,184,0.2);">
+    <div class="block-title">Publication — Mardi 23h30</div>
+
+    <div class="pub-field">
+      <div class="pub-label">Description <span class="pub-note">overlay 1 + 3 reformulés</span></div>
+      <div class="pub-content" id="pub-desc">${pub.description}</div>
+      <button class="copy-btn" onclick="copyText('pub-desc', this)">Copier</button>
+    </div>
+
+    <div class="pub-field">
+      <div class="pub-label">Hashtags <span class="pub-note">${pub.hashtags.niche.length + pub.hashtags.medium.length + pub.hashtags.large.length} au total</span></div>
+      <div class="hashtag-legend">
+        <span><span class="dot" style="background:var(--accent)"></span>Niche</span>
+        <span><span class="dot" style="background:var(--accent2)"></span>Moyen</span>
+        <span><span class="dot" style="background:#555"></span>Large</span>
+      </div>
+      <div class="hashtag-row">
+        ${pub.hashtags.niche.map(h => `<span class="hashtag-chip niche">${h}</span>`).join('')}
+        ${pub.hashtags.medium.map(h => `<span class="hashtag-chip medium">${h}</span>`).join('')}
+        ${pub.hashtags.large.map(h => `<span class="hashtag-chip large">${h}</span>`).join('')}
+      </div>
+      <div class="pub-content" id="pub-tags" style="font-size:13px;color:var(--muted)">${allTags}</div>
+      <button class="copy-btn" onclick="copyText('pub-tags', this)">Copier tout</button>
+    </div>
+
+    <div class="pub-field">
+      <div class="pub-label">1er commentaire épinglé <span class="pub-note">à poster dans les 5 min</span></div>
+      <div class="pub-content" id="pub-comment">${pub.comment}</div>
+      <button class="copy-btn" onclick="copyText('pub-comment', this)">Copier</button>
+    </div>
   </div>`;
 
   document.getElementById('results').innerHTML = html;
   document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ---- PUBLICATION GENERATOR ----
+function generatePublication(sujet, sequences, emotion) {
+  const s = sujet ? sujet.toLowerCase() : '';
+  const isDaVinci = /davinci|resolve|magic mask|color grade|lut|masque/.test(s);
+  const isLocation = /montpellier|toulouse|paris|marseille|lyon|bordeaux|ville|spot|lieu/.test(s);
+  const isGear = /iphone|dji|osmo|pocket|caméra|matériel/.test(s);
+  const isFilm = /tournage|golden hour|heure dorée|lumière|cinéma/.test(s);
+
+  // Description : overlay Lean + Snap nettoyés, reformulés en phrase
+  let description = '';
+  if (sequences && sequences[0]) {
+    const lean = sequences[0].overlays[0].text.replace(/["""«»]/g, '').replace(/\?$/, '');
+    const snap = sequences[0].overlays[2].text.replace(/["""«»]/g, '');
+    description = `${lean}. ${snap}`;
+  } else if (sujet) {
+    description = `${sujet} — regarde la différence.`;
+  } else {
+    description = `${emotion.toLowerCase()} en images. Regarde jusqu'au bout.`;
+  }
+
+  // Hashtags par niveau
+  let hashtags = { niche: [], medium: [], large: [] };
+
+  if (isDaVinci) {
+    hashtags.niche  = ['#davinciresolve', '#colorgrading'];
+    hashtags.medium = ['#montagevidéo', '#postproduction', '#tutovideo'];
+    hashtags.large  = ['#filmmaking', '#créateurdecontenu'];
+  } else if (isLocation) {
+    const cityMatch = sujet && sujet.match(/montpellier|toulouse|paris|marseille|lyon|bordeaux/i);
+    const city = cityMatch ? '#' + cityMatch[0].toLowerCase() : '#occitanie';
+    hashtags.niche  = [city, '#occitanie'];
+    hashtags.medium = ['#spotphoto', '#videography', '#cinéma'];
+    hashtags.large  = ['#filmmaking', '#travel'];
+  } else if (isGear) {
+    hashtags.niche  = ['#djiosmopocket', '#iphonecinematography'];
+    hashtags.medium = ['#videography', '#filmmaker'];
+    hashtags.large  = ['#iphone', '#filmmaking'];
+  } else if (isFilm) {
+    hashtags.niche  = ['#goldenhourgram', '#cinematography'];
+    hashtags.medium = ['#videography', '#filmmaker'];
+    hashtags.large  = ['#filmmaking', '#cinematic'];
+  } else {
+    hashtags.niche  = ['#cinématique', '#shortfilm'];
+    hashtags.medium = ['#videography', '#filmmaker'];
+    hashtags.large  = ['#filmmaking', '#créateurdecontenu'];
+  }
+
+  // Commentaire épinglé selon le contenu
+  let comment = '';
+  if (isDaVinci) comment = 'Quel réglage DaVinci tu veux que je couvre la prochaine fois ? 👇';
+  else if (isLocation) comment = 'Tu connais un spot encore plus caché ? Dis-moi en commentaire 👇';
+  else if (isGear) comment = 'Quel matériel tu utilises pour filmer ? 👇';
+  else comment = 'Quel type de contenu tu veux voir la prochaine fois ? 👇';
+
+  return { description, hashtags, comment };
+}
+
+// ---- COPY TO CLIPBOARD ----
+function copyText(id, btn) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.textContent;
+    btn.textContent = 'Copié ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
+  });
 }
 
 function buildShotContext(shot, sujet) {
