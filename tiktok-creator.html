@@ -6,6 +6,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Carter.mov" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <title>Carter.mov — Création</title>
   <style>
     :root {
@@ -636,6 +638,17 @@
   </div>
 
   <div class="section">
+    <button class="btn" onclick="exportBrief()">📋 Exporter le brief de tournage</button>
+    <div id="brief-export-box" class="hidden" style="margin-top:12px">
+      <div class="pub-block-header" style="margin-bottom:8px">
+        <span class="pub-label">Brief complet</span>
+        <button class="copy-btn" id="copy-brief" onclick="copyEl('brief-text','copy-brief')">Copier</button>
+      </div>
+      <div class="pub-text" id="brief-text" style="font-size:13px;line-height:1.7"></div>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-title">Rappels Kallaway</div>
     <div class="kallaway-tip">
       <div class="tip-title">🎯 Timer 4 secondes</div>
@@ -996,6 +1009,14 @@ function detectMusique() {
 
 function genererProjet() {
   if (!currentEmotion) { alert('Sélectionne une émotion d\'abord.'); return; }
+  const substance = document.getElementById('inp-substance').value.trim();
+  if (!substance) {
+    document.getElementById('inp-substance').focus();
+    document.getElementById('inp-substance').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('inp-substance').style.borderColor = '', 2000);
+    alert('⚠️ Gate Phase 0.5 — Décris ton angle unique avant de générer.\n\n"Ai-je une perspective différente sur ce sujet ?"\nSi non, change de sujet ou trouve un contre-pied.');
+    return;
+  }
   const sujet = document.getElementById('inp-sujet').value.trim();
   generateHooks(sujet);
   generateShots(sujet);
@@ -1476,6 +1497,88 @@ function deleteEntry(id) {
   journalEntries = journalEntries.filter(e => e.id !== id);
   LS.save('journal', journalEntries);
   renderJournal();
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPORT BRIEF
+// ═══════════════════════════════════════════════════════
+
+function exportBrief() {
+  const sujet = document.getElementById('inp-sujet').value.trim() || '—';
+  const substance = document.getElementById('inp-substance').value.trim() || '—';
+  const musique = document.getElementById('inp-musique').value.trim() || '—';
+  const em = currentEmotion;
+  const son = currentSon || '—';
+
+  let lines = [];
+  lines.push('═══ BRIEF DE TOURNAGE — CARTER.MOV ═══');
+  lines.push('');
+  lines.push('📌 SUJET');
+  lines.push(sujet);
+  lines.push('');
+  lines.push('💡 ANGLE UNIQUE');
+  lines.push(substance);
+  lines.push('');
+
+  if (em) {
+    const emData = EMOTIONS[em];
+    lines.push('🎭 ÉMOTION CIBLE');
+    lines.push(emData.label);
+    lines.push('');
+    lines.push('🎵 MUSIQUE / SON');
+    lines.push(musique + (son !== musique && son !== '—' ? ' → ' + son : ''));
+    lines.push('');
+    lines.push('💡 LUMIÈRE');
+    lines.push(emData.lumiere);
+    lines.push('');
+    lines.push('🎬 RYTHME MONTAGE');
+    lines.push(emData.rythme);
+    lines.push('');
+    lines.push('🎯 HOOK SÉLECTIONNÉ');
+
+    // Get hooks from contenteditable or fallback
+    const seqs = document.querySelectorAll('.hook-card');
+    if (seqs.length > 0) {
+      // Use first sequence by default, or the one with focus
+      const overlays = seqs[0].querySelectorAll('.overlay-text');
+      const labels = ['Lean', 'Stop', 'Snap'];
+      overlays.forEach((o, i) => {
+        lines.push(`  [${labels[i]}] ${o.textContent.trim()}`);
+      });
+    } else {
+      lines.push('  Génère le projet d\'abord (onglet Projet)');
+    }
+    lines.push('');
+    lines.push('📷 SHOT LIST');
+    emData.shots.forEach((s, i) => {
+      lines.push(`  ${i+1}. [${s.t}] ${s.n}`);
+      lines.push(`     ${s.d}`);
+    });
+  } else {
+    lines.push('⚠️  Sélectionne une émotion et génère le projet d\'abord.');
+  }
+
+  lines.push('');
+  lines.push('✅ 4 TESTS HOOK (Kallaway)');
+  lines.push('  □ Délai zéro — promesse visible en <1s');
+  lines.push('  □ Zéro confusion — un enfant de 10 ans comprend');
+  lines.push('  □ Pertinence (Tu/Ton) — douleur/bénéfice avant technique');
+  lines.push('  □ Contraste — contre-pied ou tension narrative');
+  lines.push('');
+  lines.push('⚡ TIMER 4S — Meilleur plan à 0-2s');
+  lines.push('═══════════════════════════════════════');
+
+  const text = lines.join('\n');
+  document.getElementById('brief-text').textContent = text;
+  document.getElementById('brief-export-box').classList.remove('hidden');
+
+  // Native share if available
+  if (navigator.share) {
+    navigator.share({ title: 'Brief tournage Carter.mov', text: text }).catch(() => {});
+  }
+
+  switchTab(3);
+  setTimeout(() => document.getElementById('brief-export-box').scrollIntoView({ behavior: 'smooth' }), 100);
 }
 
 // ═══════════════════════════════════════════════════════
