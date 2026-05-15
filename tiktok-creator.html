@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-title" content="Carter.mov" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>Carter.mov — Création</title>
+  <title>Carter.mov — Cinematic Life</title>
   <style>
     :root {
       --bg: #0a0a0a;
@@ -37,29 +37,14 @@
 
     /* ── BOTTOM NAV ── */
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0; right: 0;
-      background: #111;
-      border-top: 1px solid var(--border);
-      display: flex;
-      padding-bottom: env(safe-area-inset-bottom);
-      z-index: 100;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #111; border-top: 1px solid var(--border);
+      display: flex; padding-bottom: env(safe-area-inset-bottom); z-index: 100;
     }
     .bnav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      padding: 10px 4px 8px;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 500;
-      border: none;
-      background: none;
-      transition: color .15s;
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 3px; padding: 10px 4px 8px; cursor: pointer; color: var(--muted);
+      font-size: 10px; font-weight: 500; border: none; background: none; transition: color .15s;
     }
     .bnav-item .icon { font-size: 20px; line-height: 1; }
     .bnav-item.active { color: var(--accent); }
@@ -69,138 +54,194 @@
     .screen.active { display: block; }
 
     .screen-header {
-      padding: 56px 20px 18px;
-      padding-top: calc(56px + env(safe-area-inset-top));
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      padding: calc(56px + env(safe-area-inset-top)) 20px 18px;
+      background: var(--bg); border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 10;
     }
     .screen-header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
     .screen-header h1 span { color: var(--accent); }
     .screen-header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
-    /* ── SHARED COMPONENTS ── */
+    /* ── SHARED ── */
     .section { padding: 20px 20px 0; }
     .section-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      margin-bottom: 12px;
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); margin-bottom: 12px;
     }
-
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
     }
-
     .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .chip {
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 1.5px solid var(--border);
-      font-size: 13px;
-      cursor: pointer;
-      background: none;
-      color: var(--text);
-      white-space: nowrap;
-      transition: all .15s;
+      padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--border);
+      font-size: 13px; cursor: pointer; background: none; color: var(--text);
+      white-space: nowrap; transition: all .15s; font-family: inherit;
     }
     .chip.selected { border-color: var(--accent); color: var(--accent); background: rgba(232,255,77,.08); }
 
     input[type=text], textarea {
-      width: 100%;
-      background: var(--surface2);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 15px;
-      padding: 12px 14px;
-      outline: none;
-      font-family: inherit;
+      width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
+      border-radius: 10px; color: var(--text); font-size: 15px;
+      padding: 12px 14px; outline: none; font-family: inherit;
     }
     input[type=text]:focus, textarea:focus { border-color: var(--accent); }
     textarea { resize: vertical; min-height: 80px; }
-
     input[type=number] {
-      width: 100%;
-      background: var(--surface2);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 16px;
-      padding: 12px 14px;
-      outline: none;
-      font-family: inherit;
+      width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
+      border-radius: 10px; color: var(--text); font-size: 16px;
+      padding: 12px 14px; outline: none; font-family: inherit;
     }
     input[type=number]:focus { border-color: var(--accent); }
 
     .btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      background: var(--accent);
-      color: #000;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      text-align: center;
+      display: block; width: 100%; padding: 16px; background: var(--accent);
+      color: #000; font-size: 15px; font-weight: 700; border: none;
+      border-radius: var(--radius); cursor: pointer; text-align: center;
     }
     .btn-ghost {
-      background: none;
-      border: 1.5px solid var(--border);
-      color: var(--text);
-      font-size: 14px;
-      padding: 12px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      width: 100%;
-      font-family: inherit;
+      background: none; border: 1.5px solid var(--border); color: var(--text);
+      font-size: 14px; padding: 12px; border-radius: var(--radius);
+      cursor: pointer; width: 100%; font-family: inherit;
     }
     .btn-sm {
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: var(--surface2);
-      color: var(--text);
+      padding: 8px 14px; font-size: 13px; font-weight: 600; border: none;
+      border-radius: 8px; cursor: pointer; background: var(--surface2); color: var(--text);
+      font-family: inherit;
     }
     .btn-accent-sm {
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: var(--accent);
-      color: #000;
+      padding: 8px 14px; font-size: 13px; font-weight: 700; border: none;
+      border-radius: 8px; cursor: pointer; background: var(--accent); color: #000;
+      font-family: inherit;
     }
 
-    /* ── ANALYSE SCREEN ── */
+    /* ── FORMAT CARDS ── */
+    .format-cards { display: flex; gap: 10px; }
+    .format-card {
+      flex: 1; background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 14px 8px; cursor: pointer;
+      text-align: center; transition: all .15s; display: flex;
+      flex-direction: column; align-items: center; gap: 5px;
+      font-family: inherit;
+    }
+    .format-card .fc-icon { font-size: 22px; line-height: 1; }
+    .format-card .fc-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .format-card .fc-desc { font-size: 10px; color: var(--muted); line-height: 1.3; }
+    .format-card.selected { border-color: var(--accent); background: rgba(232,255,77,.06); }
+    .format-card.selected .fc-name { color: var(--accent); }
+
+    /* ── HOOK TOGGLE ── */
+    .hook-toggle {
+      display: flex; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    .hook-toggle-btn {
+      flex: 1; padding: 11px 8px; font-size: 13px; font-weight: 600;
+      border: none; background: none; color: var(--muted); cursor: pointer;
+      transition: all .15s; font-family: inherit;
+    }
+    .hook-toggle-btn:first-child { border-right: 1px solid var(--border); }
+    .hook-toggle-btn.active { background: rgba(232,255,77,.1); color: var(--accent); }
+
+    /* ── HOOK LOCK BOX ── */
+    .hook-lock-box { margin-top: 12px; }
+    .hook-options-list { display: flex; flex-direction: column; gap: 8px; }
+    .hook-option {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 13px 14px; cursor: pointer;
+      font-size: 14px; font-weight: 500; line-height: 1.4; text-align: left;
+      color: var(--text); transition: all .15s; width: 100%; font-family: inherit;
+    }
+    .hook-option:active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,77,.06); }
+    .hook-selected-box {
+      background: rgba(232,255,77,.06); border: 1.5px solid var(--accent);
+      border-radius: 10px; padding: 14px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+    }
+    .hook-selected-text { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.4; flex: 1; }
+    .hook-reset-btn {
+      font-size: 11px; color: var(--muted); background: none;
+      border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+    }
+
+    /* ── GEO HOOK ── */
+    .geo-preview {
+      margin-top: 10px; background: rgba(77,255,184,.06);
+      border: 1px solid rgba(77,255,184,.2); border-radius: 10px;
+      padding: 12px 14px; font-size: 14px; font-weight: 600;
+      color: var(--accent2); line-height: 1.4; min-height: 44px;
+    }
+    .geo-preview.empty { color: var(--muted); font-weight: 400; font-style: italic; }
+
+    /* ── LUT ── */
+    .lut-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+    .lut-row .lut-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+    .lut-row input { font-size: 14px; }
+
+    /* ── OVERLAYS / HOOKS ── */
+    .hook-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+    }
+    .hook-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .hook-num { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; }
+    .overlay-item { margin-bottom: 10px; }
+    .overlay-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: .8px; margin-bottom: 4px; }
+    .overlay-text {
+      font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--text);
+      min-height: 1.4em; outline: none; border-radius: 6px; padding: 2px 4px; margin: -2px -4px;
+    }
+    .overlay-text:focus { background: var(--surface2); }
+    .overlay-note { font-size: 11px; color: var(--muted); margin-top: 2px; font-style: italic; }
+
+    /* ── SHOT LIST ── */
+    .shot-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px; margin-bottom: 8px;
+    }
+    .shot-item .shot-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .shot-num {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--accent);
+      color: #000; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .shot-name { font-size: 15px; font-weight: 600; }
+    .shot-tag { font-size: 11px; color: var(--accent2); background: rgba(77,255,184,.1); padding: 2px 8px; border-radius: 999px; }
+    .shot-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── CHECKLIST ── */
+    .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+      flex-shrink: 0; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 13px; margin-top: 1px;
+    }
+    .check-box.done { background: var(--accent); border-color: var(--accent); color: #000; }
+    .check-label { font-size: 14px; line-height: 1.5; }
+
+    /* ── PUBLICATION ── */
+    .pub-block { margin-bottom: 16px; }
+    .pub-block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .pub-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: .8px; }
+    .pub-text {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; font-size: 14px; line-height: 1.6; color: var(--text); white-space: pre-wrap;
+    }
+    .copy-btn {
+      padding: 6px 12px; font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      background: none; color: var(--text); cursor: pointer; white-space: nowrap;
+      font-family: inherit;
+    }
+    .copy-btn.copied { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── ANALYSE ── */
     .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .metric-block label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-
-    .signal-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
+    .signal-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .signal-row:last-child { border-bottom: none; }
-    .signal-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .signal-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .dot-green { background: var(--green); }
     .dot-orange { background: var(--orange); }
     .dot-red { background: var(--red); }
@@ -209,204 +250,45 @@
     .val-green { color: var(--green); }
     .val-orange { color: var(--orange); }
     .val-red { color: var(--red); }
-
-    .verdict-box {
-      padding: 16px;
-      border-radius: var(--radius);
-      margin-top: 4px;
-    }
+    .verdict-box { padding: 16px; border-radius: var(--radius); margin-top: 4px; }
     .verdict-box.red { background: rgba(255,77,77,.12); border: 1px solid rgba(255,77,77,.3); }
     .verdict-box.orange { background: rgba(255,159,77,.12); border: 1px solid rgba(255,159,77,.3); }
     .verdict-box.green { background: rgba(77,255,184,.12); border: 1px solid rgba(77,255,184,.3); }
     .verdict-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
     .verdict-text { font-size: 14px; line-height: 1.5; }
 
-    /* ── VEILLE SCREEN ── */
-    .veille-result { margin-top: 16px; }
+    /* ── VEILLE ── */
     .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-    .tag {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      background: var(--surface2);
-      color: var(--muted);
-    }
+    .tag { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--surface2); color: var(--muted); }
     .tag.accent { background: rgba(232,255,77,.15); color: var(--accent); }
     .tag.cyan { background: rgba(77,255,184,.15); color: var(--accent2); }
-
-    .angle-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 8px;
-    }
+    .angle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 8px; }
     .angle-card .angle-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
     .angle-card .angle-text { font-size: 14px; line-height: 1.5; }
 
-    /* ── HOOKS ── */
-    .hook-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-    .hook-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .hook-num { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; }
-    .overlay-item { margin-bottom: 10px; }
-    .overlay-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: .8px; margin-bottom: 4px; }
-    .overlay-text {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.4;
-      color: var(--text);
-      min-height: 1.4em;
-      outline: none;
-      border-radius: 6px;
-      padding: 2px 4px;
-      margin: -2px -4px;
-    }
-    .overlay-text:focus { background: var(--surface2); }
-    .overlay-note { font-size: 11px; color: var(--muted); margin-top: 2px; font-style: italic; }
-
-    /* ── SHOT LIST ── */
-    .shot-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 8px;
-    }
-    .shot-item .shot-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .shot-num {
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #000;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .shot-name { font-size: 15px; font-weight: 600; }
-    .shot-tag { font-size: 11px; color: var(--accent2); background: rgba(77,255,184,.1); padding: 2px 8px; border-radius: 999px; }
-    .shot-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-
-    /* ── CHECKLIST ── */
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .check-item:last-child { border-bottom: none; }
-    .check-box {
-      width: 22px; height: 22px;
-      border-radius: 6px;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px;
-      margin-top: 1px;
-    }
-    .check-box.done { background: var(--accent); border-color: var(--accent); color: #000; }
-    .check-label { font-size: 14px; line-height: 1.5; }
-
-    /* ── PUBLICATION ── */
-    .pub-block { margin-bottom: 16px; }
-    .pub-block-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .pub-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); letter-spacing: .8px; }
-    .pub-text {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text);
-      white-space: pre-wrap;
-    }
-    .copy-btn {
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      background: none;
-      color: var(--text);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .copy-btn.copied { border-color: var(--accent2); color: var(--accent2); }
-
     /* ── JOURNAL ── */
-    .journal-entry {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 10px;
-    }
+    .journal-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
     .entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .entry-title { font-size: 15px; font-weight: 700; }
     .entry-date { font-size: 11px; color: var(--muted); }
     .stat-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-    .stat-pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
+    .stat-pill { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
     .pill-green { background: rgba(77,255,184,.15); color: var(--accent2); }
     .pill-orange { background: rgba(255,159,77,.15); color: var(--orange); }
     .pill-red { background: rgba(255,77,77,.15); color: var(--red); }
+    .pill-accent { background: rgba(232,255,77,.15); color: var(--accent); }
     .entry-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .entry-del {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 18px;
-      cursor: pointer;
-      padding: 0 4px;
-    }
+    .entry-del { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 0 4px; }
 
     /* ── MODAL ── */
     .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.7);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
+      position: fixed; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(4px);
+      z-index: 200; display: none; align-items: flex-end; justify-content: center;
     }
     .modal-overlay.open { display: flex; }
     .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px 20px 0 0;
-      padding: 24px 20px 40px;
-      width: 100%;
-      max-width: 600px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0; padding: 24px 20px 40px; width: 100%; max-width: 600px;
     }
     .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
     .modal-field { margin-bottom: 14px; }
@@ -418,15 +300,11 @@
     /* ── UTIL ── */
     .divider { height: 1px; background: var(--border); margin: 20px 0; }
     .kallaway-tip {
-      background: rgba(232,255,77,.07);
-      border: 1px solid rgba(232,255,77,.2);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      margin-bottom: 12px;
+      background: rgba(232,255,77,.07); border: 1px solid rgba(232,255,77,.2);
+      border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
     }
     .kallaway-tip .tip-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: .8px; margin-bottom: 4px; }
     .kallaway-tip .tip-text { font-size: 13px; color: var(--text); line-height: 1.5; }
-
     .hidden { display: none !important; }
   </style>
 </head>
@@ -438,99 +316,104 @@
 <div class="screen active" id="screen-projet">
   <div class="screen-header">
     <h1>Carter<span>.mov</span></h1>
-    <p>Système de création TikTok cinématique</p>
+    <p>Cinematic Life — Vlog · City Film · Tuto</p>
   </div>
 
-  <!-- PHASE 0.5 — TOPIC & SUBSTANCE -->
+  <!-- PHASE 1 — FORMAT -->
   <div class="section">
-    <div class="section-title">Phase 0.5 — Topic & Substance</div>
-    <div class="kallaway-tip">
-      <div class="tip-title">⚠️ Gate obligatoire</div>
-      <div class="tip-text">Avant de continuer : <strong>Ai-je un angle UNIQUE sur ce sujet ?</strong> Si tu peux voir 10 vidéos similaires en 30 secondes → trouve un nouveau sujet ou un contre-pied fort.</div>
-    </div>
-    <div style="margin-bottom:12px">
-      <input type="text" id="inp-sujet" placeholder="Sujet de ta vidéo (ex: réglage couleur DaVinci...)" oninput="saveLastProject()" />
-    </div>
-    <div style="margin-bottom:12px">
-      <textarea id="inp-substance" placeholder="Ton angle unique — en quoi ta perspective est différente ?" rows="2" oninput="saveLastProject()"></textarea>
+    <div class="section-title">Phase 1 — Format</div>
+    <div class="format-cards">
+      <button class="format-card selected" id="fc-vlog" onclick="selectFormat('vlog')">
+        <span class="fc-icon">🎬</span>
+        <span class="fc-name">Vlog</span>
+        <span class="fc-desc">Journée filmée comme un film</span>
+      </button>
+      <button class="format-card" id="fc-city" onclick="selectFormat('city')">
+        <span class="fc-icon">🌆</span>
+        <span class="fc-name">City Film</span>
+        <span class="fc-desc">Ville filmée comme un court-métrage</span>
+      </button>
+      <button class="format-card" id="fc-tuto" onclick="selectFormat('tuto')">
+        <span class="fc-icon">🎯</span>
+        <span class="fc-name">Tuto</span>
+        <span class="fc-desc">Technique ou apprentissage</span>
+      </button>
     </div>
   </div>
 
-  <!-- ÉMOTION -->
+  <!-- PHASE 2 — HOOK -->
   <div class="section">
-    <div class="section-title">Phase 1 — Émotion cible</div>
-    <div class="chip-row" id="emotion-chips">
-      <button class="chip" onclick="selectEmotion('contemplation')">🌊 Contemplation</button>
-      <button class="chip" onclick="selectEmotion('acceleration')">⚡ Accélération</button>
-      <button class="chip" onclick="selectEmotion('melancolie')">🌧️ Mélancolie</button>
-      <button class="chip" onclick="selectEmotion('tension')">🔥 Tension</button>
-      <button class="chip" onclick="selectEmotion('joie')">✨ Joie</button>
-      <button class="chip" onclick="selectEmotion('mystere')">🌙 Mystère</button>
-      <button class="chip" onclick="selectEmotion('reverence')">🏔️ Révérence</button>
+    <div class="section-title">Phase 2 — Hook</div>
+    <div class="hook-toggle">
+      <button class="hook-toggle-btn active" id="htbtn-verrouille" onclick="selectHookType('verrouille')">🔒 Verrouillé</button>
+      <button class="hook-toggle-btn" id="htbtn-geo" onclick="selectHookType('geo')">📍 Géo / Lieu</button>
+    </div>
+
+    <!-- VERROUILLÉ sub-UI -->
+    <div class="hook-lock-box" id="hook-lock-box"><!-- populated by JS --></div>
+
+    <!-- GÉO sub-UI -->
+    <div class="hook-lock-box hidden" id="hook-geo-box">
+      <input type="text" id="inp-ville" placeholder="Nom de la ville..." oninput="updateGeoPreview()" />
+      <div class="geo-preview empty" id="geo-preview">Saisis une ville pour voir le hook</div>
     </div>
   </div>
 
-  <!-- MUSIQUE -->
+  <!-- PHASE 3 — MUSIQUE -->
   <div class="section">
-    <div class="section-title">Phase 2 — Musique</div>
-    <div style="display:flex;gap:8px;margin-bottom:10px">
-      <input type="text" id="inp-musique" placeholder="Titre ou artiste..." oninput="saveLastProject()" style="flex:1" />
-      <button class="btn-sm" onclick="detectMusique()" style="white-space:nowrap;padding:12px 16px">Détecter</button>
+    <div class="section-title">Phase 3 — Musique</div>
+    <input type="text" id="inp-musique" placeholder="Titre ou artiste (optionnel)..." />
+    <div style="margin-top:8px;font-size:12px;color:var(--muted)">Apparaît dans le commentaire épinglé</div>
+  </div>
+
+  <!-- LUT -->
+  <div class="section">
+    <div class="lut-row">
+      <span class="lut-label">🎨 LUT</span>
+      <input type="text" id="inp-lut" placeholder="Nom de ton LUT (ex: CARTES, SOLEIL GRIS…)" oninput="saveLutName()" />
     </div>
-    <div id="music-result" class="hidden"></div>
-    <!-- sons natifs / commerciaux -->
-    <div id="sons-section" class="hidden">
-      <div class="section-title" style="margin-top:12px">Sons disponibles</div>
-      <div class="chip-row" id="son-chips"></div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="section" style="margin-top:20px">
+    <button class="btn" onclick="genererProjet()">🎬 Générer</button>
+  </div>
+
+  <!-- RÉSULTAT -->
+  <div id="result-section" class="hidden">
+
+    <!-- OVERLAYS -->
+    <div class="section">
+      <div class="divider"></div>
+      <div class="section-title">Séquence d'overlays</div>
+      <div id="hooks-list"></div>
+      <button class="btn-ghost" style="margin-top:4px" onclick="regenOverlays()">🔄 Régénérer overlays 2 &amp; 3</button>
     </div>
-  </div>
 
-  <!-- HOOKS -->
-  <div class="section" id="hooks-section" style="display:none">
-    <div class="section-title">Phase 3 — Séquences de hooks</div>
-    <div class="kallaway-tip">
-      <div class="tip-title">🎯 Formule Kallaway</div>
-      <div class="tip-text"><strong>Overlay 1 — Lean :</strong> Douleur/bénéfice en premier, 3-5 mots.<br><strong>Overlay 2 — Stop :</strong> Interjection + chiffre ou fait choc.<br><strong>Overlay 3 — Snap :</strong> Contre-pied — casse l'attente.</div>
+    <!-- SHOT LIST -->
+    <div class="section">
+      <div class="section-title" style="margin-top:20px">Shot list — <span id="shots-format-label" style="color:var(--accent)"></span></div>
+      <div id="shots-list"></div>
     </div>
-    <div id="hooks-list"></div>
-    <button class="btn-ghost" style="margin-top:8px" onclick="generateHooks()">🔄 Régénérer</button>
-  </div>
 
-  <!-- PLAN ★ -->
-  <div class="section" id="shots-section" style="display:none">
-    <div class="section-title">Plan ★ — Shot list</div>
-    <div id="shots-list"></div>
-  </div>
-
-  <!-- GENERATE BTN -->
-  <div class="section" style="margin-top:16px">
-    <button class="btn" onclick="genererProjet()">🎬 Générer le projet</button>
-  </div>
-
-  <!-- PUBLICATION -->
-  <div class="section" id="pub-section" style="display:none">
-    <div class="divider"></div>
-    <div class="section-title">Publication</div>
-    <div class="pub-block">
-      <div class="pub-block-header">
-        <span class="pub-label">Description</span>
-        <button class="copy-btn" id="copy-desc" onclick="copyEl('pub-desc','copy-desc')">Copier</button>
+    <!-- CAPTION -->
+    <div class="section">
+      <div class="divider"></div>
+      <div class="section-title">Caption</div>
+      <div class="pub-block">
+        <div class="pub-block-header">
+          <span class="pub-label">TikTok / Instagram</span>
+          <button class="copy-btn" id="copy-caption" onclick="copyEl('pub-caption','copy-caption')">Copier</button>
+        </div>
+        <div class="pub-text" id="pub-caption"></div>
       </div>
-      <div class="pub-text" id="pub-desc"></div>
-    </div>
-    <div class="pub-block">
-      <div class="pub-block-header">
-        <span class="pub-label">Hashtags</span>
-        <button class="copy-btn" id="copy-hash" onclick="copyEl('pub-hash','copy-hash')">Copier</button>
+      <div class="pub-block">
+        <div class="pub-block-header">
+          <span class="pub-label">Commentaire épinglé</span>
+          <button class="copy-btn" id="copy-pin" onclick="copyEl('pub-pin','copy-pin')">Copier</button>
+        </div>
+        <div class="pub-text" id="pub-pin"></div>
       </div>
-      <div class="pub-text" id="pub-hash"></div>
-    </div>
-    <div class="pub-block">
-      <div class="pub-block-header">
-        <span class="pub-label">Commentaire épinglé</span>
-        <button class="copy-btn" id="copy-pin" onclick="copyEl('pub-pin','copy-pin')">Copier</button>
-      </div>
-      <div class="pub-text" id="pub-pin"></div>
     </div>
   </div>
 </div>
@@ -543,24 +426,19 @@
     <h1>Phase 1 — <span>Veille</span></h1>
     <p>Analyse une vidéo inspirante → adapte à ton univers</p>
   </div>
-
   <div class="section">
     <div class="section-title">Décris la vidéo que tu as vue</div>
     <textarea id="veille-desc" placeholder="Ex: Vidéo DJI Osmo Pocket, montage rapide, musique électronique, texte blanc en gras, angles ground level..." rows="4" style="margin-bottom:12px"></textarea>
     <button class="btn" onclick="analyserInspiration()">🔍 Analyser l'inspiration</button>
   </div>
-
   <div id="veille-result" class="hidden">
     <div class="section" style="margin-top:4px">
       <div class="section-title">Signaux détectés</div>
       <div id="veille-tags" class="tag-row" style="margin-bottom:16px"></div>
-
       <div class="section-title">Analyse Kallaway</div>
       <div id="veille-kallaway" class="card"></div>
-
       <div class="section-title" style="margin-top:16px">3 angles adaptés DJI + iPhone</div>
       <div id="veille-angles"></div>
-
       <div id="veille-cta" style="margin-top:12px"></div>
     </div>
   </div>
@@ -574,53 +452,28 @@
     <h1>Phase 0 — <span>Analyse</span></h1>
     <p>Diagnostique ta dernière vidéo avant de créer</p>
   </div>
-
   <div class="section">
     <div class="section-title">Métriques TikTok</div>
     <div class="metric-grid" style="margin-bottom:12px">
-      <div class="metric-block">
-        <label>Vues</label>
-        <input type="number" id="m-views" placeholder="530" />
-      </div>
-      <div class="metric-block">
-        <label>Watch time moyen (s)</label>
-        <input type="number" id="m-watch" placeholder="4.1" step="0.1" />
-      </div>
-      <div class="metric-block">
-        <label>Complétion (%)</label>
-        <input type="number" id="m-compl" placeholder="1.67" step="0.1" />
-      </div>
-      <div class="metric-block">
-        <label>Rewatch (%)</label>
-        <input type="number" id="m-rw" placeholder="2.5" step="0.1" />
-      </div>
+      <div class="metric-block"><label>Vues</label><input type="number" id="m-views" placeholder="530" /></div>
+      <div class="metric-block"><label>Watch time (s)</label><input type="number" id="m-watch" placeholder="4.1" step="0.1" /></div>
+      <div class="metric-block"><label>Complétion (%)</label><input type="number" id="m-compl" placeholder="1.67" step="0.1" /></div>
+      <div class="metric-block"><label>Rewatch (%)</label><input type="number" id="m-rw" placeholder="2.5" step="0.1" /></div>
     </div>
     <div class="metric-grid" style="margin-bottom:16px">
-      <div class="metric-block">
-        <label>Partages</label>
-        <input type="number" id="m-shares" placeholder="0" />
-      </div>
-      <div class="metric-block">
-        <label>Durée vidéo (s)</label>
-        <input type="number" id="m-dur" placeholder="30" />
-      </div>
+      <div class="metric-block"><label>Partages</label><input type="number" id="m-shares" placeholder="0" /></div>
+      <div class="metric-block"><label>Durée vidéo (s)</label><input type="number" id="m-dur" placeholder="30" /></div>
     </div>
     <button class="btn" onclick="lancerDiagnostic()">🩺 Lancer le diagnostic</button>
   </div>
-
   <div id="diagnostic-result" class="hidden">
     <div class="section" style="margin-top:4px">
       <div class="section-title">Signaux</div>
-      <div class="card" style="padding:8px 16px">
-        <div id="signals-list"></div>
-      </div>
-
+      <div class="card" style="padding:8px 16px"><div id="signals-list"></div></div>
       <div class="section-title" style="margin-top:16px">Verdict algo</div>
       <div id="algo-verdict"></div>
-
       <div class="section-title" style="margin-top:16px">Recommandation de phase</div>
       <div id="phase-routing" class="card"></div>
-
       <div style="margin-top:16px">
         <button class="btn" onclick="saveFromAnalyse()">💾 Sauvegarder dans le journal</button>
       </div>
@@ -636,7 +489,6 @@
     <h1>Phase 4 — <span>Tournage</span></h1>
     <p>Checklist terrain + rappels Kallaway</p>
   </div>
-
   <div class="section">
     <button class="btn" onclick="exportBrief()">📋 Exporter le brief de tournage</button>
     <div id="brief-export-box" class="hidden" style="margin-top:12px">
@@ -647,7 +499,6 @@
       <div class="pub-text" id="brief-text" style="font-size:13px;line-height:1.7"></div>
     </div>
   </div>
-
   <div class="section">
     <div class="section-title">Rappels Kallaway</div>
     <div class="kallaway-tip">
@@ -659,30 +510,28 @@
       <div class="tip-text">Sans voix, le cadre 0 est ton seul hook. Plan choc ou mouvement inattendu en ouverture — jamais le plan d'intro classique.</div>
     </div>
     <div class="kallaway-tip">
-      <div class="tip-title">🎵 Adrian Per — audio-first</div>
-      <div class="tip-text">Musique → émotion → shot list → tournage. Ne tourne jamais sans avoir choisi ta musique au préalable.</div>
-    </div>
-    <div class="kallaway-tip">
       <div class="tip-title">🔄 Value loop</div>
       <div class="tip-text">Structure : Contexte → Hit de valeur → Contexte → Hit de valeur. Front-load : donne de la valeur dans les 3 premières secondes.</div>
     </div>
+    <div class="kallaway-tip">
+      <div class="tip-title">🎨 LUT = identité visuelle</div>
+      <div class="tip-text">Un LUT constant crée la reconnaissance. Ton audience reconnaît ton univers avant même de lire ton nom. Consistency > qualité technique.</div>
+    </div>
   </div>
-
   <div class="section">
     <div class="section-title">Checklist terrain</div>
     <div id="checklist-items">
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎵 Musique choisie et émotion validée</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📋 Hook écrit et testé (4 tests Kallaway)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">⚡ Meilleur plan prévu à 0-2s</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Format choisi (Vlog / City Film / Tuto)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔒 Hook généré et overlay 1 validé</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">⚡ Plan d'ouverture prévu à 0-2s</div></div>
       <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔋 DJI Osmo Pocket chargé</div></div>
       <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📱 iPhone chargé + stockage vérifié</div></div>
       <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">💡 Lumière évaluée (heure dorée ?)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Shot list confirmée (minimum 5 plans)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎨 Palette couleur / LUT prévu pour montage</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Shot list confirmée (6 plans)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎨 LUT prévu pour montage</div></div>
       <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📤 Publication planifiée (heure de pointe)</div></div>
     </div>
   </div>
-
   <div class="section">
     <div class="section-title">4 tests du hook (Kallaway)</div>
     <div class="card">
@@ -702,11 +551,9 @@
     <h1>Journal <span>créa</span></h1>
     <p>Historique et apprentissages</p>
   </div>
-
   <div class="section">
     <button class="btn" onclick="openModal()">+ Nouvelle entrée</button>
   </div>
-
   <div class="section" style="margin-top:4px" id="journal-list"></div>
 </div>
 
@@ -714,21 +561,11 @@
      BOTTOM NAV
 ════════════════════════════════════════ -->
 <nav class="bottom-nav">
-  <button class="bnav-item active" onclick="switchTab(0)" id="bnav-0">
-    <span class="icon">🎬</span>Projet
-  </button>
-  <button class="bnav-item" onclick="switchTab(1)" id="bnav-1">
-    <span class="icon">🔍</span>Veille
-  </button>
-  <button class="bnav-item" onclick="switchTab(2)" id="bnav-2">
-    <span class="icon">📊</span>Analyse
-  </button>
-  <button class="bnav-item" onclick="switchTab(3)" id="bnav-3">
-    <span class="icon">🎥</span>Tournage
-  </button>
-  <button class="bnav-item" onclick="switchTab(4)" id="bnav-4">
-    <span class="icon">📓</span>Journal
-  </button>
+  <button class="bnav-item active" onclick="switchTab(0)" id="bnav-0"><span class="icon">🎬</span>Projet</button>
+  <button class="bnav-item" onclick="switchTab(1)" id="bnav-1"><span class="icon">🔍</span>Veille</button>
+  <button class="bnav-item" onclick="switchTab(2)" id="bnav-2"><span class="icon">📊</span>Analyse</button>
+  <button class="bnav-item" onclick="switchTab(3)" id="bnav-3"><span class="icon">🎥</span>Tournage</button>
+  <button class="bnav-item" onclick="switchTab(4)" id="bnav-4"><span class="icon">📓</span>Journal</button>
 </nav>
 
 <!-- ═══════════════════════════════════════
@@ -738,26 +575,22 @@
   <div class="modal">
     <h3>Nouvelle entrée journal</h3>
     <div class="modal-field">
+      <label>Format</label>
+      <div class="chip-row">
+        <button class="chip" id="modal-fc-vlog" onclick="modalSelectFormat('vlog')">🎬 Vlog</button>
+        <button class="chip" id="modal-fc-city" onclick="modalSelectFormat('city')">🌆 City Film</button>
+        <button class="chip" id="modal-fc-tuto" onclick="modalSelectFormat('tuto')">🎯 Tuto</button>
+      </div>
+    </div>
+    <div class="modal-field">
       <label>Titre / Sujet</label>
-      <input type="text" id="modal-titre" placeholder="Ex: Day 07 — Prise de vue urbaine" />
+      <input type="text" id="modal-titre" placeholder="Ex: Day 07 — City Film Toulouse" />
     </div>
     <div class="modal-field modal-grid">
-      <div>
-        <label>Vues</label>
-        <input type="number" id="modal-views" placeholder="530" />
-      </div>
-      <div>
-        <label>Watch time (s)</label>
-        <input type="number" id="modal-watch" placeholder="4.1" step="0.1" />
-      </div>
-      <div>
-        <label>Complétion (%)</label>
-        <input type="number" id="modal-compl" placeholder="1.67" step="0.1" />
-      </div>
-      <div>
-        <label>Rewatch (%)</label>
-        <input type="number" id="modal-rw" placeholder="2.5" step="0.1" />
-      </div>
+      <div><label>Vues</label><input type="number" id="modal-views" placeholder="530" /></div>
+      <div><label>Watch time (s)</label><input type="number" id="modal-watch" placeholder="4.1" step="0.1" /></div>
+      <div><label>Complétion (%)</label><input type="number" id="modal-compl" placeholder="1.67" step="0.1" /></div>
+      <div><label>Rewatch (%)</label><input type="number" id="modal-rw" placeholder="2.5" step="0.1" /></div>
     </div>
     <div class="modal-field">
       <label>Apprentissage / Note</label>
@@ -772,105 +605,122 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-// DATA
+// DATA — FORMATS
 // ═══════════════════════════════════════════════════════
 
-const EMOTIONS = {
-  contemplation: {
-    label: '🌊 Contemplation', palette: 'Bleu profond, teal, argent',
-    lumiere: 'Heure dorée, contre-jour doux', rythme: 'Lent, glissements fluides',
-    sons_natifs: ['Vagues', 'Vent léger', 'Pluie fine'],
-    sons_commerciaux: ['Tycho', 'Odesza', 'Jon Hopkins', 'Nils Frahm'],
+const FORMATS = {
+  vlog: {
+    label: '🎬 Vlog',
+    desc: 'Journée filmée comme un film',
+    pin_question: '💬 Quelle ville tu veux voir filmée comme ça ?',
     shots: [
-      { n:'Glide de façade', t:'DJI', d:'Mouvement latéral lent sur une façade ou surface texturée. Début du plan : bord net qui entre dans le cadre.' },
-      { n:'Plan d\'eau reflet', t:'DJI', d:'Surface réfléchissante avec mouvement quasi imperceptible. Exposition +0.7, focus sur le reflet.' },
-      { n:'Contre-jour nuage', t:'iPhone', d:'Soleil partiellement masqué, silhouette en premier plan. Déclencher en rafale pour capturer le mouvement du nuage.' },
-      { n:'Détail texture', t:'DJI macro', d:'Surface rugueuse ou organique en macro. Mouvement de rotation à 360° très lent.' },
-      { n:'Transition lumière', t:'iPhone', d:'Rayon de lumière traversant un espace sombre. Vitesse d\'obturation 1/50 pour motion blur léger.' }
+      { n:'Plan d\'ouverture cutaway', t:'DJI', d:'Détail ou lieu qui établit l\'ambiance en <2s. Pas de visage — crée le mystère d\'entrée.' },
+      { n:'Révélation du sujet', t:'iPhone', d:'Cadrage serré puis élargissement. Le sujet entre dans le cadre. Jamais face caméra directe en premier.' },
+      { n:'Mouvement tracking', t:'DJI', d:'Glide ou follow shot — le mouvement raconte le déplacement. 3-5 secondes max.' },
+      { n:'Détail sensoriel', t:'DJI macro', d:'Mains, texture, objet du moment. Ancre l\'audience dans l\'instant présent.' },
+      { n:'Plan contemplatif', t:'iPhone', d:'Sujet statique, monde qui bouge autour. Plan long — crée la respiration de la vidéo.' },
+      { n:'Plan de clôture', t:'DJI', d:'Plan large final. Sujet qui sort du frame ou fondu vers l\'extérieur. Laisse tourner 5s.' }
     ]
   },
-  acceleration: {
-    label: '⚡ Accélération', palette: 'Orange, rouge, jaune chaud',
-    lumiere: 'Lumière dure, midi, néons', rythme: 'Rapide, cuts secs, rampes vitesse',
-    sons_natifs: ['Moteur', 'Foule', 'Impact'],
-    sons_commerciaux: ['Gesaffelstein', 'Justice', 'Boris Brejcha', 'Skrillex'],
+  city: {
+    label: '🌆 City Film',
+    desc: 'Ville filmée comme un court-métrage',
+    pin_question: '💬 Tu connais cette ville ? Dis-moi en commentaire 👇',
     shots: [
-      { n:'Rush frontal', t:'DJI', d:'Avancer rapidement vers le sujet, décélérer brutalement à 30cm. Stabilisation ON pour l\'entrée, OFF pour le rush.' },
-      { n:'Pan ultra-rapide', t:'iPhone', d:'Rotation horizontale à 180° en 0.5 seconde. Provoque le motion blur des côtés — effet vitesse naturel.' },
-      { n:'Drop angle bas', t:'DJI', d:'Plan au sol en angle rasant, objet qui passe au dessus à grande vitesse.' },
-      { n:'Rack focus brutal', t:'iPhone', d:'Sujet net → arrière-plan net en tap brutal sur l\'écran. En rafale pour choisir le bon moment.' },
-      { n:'Cut jump', t:'DJI + iPhone', d:'Même sujet filmé DJI (large) et iPhone (close) — monter en coupe sèche sans transition pour amplifier l\'impact.' }
+      { n:'Identité du lieu', t:'DJI', d:'Plan large iconique — la ville reconnaissable en <3s. Angle inhabituel, jamais le plan touristique.' },
+      { n:'Texture urbaine', t:'DJI macro', d:'Béton, enseigne, reflet — la matière de la ville. Lumière rasante pour révéler les détails.' },
+      { n:'Flux humain', t:'iPhone', d:'Foule en mouvement, caméra fixe. Le contraste entre le statique du cadre et le mouvement crée la tension.' },
+      { n:'Architecture contrejour', t:'DJI', d:'Bâtiment ou structure contre la lumière. Silhouette dure. Exposer sur le ciel.' },
+      { n:'Street detail inattendu', t:'iPhone', d:'Élément que les passants ne voient plus parce qu\'ils voient trop.' },
+      { n:'Night reveal', t:'DJI', d:'Lumières de la ville à la tombée. ISO 800-1600 assumé. Le grain numérique = texture cinéma.' }
     ]
   },
-  melancolie: {
-    label: '🌧️ Mélancolie', palette: 'Gris bleu, désaturé, tons froids',
-    lumiere: 'Ciel couvert, heure bleue, contre-jour froid', rythme: 'Très lent, pauses longues',
-    sons_natifs: ['Pluie', 'Métro lointain', 'Silence urbain'],
-    sons_commerciaux: ['Bon Iver', 'Sufjan Stevens', 'Daughter', 'Lorde'],
+  tuto: {
+    label: '🎯 Tuto',
+    desc: 'Technique ou apprentissage',
+    pin_question: '💬 Tu veux voir le tuto montage complet ?',
     shots: [
-      { n:'Fenêtre pluie', t:'iPhone', d:'Filmé depuis l\'intérieur, gouttelettes sur vitre, sujet flou en arrière-plan. Focus sur la vitre.' },
-      { n:'Marche solitaire', t:'DJI', d:'Suivi dorsal à distance, sujet qui s\'éloigne dans un espace vide. Laisser le sujet sortir du cadre.' },
-      { n:'Objet abandonné', t:'DJI macro', d:'Détail d\'un objet usé, trace du temps. Mouvement orbital très lent.' },
-      { n:'Lumière filtrée', t:'iPhone', d:'Rayons dans un espace fermé (store, rideau). Exposition -1, récupérer les hautes lumières.' },
-      { n:'Horizon vide', t:'DJI', d:'Ligne d\'horizon avec ciel plat et sol vide. Plan fixe, laisser tourner 10 secondes au minimum.' }
-    ]
-  },
-  tension: {
-    label: '🔥 Tension', palette: 'Rouge, noir, contraste extrême',
-    lumiere: 'Source unique dure, ombres profondes', rythme: 'Alterné lent/saccadé, suspense',
-    sons_natifs: ['Souffle', 'Grondement', 'Silence cassé'],
-    sons_commerciaux: ['Hans Zimmer', 'Trent Reznor', 'Arca', 'Forest Swords'],
-    shots: [
-      { n:'Zoom lent menaçant', t:'DJI', d:'Approche lente d\'un sujet, jamais trop proche. Stopper avant le confort — la tension est dans l\'arrêt.' },
-      { n:'Plan instable intentionnel', t:'iPhone handheld', d:'Désactiver la stabilisation. Marcher lentement, respiration visible dans l\'image.' },
-      { n:'Contre-plongée domination', t:'DJI', d:'Angle 45° vers le bas → sujet qui impose. Lumière par le haut, ombres dans les yeux.' },
-      { n:'Détail partial', t:'iPhone macro', d:'Cadrer une partie du sujet — mains, bouche, yeux. Ce qui est caché crée plus de tension.' },
-      { n:'Environnement hostile', t:'DJI', d:'Architecture oppressante ou espace confiné. Gimbal horizontal strict pour amplifier la verticalité.' }
-    ]
-  },
-  joie: {
-    label: '✨ Joie', palette: 'Jaune chaud, blanc lumineux, pastels',
-    lumiere: 'Naturelle abondante, soleil direct maîtrisé', rythme: 'Dynamique, coupes courtes, énergie',
-    sons_natifs: ['Rires', 'Eau', 'Foule joyeuse'],
-    sons_commerciaux: ['Dua Lipa', 'Harry Styles', 'Pharrell', 'Doja Cat'],
-    shots: [
-      { n:'Golden hour reveal', t:'DJI', d:'Débuter hors champ, révéler progressivement la source de lumière. Légère surexposition volontaire.' },
-      { n:'Mouvement spontané', t:'iPhone', d:'Suivre un sujet en mouvement avec un léger retard — l\'image cherche le sujet, énergie brute.' },
-      { n:'Couleur saturée', t:'DJI + iPhone', d:'Objet ou surface à forte couleur, lumière directe. Profil couleur Vivid ou LUT punchy.' },
-      { n:'Angle plongée ludique', t:'iPhone', d:'Filmer depuis le dessus, sujet qui regarde l\'objectif. Maintenir 2-3 secondes pour l\'engagement.' },
-      { n:'Transition whip pan', t:'DJI', d:'Pan rapide vers le bas ou côté pour transition — monter avec un cut sur une même direction.' }
-    ]
-  },
-  mystere: {
-    label: '🌙 Mystère', palette: 'Violet, noir, lumière froide isolée',
-    lumiere: 'Contre-jour, source unique, nuit urbaine', rythme: 'Lent avec coupures nettes',
-    sons_natifs: ['Vent', 'Pas', 'Grincement'],
-    sons_commerciaux: ['Burial', 'Massive Attack', 'The XX', 'James Blake'],
-    shots: [
-      { n:'Silhouette pure', t:'DJI', d:'Fond clair (ciel, néon), sujet en silhouette totale. Zéro détail dans le sujet — forme uniquement.' },
-      { n:'Révélation partielle', t:'iPhone', d:'Cadrer depuis derrière un obstacle, ne révéler qu\'une partie du sujet. Entrer et sortir lentement.' },
-      { n:'Reflet déformé', t:'DJI', d:'Reflet dans surface non plane (flaque, métal bombé). Focus sur le reflet, original en bokeh.' },
-      { n:'Mouvement de nuit', t:'DJI', d:'ISO poussé assumé, mouvement lent. Le bruit numérique donne la texture du mystère.' },
-      { n:'Portes et couloirs', t:'iPhone', d:'Série de portes ou couloir qui s\'éloignent. Avancer, jamais reculer — l\'inconnu est devant.' }
-    ]
-  },
-  reverence: {
-    label: '🏔️ Révérence', palette: 'Gris minéral, blanc, touches or',
-    lumiere: 'Naturelle épurée, aube, altitude', rythme: 'Très lent, plans longs contemplatifs',
-    sons_natifs: ['Vent montagne', 'Silence', 'Cloches lointaines'],
-    sons_commerciaux: ['Max Richter', 'Johann Johannsson', 'Arvo Pärt', 'Ludovico Einaudi'],
-    shots: [
-      { n:'Scale shot', t:'DJI', d:'Humain vs architecture ou nature immense. Cadrer pour que l\'humain soit &lt;10% du frame.' },
-      { n:'Grand angle épuré', t:'DJI + iPhone', d:'Minimiser les éléments dans le cadre. Un sujet, un fond. Rien d\'autre.' },
-      { n:'Lenteur absolue', t:'DJI', d:'Mouvement le plus lent possible — stabilisation maximum. 10-15 secondes de plan minimum.' },
-      { n:'Détail sacré', t:'iPhone macro', d:'Texture ou détail qui révèle la complexité dans la simplicité. Focus rack lent.' },
-      { n:'Contre-plongée céleste', t:'DJI', d:'Pointer vers le ciel depuis le sol. Rotation très lente à 360°. Commence et finit identique.' }
+      { n:'Before — le problème', t:'iPhone', d:'Résultat SANS la technique en premier. Le problème évident en <2s.' },
+      { n:'Le plan clé', t:'DJI', d:'Plan qui illustre la technique de façon irréfutable. Un seul plan.' },
+      { n:'Détail du geste', t:'iPhone macro', d:'Les mains ou le geste précis sur le matériel. Overlay texte explique.' },
+      { n:'After — le résultat', t:'DJI', d:'Résultat AVEC la technique. Immédiatement après le before.' },
+      { n:'Setup reveal', t:'iPhone', d:'Setup complet DJI + iPhone en plan large. Anticipe les questions.' },
+      { n:'Plan de conclusion', t:'DJI', d:'Le meilleur résultat, seul à l\'écran. Le motif de sauvegarder.' }
     ]
   }
 };
 
+const HOOK_OPTIONS = [
+  'Tu vis dans un film sans le savoir 🎬',
+  'Ta vie mérite d\'être filmée 🎬',
+  'Fais de ta vie un film 🎬',
+  'La vie filmée comme elle devrait l\'être 🎬'
+];
+
+const OVERLAY_BANKS = {
+  vlog: {
+    stop: [
+      '3 plans. 0 voix. Tout l\'essentiel.',
+      'Filmé en une heure, monté en une heure.',
+      'DJI Osmo Pocket + iPhone — rien d\'autre.',
+      'La lumière a duré 11 minutes.'
+    ],
+    snap: [
+      'Mais personne ne filme comme ça.',
+      'La plupart ratent l\'ouverture.',
+      'Pourtant c\'est le plan le plus simple qui existe.',
+      'Et tu peux faire pareil demain.'
+    ]
+  },
+  city: {
+    stop: [
+      'Cette ville vue comme tu ne l\'as jamais vue.',
+      '3 plans. 1 heure. 0 filtre.',
+      'La même rue — un angle différent — tout change.',
+      'DJI Osmo Pocket + iPhone. Rien d\'autre.'
+    ],
+    snap: [
+      'Pourtant tu passes devant chaque jour.',
+      'Personne ne s\'arrête pour regarder.',
+      'Mais le cinéma est déjà là.',
+      'Le problème ? Personne ne sait regarder.'
+    ]
+  },
+  tuto: {
+    stop: [
+      'Un seul réglage. Résultat immédiat.',
+      '6 mois pour comprendre. 30 secondes pour toi.',
+      'Avant / Après — tu vas voir la différence.',
+      'Le truc que les pros ne montrent pas.'
+    ],
+    snap: [
+      'Mais personne n\'explique ça clairement.',
+      'Et c\'est contre-intuitif.',
+      'Pourtant c\'est la base.',
+      'Maintenant tu sais.'
+    ]
+  }
+};
+
+// Kept for Veille screen compatibility
+const EMOTIONS = {
+  contemplation: { label: '🌊 Contemplation' },
+  acceleration:  { label: '⚡ Accélération' },
+  melancolie:    { label: '🌧️ Mélancolie' },
+  tension:       { label: '🔥 Tension' },
+  joie:          { label: '✨ Joie' },
+  mystere:       { label: '🌙 Mystère' },
+  reverence:     { label: '🏔️ Révérence' }
+};
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+
+let currentFormat = 'vlog';
+let currentHookType = 'verrouille';
 let currentEmotion = null;
-let currentSon = null;
+let modalFormat = 'vlog';
 let journalEntries = [];
 let lastDiagnostic = null;
 
@@ -880,47 +730,20 @@ let lastDiagnostic = null;
 
 const LS = {
   save(key, val) { try { localStorage.setItem('carter_' + key, JSON.stringify(val)); } catch(e){} },
-  load(key, fallback) { try { const v = localStorage.getItem('carter_' + key); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; } }
+  load(key, fallback) { try { const v = localStorage.getItem('carter_' + key); return v !== null ? JSON.parse(v) : fallback; } catch(e){ return fallback; } }
 };
 
 function saveLastProject() {
   LS.save('last_project', {
-    sujet: document.getElementById('inp-sujet').value,
-    substance: document.getElementById('inp-substance').value,
-    musique: document.getElementById('inp-musique').value,
-    emotion: currentEmotion,
-    son: currentSon
+    format: currentFormat,
+    hookType: currentHookType,
+    ville: (document.getElementById('inp-ville') || {}).value || '',
+    musique: (document.getElementById('inp-musique') || {}).value || ''
   });
 }
 
-function initStorage() {
-  // Restore last project
-  const last = LS.load('last_project', null);
-  if (last) {
-    if (last.sujet) document.getElementById('inp-sujet').value = last.sujet;
-    if (last.substance) document.getElementById('inp-substance').value = last.substance;
-    if (last.musique) document.getElementById('inp-musique').value = last.musique;
-    if (last.emotion) selectEmotion(last.emotion, true);
-    if (last.son) currentSon = last.son;
-  }
-
-  // Load journal
-  journalEntries = LS.load('journal', []);
-  if (journalEntries.length === 0) {
-    // Seed Day 06
-    journalEntries = [{
-      id: Date.now() - 86400000,
-      titre: 'Day 06 — Série cinéma',
-      date: '2026-05-08',
-      views: 530,
-      watch: 4.1,
-      compl: 1.67,
-      rw: 2.3,
-      note: 'Hook raté : titre de série utilisé comme hook. Technique avant bénéfice. 4 tests Kallaway = tous échoués. Distribution saine (94.4% FYP) mais hook coupe à 4s. → Appliquer benefit-first dès le prochain tournage.'
-    }];
-    LS.save('journal', journalEntries);
-  }
-  renderJournal();
+function saveLutName() {
+  LS.save('lut_name', document.getElementById('inp-lut').value.trim());
 }
 
 // ═══════════════════════════════════════════════════════
@@ -937,223 +760,184 @@ function switchTab(i) {
 }
 
 // ═══════════════════════════════════════════════════════
-// PROJET — EMOTION
+// FORMAT SELECTION
 // ═══════════════════════════════════════════════════════
 
-function selectEmotion(key, silent = false) {
-  currentEmotion = key;
-  document.querySelectorAll('#emotion-chips .chip').forEach(c => {
-    c.classList.toggle('selected', c.textContent.toLowerCase().includes(EMOTIONS[key].label.split(' ')[1].toLowerCase()));
+function selectFormat(key) {
+  currentFormat = key;
+  ['vlog','city','tuto'].forEach(f => {
+    document.getElementById('fc-' + f).classList.toggle('selected', f === key);
   });
-  updateSonsSection(key);
-  if (!silent) saveLastProject();
-}
-
-function updateSonsSection(key) {
-  const e = EMOTIONS[key];
-  const sec = document.getElementById('sons-section');
-  const chips = document.getElementById('son-chips');
-  chips.innerHTML = '';
-  [...e.sons_natifs, ...e.sons_commerciaux].forEach(s => {
-    const b = document.createElement('button');
-    b.className = 'chip' + (s === currentSon ? ' selected' : '');
-    b.textContent = s;
-    b.onclick = () => { currentSon = s; document.querySelectorAll('#son-chips .chip').forEach(c => c.classList.remove('selected')); b.classList.add('selected'); saveLastProject(); };
-    chips.appendChild(b);
-  });
-  sec.classList.remove('hidden');
+  if (currentHookType === 'geo') updateGeoPreview();
+  saveLastProject();
 }
 
 // ═══════════════════════════════════════════════════════
-// PROJET — MUSIQUE DETECTION
+// HOOK TYPE
 // ═══════════════════════════════════════════════════════
 
-function detectMusique() {
-  const inp = document.getElementById('inp-musique').value.toLowerCase().trim();
-  if (!inp) return;
-  const rules = [
-    { keys: ['tycho','odesza','jon hopkins','nils frahm','explosions in the sky'], em: 'contemplation' },
-    { keys: ['gesaffelstein','justice','boris brejcha','skrillex','kavinsky','daft punk'], em: 'acceleration' },
-    { keys: ['bon iver','sufjan','daughter','lorde','james vincent mcmorrow'], em: 'melancolie' },
-    { keys: ['hans zimmer','trent reznor','arca','forest swords','nick cave'], em: 'tension' },
-    { keys: ['dua lipa','harry styles','pharrell','doja cat','lizzo','olivia rodrigo'], em: 'joie' },
-    { keys: ['burial','massive attack','the xx','james blake','portishead'], em: 'mystere' },
-    { keys: ['max richter','johann johannsson','arvo part','ludovico einaudi','yann tiersen'], em: 'reverence' },
-    { keys: ['electronic','techno','house','edm','drum'], em: 'acceleration' },
-    { keys: ['ambient','chill','lo-fi','lofi','dream'], em: 'contemplation' },
-    { keys: ['sad','melanchol','triste','pleur','gray'], em: 'melancolie' },
-    { keys: ['epic','cinematic','orchestra','orchestr','trailer'], em: 'reverence' },
-    { keys: ['dark','noir','horror','thriller','suspense'], em: 'tension' },
-    { keys: ['happy','joy','fun','dance','party','energy'], em: 'joie' }
-  ];
-  let match = null;
-  for (const r of rules) {
-    if (r.keys.some(k => inp.includes(k))) { match = r.em; break; }
-  }
-  const box = document.getElementById('music-result');
-  if (match) {
-    box.className = 'kallaway-tip';
-    box.innerHTML = `<div class="tip-title">🎵 Émotion détectée</div><div class="tip-text"><strong>${EMOTIONS[match].label}</strong> détectée pour "<em>${document.getElementById('inp-musique').value}</em>". Sélectionné automatiquement.</div>`;
-    selectEmotion(match);
+function selectHookType(type) {
+  currentHookType = type;
+  document.getElementById('htbtn-verrouille').classList.toggle('active', type === 'verrouille');
+  document.getElementById('htbtn-geo').classList.toggle('active', type === 'geo');
+  document.getElementById('hook-lock-box').classList.toggle('hidden', type !== 'verrouille');
+  document.getElementById('hook-geo-box').classList.toggle('hidden', type !== 'geo');
+  saveLastProject();
+}
+
+// ── LOCKED HOOK ──
+
+function initHookVerrouille() {
+  const saved = LS.load('locked_hook', null);
+  const box = document.getElementById('hook-lock-box');
+  if (saved) {
+    box.innerHTML = `
+      <div class="hook-selected-box">
+        <div class="hook-selected-text">${saved}</div>
+        <button class="hook-reset-btn" onclick="resetHookVerrouille()">Changer</button>
+      </div>`;
   } else {
-    box.className = 'card';
-    box.style.border = '1px solid var(--border)';
-    box.innerHTML = `<div style="color:var(--muted);font-size:14px">Artiste non reconnu — sélectionne l'émotion manuellement selon ce que tu ressens en écoutant.</div>`;
+    const opts = HOOK_OPTIONS.map((h, i) => `
+      <button class="hook-option" onclick="pickHookVerrouille(${i})">${h}</button>`).join('');
+    box.innerHTML = `
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Choisis ton hook de marque — il sera répété dans toutes tes vidéos :</div>
+      <div class="hook-options-list">${opts}</div>`;
   }
-  box.classList.remove('hidden');
+}
+
+function pickHookVerrouille(idx) {
+  LS.save('locked_hook', HOOK_OPTIONS[idx]);
+  initHookVerrouille();
+}
+
+function resetHookVerrouille() {
+  LS.save('locked_hook', null);
+  initHookVerrouille();
+}
+
+// ── GEO HOOK ──
+
+function geoHookForFormat(ville, format) {
+  const map = {
+    vlog:  `${ville} — ta vie, filmée comme un film 🎬`,
+    city:  `${ville}, filmée comme elle devrait l'être 🎬`,
+    tuto:  `À ${ville} — ce réglage change tout 🎬`
+  };
+  return map[format] || `${ville} — filmée comme elle devrait l'être 🎬`;
+}
+
+function updateGeoPreview() {
+  const ville = document.getElementById('inp-ville').value.trim();
+  const el = document.getElementById('geo-preview');
+  if (!ville) {
+    el.textContent = 'Saisis une ville pour voir le hook';
+    el.classList.add('empty');
+  } else {
+    el.textContent = geoHookForFormat(ville, currentFormat);
+    el.classList.remove('empty');
+  }
 }
 
 // ═══════════════════════════════════════════════════════
-// PROJET — GENERATION
+// GENERATION
 // ═══════════════════════════════════════════════════════
 
 function genererProjet() {
-  if (!currentEmotion) { alert('Sélectionne une émotion d\'abord.'); return; }
-  const substance = document.getElementById('inp-substance').value.trim();
-  if (!substance) {
-    document.getElementById('inp-substance').focus();
-    document.getElementById('inp-substance').style.borderColor = 'var(--red)';
-    setTimeout(() => document.getElementById('inp-substance').style.borderColor = '', 2000);
-    alert('⚠️ Gate Phase 0.5 — Décris ton angle unique avant de générer.\n\n"Ai-je une perspective différente sur ce sujet ?"\nSi non, change de sujet ou trouve un contre-pied.');
-    return;
+  if (currentHookType === 'verrouille') {
+    if (!LS.load('locked_hook', null)) {
+      alert('Choisis ton hook verrouillé d\'abord — il définit ton identité de marque.');
+      document.getElementById('hook-lock-box').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+  } else {
+    const ville = document.getElementById('inp-ville').value.trim();
+    if (!ville) {
+      document.getElementById('inp-ville').focus();
+      document.getElementById('inp-ville').style.borderColor = 'var(--red)';
+      setTimeout(() => document.getElementById('inp-ville').style.borderColor = '', 2000);
+      return;
+    }
   }
-  const sujet = document.getElementById('inp-sujet').value.trim();
-  generateHooks(sujet);
-  generateShots(sujet);
-  generatePublication(sujet);
-  document.getElementById('hooks-section').style.display = '';
-  document.getElementById('shots-section').style.display = '';
-  document.getElementById('pub-section').style.display = '';
+
+  generateOverlays();
+  generateShots();
+  generatePublication();
+
+  const result = document.getElementById('result-section');
+  result.classList.remove('hidden');
   saveLastProject();
-  setTimeout(() => document.getElementById('hooks-section').scrollIntoView({behavior:'smooth'}), 100);
+  setTimeout(() => result.scrollIntoView({ behavior: 'smooth' }), 100);
 }
 
-// ═══════════════════════════════════════════════════════
-// HOOKS GENERATION
-// ═══════════════════════════════════════════════════════
+// ── OVERLAYS ──
 
-function generateHooks(sujet) {
-  sujet = sujet || document.getElementById('inp-sujet').value.trim();
-  const em = currentEmotion;
-  const sequences = buildHookSequences(sujet, em);
-  const container = document.getElementById('hooks-list');
-  container.innerHTML = '';
-  sequences.forEach((seq, si) => {
-    const labels = ['Lean — Contexte', 'Stop — Interjection', 'Snap — Contre-pied'];
-    const notes = [
-      'Douleur/bénéfice en premier · 3-5 mots max',
-      'Chiffre ou fait choc · crée la boucle de curiosité',
-      'Casse l\'attente · tension narrative'
-    ];
-    let overlaysHtml = seq.overlays.map((o, oi) => `
-      <div class="overlay-item">
-        <div class="overlay-label">${labels[oi]}</div>
-        <div class="overlay-text" contenteditable="true" id="ov-${si}-${oi}">${o}</div>
-        <div class="overlay-note">${notes[oi]}</div>
-      </div>
-    `).join('');
-    container.innerHTML += `
-      <div class="hook-card">
-        <div class="hook-header">
-          <span class="hook-num">Séquence ${si + 1}</span>
-          <button class="btn-accent-sm" onclick="copySequence(${si})">Copier</button>
-        </div>
-        ${overlaysHtml}
-      </div>
-    `;
-  });
-}
-
-function buildHookSequences(sujet, em) {
-  const s = sujet.toLowerCase();
-  const isDaVinci = /davinci|colour|couleur|étalon|lut|resolve|color grade/.test(s);
-  const isLocation = /rue|urban|ville|paris|toulouse|montpellier|extérieur|street/.test(s);
-  const isGear = /dji|osmo|iphone|objectif|lens|gimbal|trépied|stabilisateur/.test(s);
-  const isFilm = /court.métrage|film|fiction|scénario|acteur|scène/.test(s);
-  const sLabel = sujet || 'ce contenu';
-
-  const banks = {
-    contemplation: [
-      { overlays: [`Tu rates ${sLabel.split(' ')[0] || 'ça'}`, `La plupart filment ça mal`, `Voilà pourquoi tes vues stagnent`] },
-      { overlays: [`${sLabel} change tout`, `92% des créateurs l'ignorent`, `Mais toi tu vas le faire autrement`] },
-      { overlays: [`Plus lent = plus fort`, `Chaque seconde coûte 100 vues`, `Sauf si tu connais cette règle`] }
-    ],
-    acceleration: [
-      { overlays: [`Stop. Regarde ça`, `3 plans. 0 voix. 50K vues`, `La plupart ajoutent trop`] },
-      { overlays: [`${sLabel} en 30 secondes`, `Personne n'explique ça clairement`, `Jusqu'à maintenant`] },
-      { overlays: [`Trop lent = invisible`, `L'algo coupe à 4 secondes pile`, `Voici le seul plan qui compte`] }
-    ],
-    melancolie: [
-      { overlays: [`Ce plan disparaît`, `La lumière parfaite dure 11 min`, `Voilà comment ne plus la rater`] },
-      { overlays: [`${sLabel} ne reviendra pas`, `Chaque tournage raté est définitif`, `Mais une chose peut changer ça`] },
-      { overlays: [`Personne ne voit ce détail`, `Pourtant c'est lui qui crée l'émotion`, `Et tu peux le capturer maintenant`] }
-    ],
-    tension: [
-      { overlays: [`Attention — ça change tout`, `Un seul réglage a doublé mes vues`, `Et c'est contre-intuitif`] },
-      { overlays: [`${sLabel} te bloque`, `Ce n'est pas ton matériel le problème`, `C'est ceci`] },
-      { overlays: [`Le danger du hook parfait`, `80% des créateurs font cette erreur`, `Et toi probablement aussi`] }
-    ],
-    joie: [
-      { overlays: [`${sLabel} enfin simple`, `J'ai mis 6 mois à comprendre ça`, `Tu vas l'avoir en 30 secondes`] },
-      { overlays: [`Résultat incroyable`, `Zero équipement pro nécessaire`, `Juste cette technique`] },
-      { overlays: [`Ça marche vraiment`, `3 plans — résultat cinéma`, `Voici exactement comment`] }
-    ],
-    mystere: [
-      { overlays: [`Personne ne parle de ça`, `La technique cachée des pros`, `Enfin révélée`] },
-      { overlays: [`${sLabel} — vrai secret`, `Les algorithmes favorisent ça silencieusement`, `Voici la preuve`] },
-      { overlays: [`Ce que l'œil ne voit pas`, `Mais que l'algo mesure exactement`, `Change tout à ta distribution`] }
-    ],
-    reverence: [
-      { overlays: [`Ce plan est sacré`, `5 ans pour comprendre pourquoi ça marche`, `La réponse est simple`] },
-      { overlays: [`${sLabel} — au sommet`, `Les grands cinéastes font ça`, `Tu peux aussi`] },
-      { overlays: [`La règle des masters`, `Oublie tout ce qu'on t'a appris`, `Commence par ici`] }
-    ]
-  };
-
-  // Override with context-specific hooks if detected
-  if (isDaVinci) {
-    banks[em] = [
-      { overlays: ['DaVinci te ralentit', 'Ce nœud prend 3h à la plupart', 'En 45 secondes tu comprends'] },
-      { overlays: ['Couleur ratée = invisible', 'Le problème n\'est pas ton LUT', 'C\'est ce réglage avant tout'] },
-      { overlays: ['DaVinci vs Premiere', 'La différence que personne ne montre', 'Et c\'est gratuit'] }
-    ];
-  } else if (isGear) {
-    banks[em] = [
-      { overlays: ['DJI change tout ça', 'Le plan impossible sans gimbal', 'Voici exactement comment'] },
-      { overlays: ['iPhone vs caméra pro', 'La vérité que les marques cachent', 'Ce réglage fait toute la différence'] },
-      { overlays: ['Ton DJI sous-exploité', '90% des fonctions inutilisées', 'Celle-ci est la plus importante'] }
-    ];
-  } else if (isLocation) {
-    banks[em] = [
-      { overlays: ['Ce lieu change tout', 'Les locaux passent sans le voir', 'Voici pourquoi c\'est rare'] },
-      { overlays: ['Rue ordinaire', 'Plan extraordinaire possible', 'Un seul angle — lequel'] },
-      { overlays: ['Tournage urbain risqué', 'J\'ai failli rater cette shot', 'La règle qui sauve tout'] }
-    ];
+function getActiveHook() {
+  if (currentHookType === 'verrouille') {
+    return LS.load('locked_hook', null) || HOOK_OPTIONS[0];
+  } else {
+    const ville = document.getElementById('inp-ville').value.trim();
+    return ville ? geoHookForFormat(ville, currentFormat) : HOOK_OPTIONS[0];
   }
-
-  return (banks[em] || banks.contemplation).slice(0, 3);
 }
 
-function copySequence(si) {
-  const lines = [0, 1, 2].map(oi => {
-    const el = document.getElementById(`ov-${si}-${oi}`);
+function generateOverlays() {
+  const hook = getActiveHook();
+  const bank = OVERLAY_BANKS[currentFormat];
+  const stop = bank.stop[Math.floor(Math.random() * bank.stop.length)];
+  const snap = bank.snap[Math.floor(Math.random() * bank.snap.length)];
+
+  const overlays = [hook, stop, snap];
+  const labels = ['Overlay 1 — Hook', 'Overlay 2 — Stop', 'Overlay 3 — Snap'];
+  const notes = [
+    currentHookType === 'verrouille' ? '🔒 Hook verrouillé — identité Carter.mov' : '📍 Hook géo — ancrage local',
+    'Interjection ou chiffre choc — crée la boucle de curiosité',
+    'Contre-pied — casse l\'attente · tension narrative'
+  ];
+
+  const overlaysHtml = overlays.map((o, i) => `
+    <div class="overlay-item">
+      <div class="overlay-label">${labels[i]}</div>
+      <div class="overlay-text" contenteditable="true" id="ov-0-${i}">${o}</div>
+      <div class="overlay-note">${notes[i]}</div>
+    </div>`).join('');
+
+  document.getElementById('hooks-list').innerHTML = `
+    <div class="hook-card">
+      <div class="hook-header">
+        <span class="hook-num">${FORMATS[currentFormat].label}</span>
+        <button class="btn-accent-sm" onclick="copyOverlays()">Copier</button>
+      </div>
+      ${overlaysHtml}
+    </div>`;
+}
+
+function regenOverlays() {
+  const bank = OVERLAY_BANKS[currentFormat];
+  const stop = bank.stop[Math.floor(Math.random() * bank.stop.length)];
+  const snap = bank.snap[Math.floor(Math.random() * bank.snap.length)];
+  const ov1 = document.getElementById('ov-0-1');
+  const ov2 = document.getElementById('ov-0-2');
+  if (ov1) ov1.textContent = stop;
+  if (ov2) ov2.textContent = snap;
+}
+
+function copyOverlays() {
+  const lines = [0,1,2].map(i => {
+    const el = document.getElementById(`ov-0-${i}`);
     return el ? el.textContent.trim() : '';
   }).filter(Boolean);
   navigator.clipboard.writeText(lines.join('\n')).then(() => {
-    const btns = document.querySelectorAll('.btn-accent-sm');
-    if (btns[si]) { btns[si].textContent = '✓ Copié'; setTimeout(() => btns[si].textContent = 'Copier', 1500); }
+    const btn = document.querySelector('.hook-card .btn-accent-sm');
+    if (btn) { btn.textContent = '✓ Copié'; setTimeout(() => btn.textContent = 'Copier', 1500); }
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// SHOTS GENERATION
-// ═══════════════════════════════════════════════════════
+// ── SHOTS ──
 
-function generateShots(sujet) {
-  const em = currentEmotion;
-  const shots = EMOTIONS[em].shots;
-  const container = document.getElementById('shots-list');
-  container.innerHTML = shots.map((s, i) => `
+function generateShots() {
+  const fmt = FORMATS[currentFormat];
+  document.getElementById('shots-format-label').textContent = fmt.label;
+  document.getElementById('shots-list').innerHTML = fmt.shots.map((s, i) => `
     <div class="shot-item">
       <div class="shot-header">
         <div class="shot-num">${i + 1}</div>
@@ -1161,53 +945,38 @@ function generateShots(sujet) {
         <div class="shot-tag">${s.t}</div>
       </div>
       <div class="shot-desc">${s.d}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-// ═══════════════════════════════════════════════════════
-// PUBLICATION
-// ═══════════════════════════════════════════════════════
+// ── PUBLICATION ──
 
-function generatePublication(sujet) {
-  const em = currentEmotion;
-  const s = sujet || 'ma dernière création';
-  const emData = EMOTIONS[em];
-  const son = currentSon || emData.sons_commerciaux[0];
-
-  const descriptions = {
-    contemplation: `${s} — la lenteur comme arme.\n\nFilmé DJI Osmo Pocket, sans voix, sans filtre. Juste la lumière et le mouvement.\n\nSon utilisé : ${son}\n\n🎬 Série cinéma iPhone × DJI`,
-    acceleration: `${s} en 30 secondes.\n\nPas de voix. Pas d'explication. Juste le résultat.\n\nSon : ${son}\n\n🎬 Carter.mov — technique pure`,
-    melancolie: `${s}. Ce moment ne reviendra pas.\n\nSérie de plans filmés à l'heure bleue, DJI + iPhone. Aucun filtre artificiel.\n\nSon : ${son}\n\n🎬 Carter.mov`,
-    tension: `${s} — ce que personne ne montre.\n\nTechnique contre-intuitive. Résultat choc. Sans voix.\n\nSon : ${son}\n\n🎬 Carter.mov`,
-    joie: `${s} — enfin simple.\n\nLa technique que j'aurais voulu connaître il y a 6 mois. iPhone + DJI. Zéro équipement pro requis.\n\nSon : ${son}\n\n🎬 Carter.mov`,
-    mystere: `${s}.\n\nCe que l'œil ne voit pas — mais que l'algo mesure. Série filmée sans voix, DJI Osmo Pocket.\n\nSon : ${son}\n\n🎬 Carter.mov`,
-    reverence: `${s}.\n\nLa règle des masters. 5 plans. Filmé au lever du soleil. DJI + iPhone 15 Pro.\n\nSon : ${son}\n\n🎬 Carter.mov`
-  };
+function generatePublication() {
+  const hook = getActiveHook();
+  const lut = document.getElementById('inp-lut').value.trim();
+  const musique = document.getElementById('inp-musique').value.trim();
+  const colorgraded = lut || 'À venir 🔄';
 
   const hashtags = {
-    contemplation: '#cinematography #davinciresolve #djiosmopocket #filmmaking #cinematic #iphone15pro #slowcinema #ambientfilm #cartermov',
-    acceleration: '#filmmaking #davinciresolve #dji #tiktokcinema #cinematography #videoediting #djifilm #iphone15pro #cartermov',
-    melancolie: '#cinematicfilm #slowcinema #davinciresolve #djifilm #moody #cinematic #iphone #filmmaking #cartermov',
-    tension: '#cinematography #darkfilm #davinciresolve #djifilm #noircinema #filmmaking #iphone15pro #cinematic #cartermov',
-    joie: '#cinematography #davinciresolve #dji #iphone15pro #filmmaker #cinematicvideo #videography #tiktokfilmmaker #cartermov',
-    mystere: '#cinematicfilm #mystere #davinciresolve #djifilm #nofilm #cinematic #iphone #filmmaking #cartermov',
-    reverence: '#cinematography #landscape #davinciresolve #djifilm #cinematic #epicfilm #iphone15pro #filmmaking #cartermov'
+    vlog: '#cinematiclife #vlog #djiosmopocket #iphone #filmmaking #cinematic #vloglife #createurcontenu',
+    city: '#cityfilm #cinematiclife #djiosmopocket #iphone #streetfilm #urbancinema #cinematic #filmmaking',
+    tuto: '#filmtips #cinematiclife #djiosmopocket #iphone #filmmaking #cameratips #tuto #cinematography'
   };
 
-  const pins = {
-    contemplation: `🎬 Équipement utilisé :\n→ DJI Osmo Pocket 3\n→ iPhone 15 Pro\n→ Étalonnage DaVinci Resolve\n\n💬 Tu veux voir le behind the scenes ?`,
-    acceleration: `🎬 Setup :\n→ DJI Osmo Pocket 3 (stabilisation active)\n→ iPhone 15 Pro (mode cinématique)\n→ Montage DaVinci Resolve\n\n❓ Question : tu préfères voir le tuto montage ou terrain ?`,
-    melancolie: `🎬 Tourné en heure bleue, sans flash, sans filtre :\n→ DJI Osmo Pocket 3\n→ iPhone 15 Pro\n→ DaVinci Resolve — étalonnage manuel\n\n💬 Dis-moi si tu veux le process complet.`,
-    tension: `🎬 Technique utilisée :\n→ DJI Osmo Pocket (mode manuel)\n→ iPhone 15 Pro\n→ DaVinci — contrast lift uniquement\n\n⬇️ Save si tu veux le retrouver.`,
-    joie: `🎬 Setup simple :\n→ DJI Osmo Pocket 3\n→ iPhone 15 Pro natif\n→ DaVinci Resolve (color grade 15 min)\n\n✅ Follow pour voir la suite de la série.`,
-    mystere: `🎬 Filmé :\n→ DJI Osmo Pocket 3\n→ iPhone 15 Pro\n→ Étalonnage DaVinci — tons froids\n\n💬 Tu veux voir les paramètres exacts ?`,
-    reverence: `🎬 Plans filmés :\n→ DJI Osmo Pocket 3 (golden hour)\n→ iPhone 15 Pro (ultra-wide)\n→ DaVinci Resolve — grade minimaliste\n\n🏔️ Prochaine vidéo : derrière la caméra.`
-  };
+  const caption = `${hook}\n\nTourné : DJI Osmo Pocket + iPhone\nColorgraded : ${colorgraded}\n\n${hashtags[currentFormat]}`;
 
-  document.getElementById('pub-desc').textContent = descriptions[em] || descriptions.contemplation;
-  document.getElementById('pub-hash').textContent = hashtags[em] || hashtags.contemplation;
-  document.getElementById('pub-pin').textContent = pins[em] || pins.contemplation;
+  const fmt = FORMATS[currentFormat];
+  const pinItems = [
+    '🎬 Setup :',
+    '→ DJI Osmo Pocket 3',
+    '→ iPhone',
+    lut ? `→ LUT : ${lut} (DaVinci Resolve)` : '→ Montage DaVinci Resolve'
+  ];
+  if (musique) pinItems.push(`→ Son : ${musique}`);
+  pinItems.push('');
+  pinItems.push(fmt.pin_question);
+
+  document.getElementById('pub-caption').textContent = caption;
+  document.getElementById('pub-pin').textContent = pinItems.join('\n');
 }
 
 function copyEl(id, btnId) {
@@ -1228,42 +997,34 @@ function analyserInspiration() {
   const desc = document.getElementById('veille-desc').value.toLowerCase().trim();
   if (!desc) return;
 
-  // Detect signals
   const signals = [];
-  let detectedEmotion = null;
+  if (/voix|voice|parle|narrateur/.test(desc)) signals.push({ label: 'Hook voix off', cls: 'accent' });
+  if (/texte|overlay|titre|sous.titre/.test(desc)) signals.push({ label: 'Hook texte overlay', cls: 'accent' });
+  if (/son natif|ambiance|nat sound/.test(desc)) signals.push({ label: 'Son natif', cls: 'cyan' });
+  if (/slow.motion|slow mo|ralenti/.test(desc)) signals.push({ label: 'Slow motion', cls: 'cyan' });
+  if (/timelapse|hyperlapse/.test(desc)) signals.push({ label: 'Timelapse', cls: 'cyan' });
+  if (/gimbal|dji|stabilisé/.test(desc)) signals.push({ label: 'Gimbal / DJI', cls: 'cyan' });
+  if (/rapide|quick|fast|dynamique|énergie/.test(desc)) signals.push({ label: 'Rythme rapide', cls: '' });
+  if (/lent|slow|contemplatif|apaisant/.test(desc)) signals.push({ label: 'Rythme lent', cls: '' });
+  if (/nuit|night|low light|sombre/.test(desc)) signals.push({ label: 'Tournage nuit', cls: '' });
+  if (/urbain|ville|street|rue/.test(desc)) signals.push({ label: 'Urbain', cls: '' });
+  if (/nature|forêt|mer|montagne/.test(desc)) signals.push({ label: 'Extérieur nature', cls: '' });
 
-  // Hook type
-  let hookType = 'texte';
-  if (/voix|voice|parle|narrateur/.test(desc)) { hookType = 'voix'; signals.push({ label: 'Hook voix off', cls: 'accent' }); }
-  if (/texte|overlay|titre|sous.titre/.test(desc)) { signals.push({ label: 'Hook texte overlay', cls: 'accent' }); }
-  if (/son natif|ambiance|nat sound/.test(desc)) { signals.push({ label: 'Son natif', cls: 'cyan' }); }
-  if (/slow.motion|slow mo|ralenti/.test(desc)) { signals.push({ label: 'Slow motion', cls: 'cyan' }); }
-  if (/timelapse|hyperlapse|time lapse/.test(desc)) { signals.push({ label: 'Timelapse', cls: 'cyan' }); }
-  if (/gimbal|dji|stabilisé/.test(desc)) { signals.push({ label: 'Gimbal / DJI', cls: 'cyan' }); }
-  if (/rapide|quick|fast|dynamique|énergie/.test(desc)) { signals.push({ label: 'Rythme rapide', cls: '' }); }
-  if (/lent|slow|contemplatif|apaisant/.test(desc)) { signals.push({ label: 'Rythme lent', cls: '' }); }
-  if (/nuit|night|low light|sombre/.test(desc)) { signals.push({ label: 'Tournage nuit', cls: '' }); }
-  if (/nature|forêt|mer|montagne|outdoor/.test(desc)) { signals.push({ label: 'Extérieur nature', cls: '' }); }
-  if (/urbain|ville|street|rue/.test(desc)) { signals.push({ label: 'Urbain', cls: '' }); }
+  let detectedEmotion = 'contemplation';
+  if (/rapide|énergie|techno|electro|cut|impact/.test(desc)) detectedEmotion = 'acceleration';
+  else if (/triste|mélancolie|sad|pluie|gris|désaturé/.test(desc)) detectedEmotion = 'melancolie';
+  else if (/tension|dark|noir|suspense/.test(desc)) detectedEmotion = 'tension';
+  else if (/joie|fun|happy|coloré|dance|soleil/.test(desc)) detectedEmotion = 'joie';
+  else if (/mystère|ombre|silhouette|caché/.test(desc)) detectedEmotion = 'mystere';
+  else if (/epic|grand|immense|altitude|sacré/.test(desc)) detectedEmotion = 'reverence';
 
-  // Emotion detection
-  if (/calme|doux|lent|teal|bleu|ocean|méditat/.test(desc)) detectedEmotion = 'contemplation';
-  else if (/rapide|énergie|techno|electro|cut|impact|vitesse/.test(desc)) detectedEmotion = 'acceleration';
-  else if (/triste|mélancolie|sad|pluit|gris|désaturé|froid/.test(desc)) detectedEmotion = 'melancolie';
-  else if (/tension|dark|noir|suspense|thriller|horror/.test(desc)) detectedEmotion = 'tension';
-  else if (/joie|fun|happy|coloré|dance|soleil|été/.test(desc)) detectedEmotion = 'joie';
-  else if (/mystère|ombre|silhouette|caché|secret/.test(desc)) detectedEmotion = 'mystere';
-  else if (/epic|grand|immense|altitude|sacré|cinéma/.test(desc)) detectedEmotion = 'reverence';
-  else detectedEmotion = 'contemplation';
-
-  // Kallaway analysis
   const hasHook = /hook|accrochet|premier|début/.test(desc);
   const hasBenefit = /bénéfice|résultat|améliore|aide|permet|change/.test(desc);
-  const hasContrast = /mais|pourtant|sauf|contre|sauf si|paradox/.test(desc);
+  const hasContrast = /mais|pourtant|sauf|contre|paradox/.test(desc);
 
-  // Build result
-  const tagsHtml = signals.map(s => `<span class="tag ${s.cls}">${s.label}</span>`).join('');
-  document.getElementById('veille-tags').innerHTML = tagsHtml || '<span class="tag">Aucun signal fort détecté</span>';
+  document.getElementById('veille-tags').innerHTML = signals.length
+    ? signals.map(s => `<span class="tag ${s.cls}">${s.label}</span>`).join('')
+    : '<span class="tag">Aucun signal fort détecté</span>';
 
   const emLabel = EMOTIONS[detectedEmotion].label;
   document.getElementById('veille-kallaway').innerHTML = `
@@ -1282,44 +1043,17 @@ function analyserInspiration() {
       <div class="signal-dot ${hasContrast ? 'dot-green' : 'dot-orange'}"></div>
       <div class="signal-label">Tension / contre-pied (Snap)</div>
       <div class="signal-val ${hasContrast ? 'val-green' : 'val-orange'}">${hasContrast ? '✓' : '?'}</div>
-    </div>
-  `;
+    </div>`;
 
-  // Generate 3 angles
-  const angles = [
-    {
-      label: 'Angle direct — même structure',
-      text: `Reprend l'émotion "${emLabel}" avec ton DJI Osmo Pocket. Applique le même rythme mais avec un sujet 100% différent — ton univers cinéma/tech.`
-    },
-    {
-      label: 'Angle contre-pied — Snap Kallaway',
-      text: `Ce que cette vidéo fait bien → tu fais l'opposé volontairement. Si elle est rapide, tu vas ultra-lent. Crée la tension par le contraste avec les attentes de l'audience.`
-    },
-    {
-      label: 'Angle cult hop — ancrage DJI/iPhone',
-      text: `Utilise la même structure mais ancre dans la culture DJI / iPhone / DaVinci. Ton audience de créateurs 18-34 ans reconnaîtra les références et la complétion montera.`
-    }
-  ];
+  document.getElementById('veille-angles').innerHTML = [
+    { label: 'Angle direct — même structure', text: `Reprend l'ambiance "${emLabel}" avec ton DJI Osmo Pocket. Même rythme, sujet 100% différent — ton univers cinéma.` },
+    { label: 'Angle contre-pied — Snap Kallaway', text: 'Ce que cette vidéo fait bien → tu fais l\'opposé volontairement. Si rapide, vas ultra-lent. La tension vient du contraste avec les attentes.' },
+    { label: 'Angle cult hop — ancrage DJI/iPhone', text: 'Même structure mais ancré dans la culture DJI / iPhone / DaVinci. Ton audience de créateurs 18-34 ans reconnaît les références → complétion monte.' }
+  ].map(a => `<div class="angle-card"><div class="angle-label">${a.label}</div><div class="angle-text">${a.text}</div></div>`).join('');
 
-  document.getElementById('veille-angles').innerHTML = angles.map(a => `
-    <div class="angle-card">
-      <div class="angle-label">${a.label}</div>
-      <div class="angle-text">${a.text}</div>
-    </div>
-  `).join('');
-
-  document.getElementById('veille-cta').innerHTML = `
-    <button class="btn" onclick="applyVeilleEmotion('${detectedEmotion}')">→ Partir sur cet angle dans Projet</button>
-  `;
-
+  document.getElementById('veille-cta').innerHTML = `<button class="btn" onclick="switchTab(0)">→ Ouvrir Projet</button>`;
   document.getElementById('veille-result').classList.remove('hidden');
   document.getElementById('veille-result').scrollIntoView({ behavior: 'smooth' });
-}
-
-function applyVeilleEmotion(em) {
-  selectEmotion(em);
-  switchTab(0);
-  setTimeout(() => document.getElementById('emotion-chips').scrollIntoView({ behavior: 'smooth' }), 100);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1327,80 +1061,67 @@ function applyVeilleEmotion(em) {
 // ═══════════════════════════════════════════════════════
 
 function classify(val, low, mid) {
-  if (val < low) return 'red';
-  if (val < mid) return 'orange';
-  return 'green';
+  return val < low ? 'red' : val < mid ? 'orange' : 'green';
 }
 
 function lancerDiagnostic() {
   const views = parseFloat(document.getElementById('m-views').value) || 0;
   const watch = parseFloat(document.getElementById('m-watch').value) || 0;
   const compl = parseFloat(document.getElementById('m-compl').value) || 0;
-  const rw = parseFloat(document.getElementById('m-rw').value) || 0;
+  const rw    = parseFloat(document.getElementById('m-rw').value) || 0;
   const shares = parseFloat(document.getElementById('m-shares').value) || 0;
-  const dur = parseFloat(document.getElementById('m-dur').value) || 30;
+  const dur   = parseFloat(document.getElementById('m-dur').value) || 30;
 
   const shareRate = views > 0 ? (shares / views) * 100 : 0;
-  const watchC = classify(watch, 5, 7);
-  const complC = classify(compl, 5, 15);
-  const rwC = rw < 5 ? 'red' : rw < 10 ? 'orange' : 'green';
-  const shareC = shareRate < 1 ? 'red' : shareRate < 2 ? 'orange' : 'green';
-  const viewsC = classify(views, 200, 1000);
+  const signals = [
+    { label: 'Vues',              val: views.toLocaleString(), cls: classify(views, 200, 1000) },
+    { label: 'Watch time moyen',  val: watch + 's',            cls: classify(watch, 5, 7) },
+    { label: 'Taux de complétion',val: compl + '%',            cls: classify(compl, 5, 15) },
+    { label: 'Taux de rewatch',   val: rw + '%',               cls: rw < 5 ? 'red' : rw < 10 ? 'orange' : 'green' },
+    { label: 'Taux de partage',   val: shareRate.toFixed(2) + '%', cls: shareRate < 1 ? 'red' : shareRate < 2 ? 'orange' : 'green' }
+  ];
 
   lastDiagnostic = { views, watch, compl, rw, shares, dur, shareRate };
-
-  const signals = [
-    { label: 'Vues', val: views.toLocaleString(), cls: viewsC },
-    { label: 'Watch time moyen', val: watch + 's', cls: watchC },
-    { label: 'Taux de complétion', val: compl + '%', cls: complC },
-    { label: 'Taux de rewatch', val: rw + '%', cls: rwC },
-    { label: 'Taux de partage', val: shareRate.toFixed(2) + '%', cls: shareC }
-  ];
 
   document.getElementById('signals-list').innerHTML = signals.map(s => `
     <div class="signal-row">
       <div class="signal-dot dot-${s.cls}"></div>
       <div class="signal-label">${s.label}</div>
       <div class="signal-val val-${s.cls}">${s.val}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 
-  // Verdict
   const reds = signals.filter(s => s.cls === 'red').length;
   const oranges = signals.filter(s => s.cls === 'orange').length;
-  let verdictCls, verdictTitle, verdictText;
+  let vCls, vTitle, vText;
   if (reds >= 3) {
-    verdictCls = 'red'; verdictTitle = '🚨 Hook / Distribution bloqué';
-    verdictText = 'Plusieurs signaux critiques. L\'algo a coupé la distribution tôt — probablement à 4 secondes. Priorité absolue : refaire le hook (formule Kallaway, benefit-first, overlay 1 ≤ 5 mots).';
+    vCls = 'red'; vTitle = '🚨 Hook / Distribution bloqué';
+    vText = 'Plusieurs signaux critiques. L\'algo a coupé la distribution tôt — probablement à 4 secondes. Priorité : refaire le hook (overlay 1 ≤ 5 mots, benefit-first).';
   } else if (reds >= 1 || oranges >= 2) {
-    verdictCls = 'orange'; verdictTitle = '⚠️ Améliorations nécessaires';
-    verdictText = 'Distribution partielle. Le hook retient une partie de l\'audience mais quelque chose bloque la rétention après 4s. Vérifier : plan ★ à 0-2s, value loop, staccato du texte.';
+    vCls = 'orange'; vTitle = '⚠️ Améliorations nécessaires';
+    vText = 'Distribution partielle. Le hook retient une partie de l\'audience mais quelque chose bloque la rétention après 4s. Vérifier : plan d\'ouverture à 0-2s, value loop.';
   } else {
-    verdictCls = 'green'; verdictTitle = '✅ Bonne performance';
-    verdictText = 'Signaux positifs. Continue dans cette direction, amplifie ce qui fonctionne (émotion, structure, son).';
+    vCls = 'green'; vTitle = '✅ Bonne performance';
+    vText = 'Signaux positifs. Continue dans cette direction — amplifie ce qui fonctionne (hook, structure, LUT, son).';
   }
 
   document.getElementById('algo-verdict').innerHTML = `
-    <div class="verdict-box ${verdictCls}">
-      <div class="verdict-title">${verdictTitle}</div>
-      <div class="verdict-text">${verdictText}</div>
-    </div>
-  `;
+    <div class="verdict-box ${vCls}">
+      <div class="verdict-title">${vTitle}</div>
+      <div class="verdict-text">${vText}</div>
+    </div>`;
 
-  // Phase routing
   let phase, phaseText;
   if (watch < 5 || compl < 5) {
-    phase = '⚡ Phase 0.5 — Refaire le topic'; phaseText = 'Watch time critique. Avant de retourner filmer, valide que tu as un angle UNIQUE (gate Phase 0.5). Le problème est dans le hook ou le sujet, pas dans le tournage.';
+    phase = '⚡ Priorité — Refaire le hook'; phaseText = 'Watch time critique. Va dans Projet, régénère les overlays avec un nouveau hook verrouillé ou un hook géo plus fort.';
   } else if (watch < 7 || compl < 15) {
-    phase = '🎯 Phase 3 — Retravailler le hook'; phaseText = 'Le sujet attire mais la rétention lâche. Va dans l\'onglet Projet, génère de nouvelles séquences de hooks et teste le 4-test Kallaway.';
+    phase = '🎯 Retravailler le hook'; phaseText = 'Le sujet attire mais la rétention lâche. Régénère les overlays 2 & 3, teste le format Tuto pour plus de structure.';
   } else {
-    phase = '🚀 Phase 4 — Amplifier'; phaseText = 'Bonne base. Va dans Veille pour analyser des vidéos similaires qui performent encore mieux, et emprunte leur structure.';
+    phase = '🚀 Amplifier'; phaseText = 'Bonne base. Va dans Veille pour analyser des vidéos similaires et emprunte leur structure.';
   }
 
   document.getElementById('phase-routing').innerHTML = `
     <div style="font-weight:700;margin-bottom:6px">${phase}</div>
-    <div style="font-size:14px;color:var(--muted);line-height:1.5">${phaseText}</div>
-  `;
+    <div style="font-size:14px;color:var(--muted);line-height:1.5">${phaseText}</div>`;
 
   document.getElementById('diagnostic-result').classList.remove('hidden');
   document.getElementById('diagnostic-result').scrollIntoView({ behavior: 'smooth' });
@@ -1420,9 +1141,7 @@ function saveFromAnalyse() {
 // ═══════════════════════════════════════════════════════
 
 function pillClass(val, low, mid) {
-  if (val < low) return 'pill-red';
-  if (val < mid) return 'pill-orange';
-  return 'pill-green';
+  return val < low ? 'pill-red' : val < mid ? 'pill-orange' : 'pill-green';
 }
 
 function renderJournal() {
@@ -1432,8 +1151,7 @@ function renderJournal() {
     return;
   }
   container.innerHTML = journalEntries.slice().reverse().map(e => {
-    const wCls = pillClass(e.watch || 0, 5, 7);
-    const cCls = pillClass(e.compl || 0, 5, 15);
+    const fmtLabel = e.format && FORMATS[e.format] ? FORMATS[e.format].label : null;
     return `
       <div class="journal-entry">
         <div class="entry-header">
@@ -1444,24 +1162,30 @@ function renderJournal() {
           <button class="entry-del" onclick="deleteEntry(${e.id})">🗑</button>
         </div>
         <div class="stat-pills">
-          <span class="stat-pill pill-${e.views > 1000 ? 'green' : e.views > 200 ? 'orange' : 'red'}">${(e.views||0).toLocaleString()} vues</span>
-          <span class="stat-pill ${wCls}">${e.watch||0}s watch</span>
-          <span class="stat-pill ${cCls}">${e.compl||0}% complétion</span>
-          ${e.rw ? `<span class="stat-pill ${pillClass(e.rw,5,10)}">${e.rw}% rewatch</span>` : ''}
+          ${fmtLabel ? `<span class="stat-pill pill-accent">${fmtLabel}</span>` : ''}
+          <span class="stat-pill ${(e.views||0) > 1000 ? 'pill-green' : (e.views||0) > 200 ? 'pill-orange' : 'pill-red'}">${(e.views||0).toLocaleString()} vues</span>
+          <span class="stat-pill ${pillClass(e.watch||0, 5, 7)}">${e.watch||0}s watch</span>
+          <span class="stat-pill ${pillClass(e.compl||0, 5, 15)}">${e.compl||0}% complétion</span>
+          ${e.rw ? `<span class="stat-pill ${pillClass(e.rw, 5, 10)}">${e.rw}% rewatch</span>` : ''}
         </div>
         ${e.note ? `<div class="entry-note">${e.note}</div>` : ''}
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
-function openModal(prefill) {
+function openModal() {
   document.getElementById('modal-overlay').classList.add('open');
-  if (!prefill) {
-    document.getElementById('modal-titre').value = '';
-    document.getElementById('modal-note').value = '';
-    // Don't clear views/watch/compl/rw if pre-filled from analyse
-  }
+  modalFormat = currentFormat;
+  modalSelectFormat(currentFormat);
+  document.getElementById('modal-titre').value = '';
+  document.getElementById('modal-note').value = '';
+}
+
+function modalSelectFormat(f) {
+  modalFormat = f;
+  ['vlog','city','tuto'].forEach(fmt => {
+    document.getElementById('modal-fc-' + fmt).classList.toggle('selected', fmt === f);
+  });
 }
 
 function closeModal() {
@@ -1479,11 +1203,12 @@ function saveJournalEntry() {
     id: Date.now(),
     titre,
     date: new Date().toISOString().slice(0, 10),
+    format: modalFormat,
     views: parseFloat(document.getElementById('modal-views').value) || 0,
     watch: parseFloat(document.getElementById('modal-watch').value) || 0,
     compl: parseFloat(document.getElementById('modal-compl').value) || 0,
-    rw: parseFloat(document.getElementById('modal-rw').value) || 0,
-    note: document.getElementById('modal-note').value.trim()
+    rw:    parseFloat(document.getElementById('modal-rw').value) || 0,
+    note:  document.getElementById('modal-note').value.trim()
   };
   journalEntries.push(entry);
   LS.save('journal', journalEntries);
@@ -1504,77 +1229,66 @@ function deleteEntry(id) {
 // ═══════════════════════════════════════════════════════
 
 function exportBrief() {
-  const sujet = document.getElementById('inp-sujet').value.trim() || '—';
-  const substance = document.getElementById('inp-substance').value.trim() || '—';
+  const fmt = FORMATS[currentFormat];
   const musique = document.getElementById('inp-musique').value.trim() || '—';
-  const em = currentEmotion;
-  const son = currentSon || '—';
+  const lut = document.getElementById('inp-lut').value.trim() || '—';
 
-  let lines = [];
-  lines.push('═══ BRIEF DE TOURNAGE — CARTER.MOV ═══');
-  lines.push('');
-  lines.push('📌 SUJET');
-  lines.push(sujet);
-  lines.push('');
-  lines.push('💡 ANGLE UNIQUE');
-  lines.push(substance);
-  lines.push('');
-
-  if (em) {
-    const emData = EMOTIONS[em];
-    lines.push('🎭 ÉMOTION CIBLE');
-    lines.push(emData.label);
-    lines.push('');
-    lines.push('🎵 MUSIQUE / SON');
-    lines.push(musique + (son !== musique && son !== '—' ? ' → ' + son : ''));
-    lines.push('');
-    lines.push('💡 LUMIÈRE');
-    lines.push(emData.lumiere);
-    lines.push('');
-    lines.push('🎬 RYTHME MONTAGE');
-    lines.push(emData.rythme);
-    lines.push('');
-    lines.push('🎯 HOOK SÉLECTIONNÉ');
-
-    // Get hooks from contenteditable or fallback
-    const seqs = document.querySelectorAll('.hook-card');
-    if (seqs.length > 0) {
-      // Use first sequence by default, or the one with focus
-      const overlays = seqs[0].querySelectorAll('.overlay-text');
-      const labels = ['Lean', 'Stop', 'Snap'];
-      overlays.forEach((o, i) => {
-        lines.push(`  [${labels[i]}] ${o.textContent.trim()}`);
-      });
-    } else {
-      lines.push('  Génère le projet d\'abord (onglet Projet)');
-    }
-    lines.push('');
-    lines.push('📷 SHOT LIST');
-    emData.shots.forEach((s, i) => {
-      lines.push(`  ${i+1}. [${s.t}] ${s.n}`);
-      lines.push(`     ${s.d}`);
-    });
+  let hook;
+  if (currentHookType === 'verrouille') {
+    hook = LS.load('locked_hook', null) || '(non sélectionné)';
   } else {
-    lines.push('⚠️  Sélectionne une émotion et génère le projet d\'abord.');
+    const ville = document.getElementById('inp-ville').value.trim();
+    hook = ville ? geoHookForFormat(ville, currentFormat) : '(ville non renseignée)';
   }
 
+  const lines = [
+    '═══ BRIEF DE TOURNAGE — CARTER.MOV ═══',
+    '',
+    '🎬 FORMAT',
+    `${fmt.label} — ${fmt.desc}`,
+    '',
+    '🎯 HOOK',
+    `[${currentHookType === 'verrouille' ? '🔒 Verrouillé' : '📍 Géo'}] ${hook}`,
+    '',
+    '🎵 MUSIQUE',
+    musique,
+    '',
+    '🎨 LUT',
+    lut,
+    '',
+    '📷 SHOT LIST'
+  ];
+
+  fmt.shots.forEach((s, i) => {
+    lines.push(`  ${i+1}. [${s.t}] ${s.n}`);
+    lines.push(`     ${s.d}`);
+  });
+
   lines.push('');
-  lines.push('✅ 4 TESTS HOOK (Kallaway)');
+  lines.push('🎬 OVERLAYS TEXTE');
+  const ovEls = document.querySelectorAll('.overlay-text');
+  if (ovEls.length) {
+    ['Hook','Stop','Snap'].forEach((l, i) => {
+      if (ovEls[i]) lines.push(`  [${l}] ${ovEls[i].textContent.trim()}`);
+    });
+  } else {
+    lines.push('  Génère le projet d\'abord.');
+  }
+
+  lines.push('', '✅ 4 TESTS HOOK (Kallaway)');
   lines.push('  □ Délai zéro — promesse visible en <1s');
   lines.push('  □ Zéro confusion — un enfant de 10 ans comprend');
   lines.push('  □ Pertinence (Tu/Ton) — douleur/bénéfice avant technique');
   lines.push('  □ Contraste — contre-pied ou tension narrative');
-  lines.push('');
-  lines.push('⚡ TIMER 4S — Meilleur plan à 0-2s');
+  lines.push('', '⚡ TIMER 4S — Meilleur plan à 0-2s');
   lines.push('═══════════════════════════════════════');
 
   const text = lines.join('\n');
   document.getElementById('brief-text').textContent = text;
   document.getElementById('brief-export-box').classList.remove('hidden');
 
-  // Native share if available
   if (navigator.share) {
-    navigator.share({ title: 'Brief tournage Carter.mov', text: text }).catch(() => {});
+    navigator.share({ title: 'Brief tournage Carter.mov', text }).catch(() => {});
   }
 
   switchTab(3);
@@ -1593,6 +1307,45 @@ function toggleCheck(el) {
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
+
+function initStorage() {
+  // Restore LUT name
+  const lut = LS.load('lut_name', '');
+  if (lut) document.getElementById('inp-lut').value = lut;
+
+  // Restore last project state
+  const last = LS.load('last_project', null);
+  if (last) {
+    if (last.format) selectFormat(last.format);
+    if (last.hookType) selectHookType(last.hookType);
+    if (last.ville) {
+      document.getElementById('inp-ville').value = last.ville;
+      updateGeoPreview();
+    }
+    if (last.musique) document.getElementById('inp-musique').value = last.musique;
+  }
+
+  // Init locked hook picker
+  initHookVerrouille();
+
+  // Load journal
+  journalEntries = LS.load('journal', []);
+  if (!journalEntries.length) {
+    journalEntries = [{
+      id: Date.now() - 86400000,
+      titre: 'Day 06 — Série cinéma',
+      date: '2026-05-08',
+      format: 'city',
+      views: 530,
+      watch: 4.1,
+      compl: 1.67,
+      rw: 2.3,
+      note: 'Hook raté : titre de série utilisé comme hook. Technique avant bénéfice. 4 tests Kallaway = tous échoués. Distribution saine (94.4% FYP) mais hook coupe à 4s. → Appliquer benefit-first dès le prochain tournage.'
+    }];
+    LS.save('journal', journalEntries);
+  }
+  renderJournal();
+}
 
 document.addEventListener('DOMContentLoaded', initStorage);
 </script>
