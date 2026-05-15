@@ -306,6 +306,39 @@
     .kallaway-tip .tip-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: .8px; margin-bottom: 4px; }
     .kallaway-tip .tip-text { font-size: 13px; color: var(--text); line-height: 1.5; }
     .hidden { display: none !important; }
+
+    /* ── ALGO BANNER ── */
+    .algo-banner {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px 14px; margin-bottom: 4px;
+    }
+    .algo-pill {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; padding: 4px 10px;
+      border-radius: 999px; background: var(--surface2);
+    }
+    .algo-pill.accent { background: rgba(232,255,77,.12); color: var(--accent); }
+    .algo-pill.cyan { background: rgba(77,255,184,.12); color: var(--accent2); }
+    .algo-pill.warn { background: rgba(255,159,77,.12); color: var(--orange); }
+
+    /* ── PREMIERE HEURE ── */
+    .premiere-heure {
+      background: rgba(255,159,77,.08); border: 1px solid rgba(255,159,77,.25);
+      border-radius: var(--radius); padding: 12px 14px; margin-top: 16px;
+    }
+    .premiere-heure .ph-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--orange); letter-spacing: .8px; margin-bottom: 4px; }
+    .premiere-heure .ph-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+    /* ── RETENTION TARGET ── */
+    .retention-target {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700; padding: 2px 8px;
+      border-radius: 999px; margin-left: 6px;
+    }
+    .rt-ok  { background: rgba(77,255,184,.15); color: var(--accent2); }
+    .rt-warn { background: rgba(255,159,77,.15); color: var(--orange); }
+    .rt-bad  { background: rgba(255,77,77,.15); color: var(--red); }
   </style>
 </head>
 <body>
@@ -381,6 +414,17 @@
 
   <!-- RÉSULTAT -->
   <div id="result-section" class="hidden">
+
+    <!-- ALGO BANNER -->
+    <div class="section" style="margin-top:16px">
+      <div class="algo-banner" id="algo-banner">
+        <!-- populated by JS -->
+      </div>
+      <div class="premiere-heure">
+        <div class="ph-title">⏱ Première heure critique</div>
+        <div class="ph-text">Réponds à <strong>chaque commentaire</strong> dans les 60 min après publication — l'algo amplifie 5× les vidéos avec engagement précoce.</div>
+      </div>
+    </div>
 
     <!-- OVERLAYS -->
     <div class="section">
@@ -591,6 +635,8 @@
       <div><label>Watch time (s)</label><input type="number" id="modal-watch" placeholder="4.1" step="0.1" /></div>
       <div><label>Complétion (%)</label><input type="number" id="modal-compl" placeholder="1.67" step="0.1" /></div>
       <div><label>Rewatch (%)</label><input type="number" id="modal-rw" placeholder="2.5" step="0.1" /></div>
+      <div><label>Durée vidéo (s)</label><input type="number" id="modal-dur" placeholder="45" /></div>
+      <div><label>Saves</label><input type="number" id="modal-saves" placeholder="0" /></div>
     </div>
     <div class="modal-field">
       <label>Apprentissage / Note</label>
@@ -700,6 +746,33 @@ const OVERLAY_BANKS = {
       'Maintenant tu sais.'
     ]
   }
+};
+
+const REWATCH_BANKS = {
+  vlog: [
+    'Regarde encore — tu as raté quelque chose.',
+    'Tu as vu le plan à 0:08 ?',
+    'Deuxième visionnage = tu comprends tout.',
+    'Le plan final change tout. Revois depuis le début.'
+  ],
+  city: [
+    'Tu as vu l\'angle caché ?',
+    'Regarde encore — tu as manqué le meilleur plan.',
+    'Deuxième visionnage = tu vois la ville autrement.',
+    'Ce détail à 0:06 — tu l\'as vu ?'
+  ],
+  tuto: [
+    'Pause. Revois le geste exact.',
+    'Tu as noté les 3 réglages ?',
+    'Revois à 0.5× — le détail est là.',
+    'Si tu l\'as sauvegardé, revois-le maintenant.'
+  ]
+};
+
+const DURATION_GUIDE = {
+  vlog: { rec: '45-60s', target: 55, signal: '55%+ complétion · rewatches prioritaires' },
+  city: { rec: '30-45s', target: 65, signal: '65%+ complétion · shares = signal fort' },
+  tuto: { rec: '25-40s', target: 65, signal: '65%+ complétion · saves = signal fort' }
 };
 
 // Kept for Veille screen compatibility
@@ -862,6 +935,7 @@ function genererProjet() {
   generateOverlays();
   generateShots();
   generatePublication();
+  renderAlgoBanner();
 
   const result = document.getElementById('result-section');
   result.classList.remove('hidden');
@@ -886,12 +960,14 @@ function generateOverlays() {
   const stop = bank.stop[Math.floor(Math.random() * bank.stop.length)];
   const snap = bank.snap[Math.floor(Math.random() * bank.snap.length)];
 
-  const overlays = [hook, stop, snap];
-  const labels = ['Overlay 1 — Hook', 'Overlay 2 — Stop', 'Overlay 3 — Snap'];
+  const rewatch = REWATCH_BANKS[currentFormat][Math.floor(Math.random() * REWATCH_BANKS[currentFormat].length)];
+  const overlays = [hook, stop, snap, rewatch];
+  const labels = ['Overlay 1 — Hook', 'Overlay 2 — Stop', 'Overlay 3 — Snap', 'Overlay 4 — Rewatch'];
   const notes = [
     currentHookType === 'verrouille' ? '🔒 Hook verrouillé — identité Carter.mov' : '📍 Hook géo — ancrage local',
     'Interjection ou chiffre choc — crée la boucle de curiosité',
-    'Contre-pied — casse l\'attente · tension narrative'
+    'Contre-pied — casse l\'attente · tension narrative',
+    '🔄 Rewatch trigger — signal fort algo 2026 · place en fin de vidéo'
   ];
 
   const overlaysHtml = overlays.map((o, i) => `
@@ -915,10 +991,13 @@ function regenOverlays() {
   const bank = OVERLAY_BANKS[currentFormat];
   const stop = bank.stop[Math.floor(Math.random() * bank.stop.length)];
   const snap = bank.snap[Math.floor(Math.random() * bank.snap.length)];
+  const rewatch = REWATCH_BANKS[currentFormat][Math.floor(Math.random() * REWATCH_BANKS[currentFormat].length)];
   const ov1 = document.getElementById('ov-0-1');
   const ov2 = document.getElementById('ov-0-2');
+  const ov3 = document.getElementById('ov-0-3');
   if (ov1) ov1.textContent = stop;
   if (ov2) ov2.textContent = snap;
+  if (ov3) ov3.textContent = rewatch;
 }
 
 function copyOverlays() {
@@ -956,10 +1035,11 @@ function generatePublication() {
   const musique = document.getElementById('inp-musique').value.trim();
   const colorgraded = lut || 'À venir 🔄';
 
+  // 3-5 hashtags niche ciblés — algo 2026 pénalise les listes longues génériques
   const hashtags = {
-    vlog: '#cinematiclife #vlog #djiosmopocket #iphone #filmmaking #cinematic #vloglife #createurcontenu',
-    city: '#cityfilm #cinematiclife #djiosmopocket #iphone #streetfilm #urbancinema #cinematic #filmmaking',
-    tuto: '#filmtips #cinematiclife #djiosmopocket #iphone #filmmaking #cameratips #tuto #cinematography'
+    vlog: '#cinematiclife #djiosmopocket #vlogcinema #filmmaking #cinematic',
+    city: '#cityfilm #cinematiclife #djiosmopocket #urbancinema #cinematic',
+    tuto: '#filmtips #djiosmopocket #cinematiclife #cameratips #cinematic'
   };
 
   const caption = `${hook}\n\nTourné : DJI Osmo Pocket + iPhone\nColorgraded : ${colorgraded}\n\n${hashtags[currentFormat]}`;
@@ -977,6 +1057,16 @@ function generatePublication() {
 
   document.getElementById('pub-caption').textContent = caption;
   document.getElementById('pub-pin').textContent = pinItems.join('\n');
+}
+
+function renderAlgoBanner() {
+  const guide = DURATION_GUIDE[currentFormat];
+  document.getElementById('algo-banner').innerHTML = `
+    <div class="algo-pill accent">⏱ Durée cible : ${guide.rec}</div>
+    <div class="algo-pill cyan">🎯 ${guide.signal}</div>
+    <div class="algo-pill warn">🔄 Rewatch = signal prioritaire 2026</div>
+    <div class="algo-pill">📌 3-5 hashtags niche uniquement</div>
+  `;
 }
 
 function copyEl(id, btnId) {
@@ -1152,11 +1242,19 @@ function renderJournal() {
   }
   container.innerHTML = journalEntries.slice().reverse().map(e => {
     const fmtLabel = e.format && FORMATS[e.format] ? FORMATS[e.format].label : null;
+    const guide = e.format && DURATION_GUIDE[e.format] ? DURATION_GUIDE[e.format] : null;
+    const compl = e.compl || 0;
+    let retentionBadge = '';
+    if (guide && compl > 0) {
+      const cls = compl >= guide.target ? 'rt-ok' : compl >= guide.target * 0.7 ? 'rt-warn' : 'rt-bad';
+      const icon = compl >= guide.target ? '✓' : compl >= guide.target * 0.7 ? '~' : '✗';
+      retentionBadge = `<span class="retention-target ${cls}">${icon} ${compl}% / cible ${guide.target}%</span>`;
+    }
     return `
       <div class="journal-entry">
         <div class="entry-header">
           <div>
-            <div class="entry-title">${e.titre}</div>
+            <div class="entry-title">${e.titre}${retentionBadge}</div>
             <div class="entry-date">${e.date || ''}</div>
           </div>
           <button class="entry-del" onclick="deleteEntry(${e.id})">🗑</button>
@@ -1165,8 +1263,9 @@ function renderJournal() {
           ${fmtLabel ? `<span class="stat-pill pill-accent">${fmtLabel}</span>` : ''}
           <span class="stat-pill ${(e.views||0) > 1000 ? 'pill-green' : (e.views||0) > 200 ? 'pill-orange' : 'pill-red'}">${(e.views||0).toLocaleString()} vues</span>
           <span class="stat-pill ${pillClass(e.watch||0, 5, 7)}">${e.watch||0}s watch</span>
-          <span class="stat-pill ${pillClass(e.compl||0, 5, 15)}">${e.compl||0}% complétion</span>
+          <span class="stat-pill ${pillClass(compl, 5, 15)}">${compl}% complétion</span>
           ${e.rw ? `<span class="stat-pill ${pillClass(e.rw, 5, 10)}">${e.rw}% rewatch</span>` : ''}
+          ${e.saves ? `<span class="stat-pill pill-accent">💾 ${e.saves} saves</span>` : ''}
         </div>
         ${e.note ? `<div class="entry-note">${e.note}</div>` : ''}
       </div>`;
@@ -1208,6 +1307,8 @@ function saveJournalEntry() {
     watch: parseFloat(document.getElementById('modal-watch').value) || 0,
     compl: parseFloat(document.getElementById('modal-compl').value) || 0,
     rw:    parseFloat(document.getElementById('modal-rw').value) || 0,
+    dur:   parseFloat(document.getElementById('modal-dur').value) || 0,
+    saves: parseFloat(document.getElementById('modal-saves').value) || 0,
     note:  document.getElementById('modal-note').value.trim()
   };
   journalEntries.push(entry);
