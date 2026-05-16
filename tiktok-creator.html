@@ -205,9 +205,27 @@
       color: #000; font-size: 12px; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .shot-name { font-size: 15px; font-weight: 600; }
-    .shot-tag { font-size: 11px; color: var(--accent2); background: rgba(77,255,184,.1); padding: 2px 8px; border-radius: 999px; }
-    .shot-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .shot-name { font-size: 15px; font-weight: 600; flex: 1; }
+    .shot-tag { font-size: 11px; color: var(--accent2); background: rgba(77,255,184,.1); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+    .shot-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+    .shot-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+    .shot-cadrage {
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      background: rgba(232,255,77,.08); border: 1px solid rgba(232,255,77,.25);
+      padding: 3px 9px; border-radius: 999px; letter-spacing: 0.3px;
+    }
+    .shot-reglages {
+      font-size: 11px; color: var(--muted); background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 6px 10px; margin-top: 6px; line-height: 1.6;
+      font-family: 'SF Mono', monospace;
+    }
+    .shot-reglages-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 3px; }
+    .sujet-desc-block {
+      font-size: 13px; color: var(--accent2); background: rgba(77,255,184,.06);
+      border: 1px solid rgba(77,255,184,.2); border-radius: 8px;
+      padding: 8px 12px; margin-top: 6px; font-style: italic; line-height: 1.5;
+    }
 
     /* ── CHECKLIST ── */
     .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
@@ -372,6 +390,13 @@
         <span class="fc-desc">Technique ou apprentissage</span>
       </button>
     </div>
+  </div>
+
+  <!-- SUJET DU JOUR -->
+  <div class="section">
+    <div class="section-title">Sujet du jour</div>
+    <input type="text" id="inp-sujet" placeholder="Ex : Journée à Toulouse, Color grading LUT, Golden hour Paris…" />
+    <div style="margin-top:6px;font-size:12px;color:var(--muted)">Génère une description personnalisée qui colle à ton sujet</div>
   </div>
 
   <!-- PHASE 2 — HOOK -->
@@ -659,39 +684,147 @@ const FORMATS = {
     label: '🎬 Vlog',
     desc: 'Journée filmée comme un film',
     pin_question: '💬 Quelle ville tu veux voir filmée comme ça ?',
+    subjectTemplates: [
+      s => `${s} — filmé comme tu ne l'as jamais vu.`,
+      s => `Une journée à ${s}, vue à travers un œil cinématique.`,
+      s => `${s} : voilà ce que ça donne quand on filme vraiment.`,
+      s => `${s} — la version cinéma de ta journée.`
+    ],
     shots: [
-      { n:'Plan d\'ouverture cutaway', t:'DJI', d:'Détail ou lieu qui établit l\'ambiance en <2s. Pas de visage — crée le mystère d\'entrée.' },
-      { n:'Révélation du sujet', t:'iPhone', d:'Cadrage serré puis élargissement. Le sujet entre dans le cadre. Jamais face caméra directe en premier.' },
-      { n:'Mouvement tracking', t:'DJI', d:'Glide ou follow shot — le mouvement raconte le déplacement. 3-5 secondes max.' },
-      { n:'Détail sensoriel', t:'DJI macro', d:'Mains, texture, objet du moment. Ancre l\'audience dans l\'instant présent.' },
-      { n:'Plan contemplatif', t:'iPhone', d:'Sujet statique, monde qui bouge autour. Plan long — crée la respiration de la vidéo.' },
-      { n:'Plan de clôture', t:'DJI', d:'Plan large final. Sujet qui sort du frame ou fondu vers l\'extérieur. Laisse tourner 5s.' }
+      {
+        n: 'Plan d\'ouverture cutaway', t: 'DJI',
+        cadrage: 'ECU — Extreme Close-Up',
+        reglages: 'Expo −0.3 EV · 1/50s · 24fps · MF sur détail · ND4 si lumière forte',
+        d: 'Détail ou lieu qui établit l\'ambiance en <2s. Pas de visage — crée le mystère d\'entrée.'
+      },
+      {
+        n: 'Révélation du sujet', t: 'iPhone',
+        cadrage: 'MCU → MS (pull back lent)',
+        reglages: 'Portrait mode OFF · 1/50s · ISO auto · 0.5× si espace · Cinematic mode 4K',
+        d: 'Cadrage serré puis élargissement. Le sujet entre dans le cadre. Jamais face caméra directe en premier.'
+      },
+      {
+        n: 'Mouvement tracking', t: 'DJI',
+        cadrage: 'MS / MLS — caméra en mouvement',
+        reglages: 'ActiveTrack 3.0 · Slow Mode 60fps si possible · Gimbal tilt −5° · 24fps export',
+        d: 'Glide ou follow shot — le mouvement raconte le déplacement. 3-5 secondes max.'
+      },
+      {
+        n: 'Détail sensoriel', t: 'DJI macro',
+        cadrage: 'ECU — Extreme Close-Up',
+        reglages: 'Macro mode · MF précis · 1/100s · Expo −0.7 EV · Stabilisation MAX',
+        d: 'Mains, texture, objet du moment. Ancre l\'audience dans l\'instant présent.'
+      },
+      {
+        n: 'Plan contemplatif', t: 'iPhone',
+        cadrage: 'LS / WS — caméra fixe',
+        reglages: 'Trépied obligatoire · 1/50s · ISO min · Lock expo + focus · 4K 24fps',
+        d: 'Sujet statique, monde qui bouge autour. Plan long — crée la respiration de la vidéo.'
+      },
+      {
+        n: 'Plan de clôture', t: 'DJI',
+        cadrage: 'WS / EWS — pull back ou orbit',
+        reglages: 'Pull back shot ou orbit 180° · Expo sur ciel · 24fps · Laisse tourner 5s minimum',
+        d: 'Plan large final. Sujet qui sort du frame ou fondu vers l\'extérieur. Laisse tourner 5s.'
+      }
     ]
   },
   city: {
     label: '🌆 City Film',
     desc: 'Ville filmée comme un court-métrage',
     pin_question: '💬 Tu connais cette ville ? Dis-moi en commentaire 👇',
+    subjectTemplates: [
+      s => `${s} filmée comme un court-métrage. Voilà ce que tu rates.`,
+      s => `${s} — même ville, regard différent. Tout change.`,
+      s => `${s} vue comme personne ne la montre.`,
+      s => `Personne ne filme ${s} comme ça. Pourtant t'as tout ce qu'il faut.`
+    ],
     shots: [
-      { n:'Identité du lieu', t:'DJI', d:'Plan large iconique — la ville reconnaissable en <3s. Angle inhabituel, jamais le plan touristique.' },
-      { n:'Texture urbaine', t:'DJI macro', d:'Béton, enseigne, reflet — la matière de la ville. Lumière rasante pour révéler les détails.' },
-      { n:'Flux humain', t:'iPhone', d:'Foule en mouvement, caméra fixe. Le contraste entre le statique du cadre et le mouvement crée la tension.' },
-      { n:'Architecture contrejour', t:'DJI', d:'Bâtiment ou structure contre la lumière. Silhouette dure. Exposer sur le ciel.' },
-      { n:'Street detail inattendu', t:'iPhone', d:'Élément que les passants ne voient plus parce qu\'ils voient trop.' },
-      { n:'Night reveal', t:'DJI', d:'Lumières de la ville à la tombée. ISO 800-1600 assumé. Le grain numérique = texture cinéma.' }
+      {
+        n: 'Identité du lieu', t: 'DJI',
+        cadrage: 'WS / EWS — angle inhabituel',
+        reglages: 'Golden hour · Expo −0.3 EV · ND4 si lumière forte · 24fps · Basse hauteur recommandée',
+        d: 'Plan large iconique — la ville reconnaissable en <3s. Angle inhabituel, jamais le plan touristique.'
+      },
+      {
+        n: 'Texture urbaine', t: 'DJI macro',
+        cadrage: 'ECU — lumière rasante',
+        reglages: 'MF · Expo −0.7 EV · Lumière rasante oblige · 1/100s · Stabilisation MAX',
+        d: 'Béton, enseigne, reflet — la matière de la ville. Lumière rasante pour révéler les détails.'
+      },
+      {
+        n: 'Flux humain', t: 'iPhone',
+        cadrage: 'LS — caméra fixe sur trépied',
+        reglages: 'Trépied · 1/50s · ISO auto · Shutter lock · Ne pas zoomer — laisser le mouvement venir',
+        d: 'Foule en mouvement, caméra fixe. Le contraste entre le statique du cadre et le mouvement crée la tension.'
+      },
+      {
+        n: 'Architecture contrejour', t: 'DJI',
+        cadrage: 'LS / WS — contre-jour pur',
+        reglages: 'Exposer sur le ciel (pas sur le bâtiment) · EV −1.5 · Golden/Blue hour · 24fps',
+        d: 'Bâtiment ou structure contre la lumière. Silhouette dure. Exposer sur le ciel.'
+      },
+      {
+        n: 'Street detail inattendu', t: 'iPhone',
+        cadrage: 'CU / MCU — à hauteur d\'objet',
+        reglages: '0.5× grand angle · 1/50s · Tap focus · Expo manuelle si reflets · 4K',
+        d: 'Élément que les passants ne voient plus parce qu\'ils voient trop.'
+      },
+      {
+        n: 'Night reveal', t: 'DJI',
+        cadrage: 'MS / LS — nuit assumée',
+        reglages: 'ISO 800-1600 assumé · 1/50s · AF continu · ND retiré · White Balance 3 200K',
+        d: 'Lumières de la ville à la tombée. ISO 800-1600 assumé. Le grain numérique = texture cinéma.'
+      }
     ]
   },
   tuto: {
     label: '🎯 Tuto',
     desc: 'Technique ou apprentissage',
     pin_question: '💬 Tu veux voir le tuto montage complet ?',
+    subjectTemplates: [
+      s => `${s} — voilà comment ça marche vraiment.`,
+      s => `${s} : le truc que personne n'explique clairement.`,
+      s => `Tout ce qu'il faut savoir sur ${s} en moins de 60 secondes.`,
+      s => `${s} — j'ai mis 6 mois à comprendre ça. Toi 30 secondes.`
+    ],
     shots: [
-      { n:'Before — le problème', t:'iPhone', d:'Résultat SANS la technique en premier. Le problème évident en <2s.' },
-      { n:'Le plan clé', t:'DJI', d:'Plan qui illustre la technique de façon irréfutable. Un seul plan.' },
-      { n:'Détail du geste', t:'iPhone macro', d:'Les mains ou le geste précis sur le matériel. Overlay texte explique.' },
-      { n:'After — le résultat', t:'DJI', d:'Résultat AVEC la technique. Immédiatement après le before.' },
-      { n:'Setup reveal', t:'iPhone', d:'Setup complet DJI + iPhone en plan large. Anticipe les questions.' },
-      { n:'Plan de conclusion', t:'DJI', d:'Le meilleur résultat, seul à l\'écran. Le motif de sauvegarder.' }
+      {
+        n: 'Before — le problème', t: 'iPhone',
+        cadrage: 'MS / MCU — plan statique',
+        reglages: 'Lumière douce frontale · 4K 30fps · AF lock · Fond neutre · Pas de mouvement caméra',
+        d: 'Résultat SANS la technique en premier. Le problème évident en <2s.'
+      },
+      {
+        n: 'Le plan clé', t: 'DJI',
+        cadrage: 'MS — angle 45°',
+        reglages: '24fps · Expo auto · ActiveTrack OFF · Un seul plan, pas de cut · Stabilisation ON',
+        d: 'Plan qui illustre la technique de façon irréfutable. Un seul plan, pas de coupe.'
+      },
+      {
+        n: 'Détail du geste', t: 'iPhone macro',
+        cadrage: 'ECU — mains ou matériel',
+        reglages: 'Macro mode · MF · 1/100s · Ring light si sombre · 4K · Pas de zoom numérique',
+        d: 'Les mains ou le geste précis sur le matériel. Overlay texte explique.'
+      },
+      {
+        n: 'After — le résultat', t: 'DJI',
+        cadrage: 'MS — même cadrage exact que Before',
+        reglages: 'Même cadrage que shot 1 — le changement se voit immédiatement sans effort cognitif',
+        d: 'Résultat AVEC la technique. Immédiatement après le before. Même angle obligatoire.'
+      },
+      {
+        n: 'Setup reveal', t: 'iPhone',
+        cadrage: 'WS — setup complet visible',
+        reglages: 'Poser sur table · 4K 30fps · Lumière homogène · Arrière-plan épuré · Plan fixe',
+        d: 'Setup complet DJI + iPhone en plan large. Anticipe les questions de l\'audience.'
+      },
+      {
+        n: 'Plan de conclusion', t: 'DJI',
+        cadrage: 'MCU / CU — meilleur résultat seul',
+        reglages: 'Slider lent ou orbit 360° · 24fps · LUT appliquée · Expo parfaite · Pas de texte',
+        d: 'Le meilleur résultat, seul à l\'écran. Le motif de sauvegarder la vidéo.'
+      }
     ]
   }
 };
@@ -954,12 +1087,20 @@ function getActiveHook() {
   }
 }
 
+function generateSubjectDesc(sujet, format) {
+  if (!sujet) return null;
+  const templates = FORMATS[format].subjectTemplates;
+  const fn = templates[Math.floor(Math.random() * templates.length)];
+  return fn(sujet);
+}
+
 function generateOverlays() {
   const hook = getActiveHook();
+  const sujet = document.getElementById('inp-sujet') ? document.getElementById('inp-sujet').value.trim() : '';
+  const subjectDesc = generateSubjectDesc(sujet, currentFormat);
   const bank = OVERLAY_BANKS[currentFormat];
   const stop = bank.stop[Math.floor(Math.random() * bank.stop.length)];
   const snap = bank.snap[Math.floor(Math.random() * bank.snap.length)];
-
   const rewatch = REWATCH_BANKS[currentFormat][Math.floor(Math.random() * REWATCH_BANKS[currentFormat].length)];
   const overlays = [hook, stop, snap, rewatch];
   const labels = ['Overlay 1 — Hook', 'Overlay 2 — Stop', 'Overlay 3 — Snap', 'Overlay 4 — Rewatch'];
@@ -974,6 +1115,7 @@ function generateOverlays() {
     <div class="overlay-item">
       <div class="overlay-label">${labels[i]}</div>
       <div class="overlay-text" contenteditable="true" id="ov-0-${i}">${o}</div>
+      ${i === 0 && subjectDesc ? `<div class="sujet-desc-block">✏️ ${subjectDesc}</div>` : ''}
       <div class="overlay-note">${notes[i]}</div>
     </div>`).join('');
 
@@ -1023,7 +1165,14 @@ function generateShots() {
         <div class="shot-name">${s.n}</div>
         <div class="shot-tag">${s.t}</div>
       </div>
+      <div class="shot-meta">
+        <span class="shot-cadrage">📐 ${s.cadrage}</span>
+      </div>
       <div class="shot-desc">${s.d}</div>
+      <div class="shot-reglages">
+        <div class="shot-reglages-label">⚙️ Réglages</div>
+        ${s.reglages}
+      </div>
     </div>`).join('');
 }
 
