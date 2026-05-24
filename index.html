@@ -367,7 +367,7 @@
 <div class="screen active" id="screen-projet">
   <div class="screen-header">
     <h1>Carter<span>.mov</span></h1>
-    <p>Cinematic Life — Vlog · City Film · Tuto</p>
+    <p>Cinematic Life — Vlog · City Film · Tutorial</p>
   </div>
 
   <!-- PHASE 1 — FORMAT -->
@@ -377,67 +377,67 @@
       <button class="format-card selected" id="fc-vlog" onclick="selectFormat('vlog')">
         <span class="fc-icon">🎬</span>
         <span class="fc-name">Vlog</span>
-        <span class="fc-desc">Journée filmée comme un film</span>
+        <span class="fc-desc">Day filmed like a movie</span>
       </button>
       <button class="format-card" id="fc-city" onclick="selectFormat('city')">
         <span class="fc-icon">🌆</span>
         <span class="fc-name">City Film</span>
-        <span class="fc-desc">Ville filmée comme un court-métrage</span>
+        <span class="fc-desc">City filmed like a short film</span>
       </button>
       <button class="format-card" id="fc-tuto" onclick="selectFormat('tuto')">
         <span class="fc-icon">🎯</span>
-        <span class="fc-name">Tuto</span>
-        <span class="fc-desc">Technique ou apprentissage</span>
+        <span class="fc-name">Tutorial</span>
+        <span class="fc-desc">Technique or skill breakdown</span>
       </button>
     </div>
   </div>
 
-  <!-- SUJET DU JOUR -->
+  <!-- TODAY'S SUBJECT -->
   <div class="section">
-    <div class="section-title">Sujet du jour</div>
-    <input type="text" id="inp-sujet" placeholder="Ex : Journée à Toulouse, Color grading LUT, Golden hour Paris…" />
-    <div style="margin-top:6px;font-size:12px;color:var(--muted)">Génère une description personnalisée qui colle à ton sujet</div>
+    <div class="section-title">Today's Subject</div>
+    <input type="text" id="inp-sujet" placeholder="Ex: Golden hour in Paris, LUT color grading, Tokyo street walk…" />
+    <div style="margin-top:6px;font-size:12px;color:var(--muted)">Generates a custom description that matches your subject</div>
   </div>
 
   <!-- PHASE 2 — HOOK -->
   <div class="section">
     <div class="section-title">Phase 2 — Hook</div>
     <div class="hook-toggle">
-      <button class="hook-toggle-btn active" id="htbtn-verrouille" onclick="selectHookType('verrouille')">🔒 Verrouillé</button>
-      <button class="hook-toggle-btn" id="htbtn-geo" onclick="selectHookType('geo')">📍 Géo / Lieu</button>
+      <button class="hook-toggle-btn active" id="htbtn-verrouille" onclick="selectHookType('verrouille')">🔒 Locked</button>
+      <button class="hook-toggle-btn" id="htbtn-geo" onclick="selectHookType('geo')">📍 Geo / Location</button>
     </div>
 
-    <!-- VERROUILLÉ sub-UI -->
+    <!-- LOCKED sub-UI -->
     <div class="hook-lock-box" id="hook-lock-box"><!-- populated by JS --></div>
 
-    <!-- GÉO sub-UI -->
+    <!-- GEO sub-UI -->
     <div class="hook-lock-box hidden" id="hook-geo-box">
-      <input type="text" id="inp-ville" placeholder="Nom de la ville..." oninput="updateGeoPreview()" />
-      <div class="geo-preview empty" id="geo-preview">Saisis une ville pour voir le hook</div>
+      <input type="text" id="inp-ville" placeholder="City name..." oninput="updateGeoPreview()" />
+      <div class="geo-preview empty" id="geo-preview">Enter a city to preview the hook</div>
     </div>
   </div>
 
-  <!-- PHASE 3 — MUSIQUE -->
+  <!-- PHASE 3 — MUSIC -->
   <div class="section">
-    <div class="section-title">Phase 3 — Musique</div>
-    <input type="text" id="inp-musique" placeholder="Titre ou artiste (optionnel)..." />
-    <div style="margin-top:8px;font-size:12px;color:var(--muted)">Apparaît dans le commentaire épinglé</div>
+    <div class="section-title">Phase 3 — Music</div>
+    <input type="text" id="inp-musique" placeholder="Track or artist (optional)..." />
+    <div style="margin-top:8px;font-size:12px;color:var(--muted)">Appears in the pinned comment</div>
   </div>
 
   <!-- LUT -->
   <div class="section">
     <div class="lut-row">
       <span class="lut-label">🎨 LUT</span>
-      <input type="text" id="inp-lut" placeholder="Nom de ton LUT (ex: CARTES, SOLEIL GRIS…)" oninput="saveLutName()" />
+      <input type="text" id="inp-lut" placeholder="Your LUT name (ex: KODAK, MOODY FILM…)" oninput="saveLutName()" />
     </div>
   </div>
 
   <!-- GENERATE -->
   <div class="section" style="margin-top:20px">
-    <button class="btn" onclick="genererProjet()">🎬 Générer</button>
+    <button class="btn" onclick="genererProjet()">🎬 Generate</button>
   </div>
 
-  <!-- RÉSULTAT -->
+  <!-- RESULT -->
   <div id="result-section" class="hidden">
 
     <!-- ALGO BANNER -->
@@ -446,22 +446,22 @@
         <!-- populated by JS -->
       </div>
       <div class="premiere-heure">
-        <div class="ph-title">⏱ Première heure critique</div>
-        <div class="ph-text">Réponds à <strong>chaque commentaire</strong> dans les 60 min après publication — l'algo amplifie 5× les vidéos avec engagement précoce.</div>
+        <div class="ph-title">⏱ Critical First Hour</div>
+        <div class="ph-text">Reply to <strong>every comment</strong> within 60 min after posting — the algo amplifies 5× videos with early engagement.</div>
       </div>
     </div>
 
     <!-- OVERLAYS -->
     <div class="section">
       <div class="divider"></div>
-      <div class="section-title">Séquence d'overlays</div>
+      <div class="section-title">Overlay Sequence</div>
       <div id="hooks-list"></div>
-      <button class="btn-ghost" style="margin-top:4px" onclick="regenOverlays()">🔄 Régénérer overlays 2 &amp; 3</button>
+      <button class="btn-ghost" style="margin-top:4px" onclick="regenOverlays()">🔄 Regenerate overlays 2 &amp; 3</button>
     </div>
 
     <!-- SHOT LIST -->
     <div class="section">
-      <div class="section-title" style="margin-top:20px">Shot list — <span id="shots-format-label" style="color:var(--accent)"></span></div>
+      <div class="section-title" style="margin-top:20px">Shot List — <span id="shots-format-label" style="color:var(--accent)"></span></div>
       <div id="shots-list"></div>
     </div>
 
@@ -472,14 +472,14 @@
       <div class="pub-block">
         <div class="pub-block-header">
           <span class="pub-label">TikTok / Instagram</span>
-          <button class="copy-btn" id="copy-caption" onclick="copyEl('pub-caption','copy-caption')">Copier</button>
+          <button class="copy-btn" id="copy-caption" onclick="copyEl('pub-caption','copy-caption')">Copy</button>
         </div>
         <div class="pub-text" id="pub-caption"></div>
       </div>
       <div class="pub-block">
         <div class="pub-block-header">
-          <span class="pub-label">Commentaire épinglé</span>
-          <button class="copy-btn" id="copy-pin" onclick="copyEl('pub-pin','copy-pin')">Copier</button>
+          <span class="pub-label">Pinned Comment</span>
+          <button class="copy-btn" id="copy-pin" onclick="copyEl('pub-pin','copy-pin')">Copy</button>
         </div>
         <div class="pub-text" id="pub-pin"></div>
       </div>
@@ -492,21 +492,21 @@
 ════════════════════════════════════════ -->
 <div class="screen" id="screen-veille">
   <div class="screen-header">
-    <h1>Phase 1 — <span>Veille</span></h1>
-    <p>Analyse une vidéo inspirante → adapte à ton univers</p>
+    <h1>Phase 1 — <span>Research</span></h1>
+    <p>Analyse an inspiring video → adapt it to your universe</p>
   </div>
   <div class="section">
-    <div class="section-title">Décris la vidéo que tu as vue</div>
-    <textarea id="veille-desc" placeholder="Ex: Vidéo DJI Osmo Pocket, montage rapide, musique électronique, texte blanc en gras, angles ground level..." rows="4" style="margin-bottom:12px"></textarea>
-    <button class="btn" onclick="analyserInspiration()">🔍 Analyser l'inspiration</button>
+    <div class="section-title">Describe the video you watched</div>
+    <textarea id="veille-desc" placeholder="Ex: DJI Osmo Pocket video, fast cuts, electronic music, bold white text, ground-level angles..." rows="4" style="margin-bottom:12px"></textarea>
+    <button class="btn" onclick="analyserInspiration()">🔍 Analyse inspiration</button>
   </div>
   <div id="veille-result" class="hidden">
     <div class="section" style="margin-top:4px">
-      <div class="section-title">Signaux détectés</div>
+      <div class="section-title">Detected signals</div>
       <div id="veille-tags" class="tag-row" style="margin-bottom:16px"></div>
-      <div class="section-title">Analyse Kallaway</div>
+      <div class="section-title">Kallaway Analysis</div>
       <div id="veille-kallaway" class="card"></div>
-      <div class="section-title" style="margin-top:16px">3 angles adaptés DJI + iPhone</div>
+      <div class="section-title" style="margin-top:16px">3 adapted angles — DJI + iPhone</div>
       <div id="veille-angles"></div>
       <div id="veille-cta" style="margin-top:12px"></div>
     </div>
@@ -518,33 +518,33 @@
 ════════════════════════════════════════ -->
 <div class="screen" id="screen-analyse">
   <div class="screen-header">
-    <h1>Phase 0 — <span>Analyse</span></h1>
-    <p>Diagnostique ta dernière vidéo avant de créer</p>
+    <h1>Phase 0 — <span>Analytics</span></h1>
+    <p>Diagnose your last video before creating the next</p>
   </div>
   <div class="section">
-    <div class="section-title">Métriques TikTok</div>
+    <div class="section-title">TikTok Metrics</div>
     <div class="metric-grid" style="margin-bottom:12px">
-      <div class="metric-block"><label>Vues</label><input type="number" id="m-views" placeholder="530" /></div>
+      <div class="metric-block"><label>Views</label><input type="number" id="m-views" placeholder="530" /></div>
       <div class="metric-block"><label>Watch time (s)</label><input type="number" id="m-watch" placeholder="4.1" step="0.1" /></div>
-      <div class="metric-block"><label>Complétion (%)</label><input type="number" id="m-compl" placeholder="1.67" step="0.1" /></div>
+      <div class="metric-block"><label>Completion (%)</label><input type="number" id="m-compl" placeholder="1.67" step="0.1" /></div>
       <div class="metric-block"><label>Rewatch (%)</label><input type="number" id="m-rw" placeholder="2.5" step="0.1" /></div>
     </div>
     <div class="metric-grid" style="margin-bottom:16px">
-      <div class="metric-block"><label>Partages</label><input type="number" id="m-shares" placeholder="0" /></div>
-      <div class="metric-block"><label>Durée vidéo (s)</label><input type="number" id="m-dur" placeholder="30" /></div>
+      <div class="metric-block"><label>Shares</label><input type="number" id="m-shares" placeholder="0" /></div>
+      <div class="metric-block"><label>Video duration (s)</label><input type="number" id="m-dur" placeholder="30" /></div>
     </div>
-    <button class="btn" onclick="lancerDiagnostic()">🩺 Lancer le diagnostic</button>
+    <button class="btn" onclick="lancerDiagnostic()">🩺 Run Diagnostic</button>
   </div>
   <div id="diagnostic-result" class="hidden">
     <div class="section" style="margin-top:4px">
-      <div class="section-title">Signaux</div>
+      <div class="section-title">Signals</div>
       <div class="card" style="padding:8px 16px"><div id="signals-list"></div></div>
-      <div class="section-title" style="margin-top:16px">Verdict algo</div>
+      <div class="section-title" style="margin-top:16px">Algo verdict</div>
       <div id="algo-verdict"></div>
-      <div class="section-title" style="margin-top:16px">Recommandation de phase</div>
+      <div class="section-title" style="margin-top:16px">Phase recommendation</div>
       <div id="phase-routing" class="card"></div>
       <div style="margin-top:16px">
-        <button class="btn" onclick="saveFromAnalyse()">💾 Sauvegarder dans le journal</button>
+        <button class="btn" onclick="saveFromAnalyse()">💾 Save to journal</button>
       </div>
     </div>
   </div>
@@ -555,59 +555,59 @@
 ════════════════════════════════════════ -->
 <div class="screen" id="screen-tournage">
   <div class="screen-header">
-    <h1>Phase 4 — <span>Tournage</span></h1>
-    <p>Checklist terrain + rappels Kallaway</p>
+    <h1>Phase 4 — <span>Shooting</span></h1>
+    <p>Field checklist + Kallaway reminders</p>
   </div>
   <div class="section">
-    <button class="btn" onclick="exportBrief()">📋 Exporter le brief de tournage</button>
+    <button class="btn" onclick="exportBrief()">📋 Export shooting brief</button>
     <div id="brief-export-box" class="hidden" style="margin-top:12px">
       <div class="pub-block-header" style="margin-bottom:8px">
-        <span class="pub-label">Brief complet</span>
-        <button class="copy-btn" id="copy-brief" onclick="copyEl('brief-text','copy-brief')">Copier</button>
+        <span class="pub-label">Full brief</span>
+        <button class="copy-btn" id="copy-brief" onclick="copyEl('brief-text','copy-brief')">Copy</button>
       </div>
       <div class="pub-text" id="brief-text" style="font-size:13px;line-height:1.7"></div>
     </div>
   </div>
   <div class="section">
-    <div class="section-title">Rappels Kallaway</div>
+    <div class="section-title">Kallaway Reminders</div>
     <div class="kallaway-tip">
-      <div class="tip-title">🎯 Timer 4 secondes</div>
-      <div class="tip-text">Ton meilleur plan <strong>DOIT</strong> être entre 0 et 2 secondes. L'algo TikTok coupe la distribution à 4s si le hook visuel ne retient pas.</div>
+      <div class="tip-title">🎯 4-Second Rule</div>
+      <div class="tip-text">Your best shot <strong>MUST</strong> land between 0 and 2 seconds. TikTok cuts distribution at 4s if the visual hook doesn't hold.</div>
     </div>
     <div class="kallaway-tip">
-      <div class="tip-title">👁️ Hook visuel = 100× le verbal</div>
-      <div class="tip-text">Sans voix, le cadre 0 est ton seul hook. Plan choc ou mouvement inattendu en ouverture — jamais le plan d'intro classique.</div>
+      <div class="tip-title">👁️ Visual hook = 100× verbal</div>
+      <div class="tip-text">No voiceover means frame 0 is your only hook. Shock shot or unexpected movement — never the classic intro wide.</div>
     </div>
     <div class="kallaway-tip">
       <div class="tip-title">🔄 Value loop</div>
-      <div class="tip-text">Structure : Contexte → Hit de valeur → Contexte → Hit de valeur. Front-load : donne de la valeur dans les 3 premières secondes.</div>
+      <div class="tip-text">Structure: Context → Value hit → Context → Value hit. Front-load: deliver value in the first 3 seconds.</div>
     </div>
     <div class="kallaway-tip">
-      <div class="tip-title">🎨 LUT = identité visuelle</div>
-      <div class="tip-text">Un LUT constant crée la reconnaissance. Ton audience reconnaît ton univers avant même de lire ton nom. Consistency > qualité technique.</div>
+      <div class="tip-title">🎨 LUT = visual identity</div>
+      <div class="tip-text">A consistent LUT builds recognition. Your audience knows your universe before they even read your name. Consistency > technical quality.</div>
     </div>
   </div>
   <div class="section">
-    <div class="section-title">Checklist terrain</div>
+    <div class="section-title">Field checklist</div>
     <div id="checklist-items">
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Format choisi (Vlog / City Film / Tuto)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔒 Hook généré et overlay 1 validé</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">⚡ Plan d'ouverture prévu à 0-2s</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔋 DJI Osmo Pocket chargé</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📱 iPhone chargé + stockage vérifié</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">💡 Lumière évaluée (heure dorée ?)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Shot list confirmée (6 plans)</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎨 LUT prévu pour montage</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📤 Publication planifiée (heure de pointe)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Format selected (Vlog / City Film / Tutorial)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔒 Hook generated and overlay 1 validated</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">⚡ Opening shot planned at 0-2s</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🔋 DJI Osmo Pocket charged</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📱 iPhone charged + storage checked</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">💡 Light evaluated (golden hour?)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎬 Shot list confirmed (10 shots)</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">🎨 LUT ready for edit</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">📤 Post scheduled (peak hour)</div></div>
     </div>
   </div>
   <div class="section">
-    <div class="section-title">4 tests du hook (Kallaway)</div>
+    <div class="section-title">4 Hook Tests (Kallaway)</div>
     <div class="card">
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Délai zéro</strong> — La promesse est-elle visible en &lt;1 seconde ?</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Zéro confusion</strong> — Un enfant de 10 ans comprend-il ?</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Pertinence (Tu/Ton)</strong> — La douleur/bénéfice est-il avant la technique ?</div></div>
-      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Contraste</strong> — Y a-t-il un contre-pied ou une tension narrative ?</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Zero delay</strong> — Is the promise visible in &lt;1 second?</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Zero confusion</strong> — Would a 10-year-old understand?</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Relevance (You/Your)</strong> — Is the pain/benefit before the technique?</div></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label"><strong>Contrast</strong> — Is there a twist or narrative tension?</div></div>
     </div>
   </div>
 </div>
@@ -617,11 +617,11 @@
 ════════════════════════════════════════ -->
 <div class="screen" id="screen-journal">
   <div class="screen-header">
-    <h1>Journal <span>créa</span></h1>
-    <p>Historique et apprentissages</p>
+    <h1>Creative <span>Journal</span></h1>
+    <p>History and learnings</p>
   </div>
   <div class="section">
-    <button class="btn" onclick="openModal()">+ Nouvelle entrée</button>
+    <button class="btn" onclick="openModal()">+ New entry</button>
   </div>
   <div class="section" style="margin-top:4px" id="journal-list"></div>
 </div>
@@ -630,10 +630,10 @@
      BOTTOM NAV
 ════════════════════════════════════════ -->
 <nav class="bottom-nav">
-  <button class="bnav-item active" onclick="switchTab(0)" id="bnav-0"><span class="icon">🎬</span>Projet</button>
-  <button class="bnav-item" onclick="switchTab(1)" id="bnav-1"><span class="icon">🔍</span>Veille</button>
-  <button class="bnav-item" onclick="switchTab(2)" id="bnav-2"><span class="icon">📊</span>Analyse</button>
-  <button class="bnav-item" onclick="switchTab(3)" id="bnav-3"><span class="icon">🎥</span>Tournage</button>
+  <button class="bnav-item active" onclick="switchTab(0)" id="bnav-0"><span class="icon">🎬</span>Project</button>
+  <button class="bnav-item" onclick="switchTab(1)" id="bnav-1"><span class="icon">🔍</span>Research</button>
+  <button class="bnav-item" onclick="switchTab(2)" id="bnav-2"><span class="icon">📊</span>Analytics</button>
+  <button class="bnav-item" onclick="switchTab(3)" id="bnav-3"><span class="icon">🎥</span>Shooting</button>
   <button class="bnav-item" onclick="switchTab(4)" id="bnav-4"><span class="icon">📓</span>Journal</button>
 </nav>
 
@@ -642,34 +642,34 @@
 ════════════════════════════════════════ -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
   <div class="modal">
-    <h3>Nouvelle entrée journal</h3>
+    <h3>New journal entry</h3>
     <div class="modal-field">
       <label>Format</label>
       <div class="chip-row">
         <button class="chip" id="modal-fc-vlog" onclick="modalSelectFormat('vlog')">🎬 Vlog</button>
         <button class="chip" id="modal-fc-city" onclick="modalSelectFormat('city')">🌆 City Film</button>
-        <button class="chip" id="modal-fc-tuto" onclick="modalSelectFormat('tuto')">🎯 Tuto</button>
+        <button class="chip" id="modal-fc-tuto" onclick="modalSelectFormat('tuto')">🎯 Tutorial</button>
       </div>
     </div>
     <div class="modal-field">
-      <label>Titre / Sujet</label>
-      <input type="text" id="modal-titre" placeholder="Ex: Day 07 — City Film Toulouse" />
+      <label>Title / Subject</label>
+      <input type="text" id="modal-titre" placeholder="Ex: Day 07 — City Film Tokyo" />
     </div>
     <div class="modal-field modal-grid">
-      <div><label>Vues</label><input type="number" id="modal-views" placeholder="530" /></div>
+      <div><label>Views</label><input type="number" id="modal-views" placeholder="530" /></div>
       <div><label>Watch time (s)</label><input type="number" id="modal-watch" placeholder="4.1" step="0.1" /></div>
-      <div><label>Complétion (%)</label><input type="number" id="modal-compl" placeholder="1.67" step="0.1" /></div>
+      <div><label>Completion (%)</label><input type="number" id="modal-compl" placeholder="1.67" step="0.1" /></div>
       <div><label>Rewatch (%)</label><input type="number" id="modal-rw" placeholder="2.5" step="0.1" /></div>
-      <div><label>Durée vidéo (s)</label><input type="number" id="modal-dur" placeholder="45" /></div>
+      <div><label>Video duration (s)</label><input type="number" id="modal-dur" placeholder="45" /></div>
       <div><label>Saves</label><input type="number" id="modal-saves" placeholder="0" /></div>
     </div>
     <div class="modal-field">
-      <label>Apprentissage / Note</label>
-      <textarea id="modal-note" placeholder="Qu'est-ce qui a marché ? Qu'est-ce qui a raté ?" rows="3"></textarea>
+      <label>Learning / Note</label>
+      <textarea id="modal-note" placeholder="What worked? What didn't?" rows="3"></textarea>
     </div>
     <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeModal()">Annuler</button>
-      <button class="btn" style="flex:1" onclick="saveJournalEntry()">Sauvegarder</button>
+      <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn" style="flex:1" onclick="saveJournalEntry()">Save</button>
     </div>
   </div>
 </div>
@@ -682,230 +682,302 @@
 const FORMATS = {
   vlog: {
     label: '🎬 Vlog',
-    desc: 'Journée filmée comme un film',
-    pin_question: '💬 Quelle ville tu veux voir filmée comme ça ?',
+    desc: 'Day filmed like a movie',
+    pin_question: '💬 Which city do you want to see filmed like this?',
     subjectTemplates: [
-      s => `${s} — filmé comme tu ne l'as jamais vu.`,
-      s => `Une journée à ${s}, vue à travers un œil cinématique.`,
-      s => `${s} : voilà ce que ça donne quand on filme vraiment.`,
-      s => `${s} — la version cinéma de ta journée.`
+      s => `${s} — filmed like you've never seen it.`,
+      s => `A day in ${s}, seen through a cinematic eye.`,
+      s => `${s}: this is what it looks like when you actually film.`,
+      s => `${s} — the cinematic version of your day.`
     ],
     shots: [
       {
-        n: 'Plan d\'ouverture cutaway', t: 'DJI',
+        n: 'Opening cutaway', t: 'DJI',
         cadrage: 'ECU — Extreme Close-Up',
-        reglages: 'Expo −0.3 EV · 1/50s · 24fps · MF sur détail · ND4 si lumière forte',
-        d: 'Détail ou lieu qui établit l\'ambiance en <2s. Pas de visage — crée le mystère d\'entrée.'
+        reglages: 'Expo −0.3 EV · 1/50s · 24fps · MF on detail · ND4 in bright light',
+        d: 'Detail or location that sets the mood in <2s. No face — creates mystery.'
       },
       {
-        n: 'Révélation du sujet', t: 'iPhone',
-        cadrage: 'MCU → MS (pull back lent)',
-        reglages: 'Portrait mode OFF · 1/50s · ISO auto · 0.5× si espace · Cinematic mode 4K',
-        d: 'Cadrage serré puis élargissement. Le sujet entre dans le cadre. Jamais face caméra directe en premier.'
+        n: 'Subject reveal', t: 'iPhone',
+        cadrage: 'MCU → MS (slow pull back)',
+        reglages: 'Portrait mode OFF · 1/50s · ISO auto · 0.5× if space · Cinematic mode 4K',
+        d: 'Tight framing then widen. Subject enters frame. Never direct face-to-camera first.'
       },
       {
-        n: 'Mouvement tracking', t: 'DJI',
-        cadrage: 'MS / MLS — caméra en mouvement',
-        reglages: 'ActiveTrack 3.0 · Slow Mode 60fps si possible · Gimbal tilt −5° · 24fps export',
-        d: 'Glide ou follow shot — le mouvement raconte le déplacement. 3-5 secondes max.'
+        n: 'Tracking movement', t: 'DJI',
+        cadrage: 'MS / MLS — camera in motion',
+        reglages: 'ActiveTrack 3.0 · Slow Mode 60fps · Gimbal tilt −5° · Export 24fps',
+        d: 'Glide or follow shot — movement tells the journey. 3–5 seconds max.'
       },
       {
-        n: 'Détail sensoriel', t: 'DJI macro',
+        n: 'Sensory detail', t: 'DJI macro',
         cadrage: 'ECU — Extreme Close-Up',
-        reglages: 'Macro mode · MF précis · 1/100s · Expo −0.7 EV · Stabilisation MAX',
-        d: 'Mains, texture, objet du moment. Ancre l\'audience dans l\'instant présent.'
+        reglages: 'Macro mode · Precise MF · 1/100s · Expo −0.7 EV · Stabilisation MAX',
+        d: 'Hands, texture, object of the moment. Anchors the audience in the present.'
       },
       {
-        n: 'Plan contemplatif', t: 'iPhone',
-        cadrage: 'LS / WS — caméra fixe',
-        reglages: 'Trépied obligatoire · 1/50s · ISO min · Lock expo + focus · 4K 24fps',
-        d: 'Sujet statique, monde qui bouge autour. Plan long — crée la respiration de la vidéo.'
+        n: 'Contemplative wide', t: 'iPhone',
+        cadrage: 'LS / WS — locked off',
+        reglages: 'Tripod required · 1/50s · ISO min · Lock expo + focus · 4K 24fps',
+        d: 'Subject still, world moves around. Long take — gives the video room to breathe.'
       },
       {
-        n: 'Plan de clôture', t: 'DJI',
-        cadrage: 'WS / EWS — pull back ou orbit',
-        reglages: 'Pull back shot ou orbit 180° · Expo sur ciel · 24fps · Laisse tourner 5s minimum',
-        d: 'Plan large final. Sujet qui sort du frame ou fondu vers l\'extérieur. Laisse tourner 5s.'
+        n: 'Reaction / emotion', t: 'iPhone',
+        cadrage: 'CU — Close-Up',
+        reglages: '1× or 2× lens · 1/50s · AF lock on eyes · Natural light only · No flash',
+        d: 'Face or reaction in the moment. Unposed. Capture it as it happens — never re-enacted.'
+      },
+      {
+        n: 'Over-the-shoulder', t: 'DJI',
+        cadrage: 'OTS — Over the Shoulder MS',
+        reglages: 'Gimbal follow mode · 1/50s · 24fps · Subject 1/3 of frame · Soft background',
+        d: 'Camera behind and beside subject. Creates cinematic depth and perspective shift.'
+      },
+      {
+        n: 'B-roll insert', t: 'DJI macro',
+        cadrage: 'ECU / CU — object or environment',
+        reglages: 'MF · 1/100s · Expo −0.5 EV · Stabilisation ON · 2–3s max',
+        d: 'Cutaway that supports the narrative — food, hands, tools, signage. One clean shot.'
+      },
+      {
+        n: 'Time transition', t: 'iPhone',
+        cadrage: 'WS — sky or environment',
+        reglages: 'Tripod · Time-lapse or 4K locked · ISO min · Wide 0.5× lens · Let clouds move',
+        d: 'Sky, light changing, or crowd moving. Signals a time jump in the edit without title cards.'
+      },
+      {
+        n: 'Closing pull-back', t: 'DJI',
+        cadrage: 'EWS — Extreme Wide / Pull back',
+        reglages: 'Pull back or 180° orbit · Expose for sky · 24fps · Let it run 5s minimum',
+        d: 'Final wide shot. Subject walks out of frame or dissolves to exterior. The exit scene.'
       }
     ]
   },
   city: {
     label: '🌆 City Film',
-    desc: 'Ville filmée comme un court-métrage',
-    pin_question: '💬 Tu connais cette ville ? Dis-moi en commentaire 👇',
+    desc: 'City filmed like a short film',
+    pin_question: '💬 Do you know this city? Tell me in the comments 👇',
     subjectTemplates: [
-      s => `${s} filmée comme un court-métrage. Voilà ce que tu rates.`,
-      s => `${s} — même ville, regard différent. Tout change.`,
-      s => `${s} vue comme personne ne la montre.`,
-      s => `Personne ne filme ${s} comme ça. Pourtant t'as tout ce qu'il faut.`
+      s => `${s} filmed like a short film. This is what you're missing.`,
+      s => `${s} — same city, different eye. Everything changes.`,
+      s => `${s} like nobody shows it.`,
+      s => `Nobody films ${s} like this. Yet you have everything you need.`
     ],
     shots: [
       {
-        n: 'Identité du lieu', t: 'DJI',
-        cadrage: 'WS / EWS — angle inhabituel',
-        reglages: 'Golden hour · Expo −0.3 EV · ND4 si lumière forte · 24fps · Basse hauteur recommandée',
-        d: 'Plan large iconique — la ville reconnaissable en <3s. Angle inhabituel, jamais le plan touristique.'
+        n: 'Location identity', t: 'DJI',
+        cadrage: 'WS / EWS — unusual angle',
+        reglages: 'Golden hour · Expo −0.3 EV · ND4 in strong light · 24fps · Low angle recommended',
+        d: 'Iconic wide — city recognisable in <3s. Unusual angle, never the tourist shot.'
       },
       {
-        n: 'Texture urbaine', t: 'DJI macro',
-        cadrage: 'ECU — lumière rasante',
-        reglages: 'MF · Expo −0.7 EV · Lumière rasante oblige · 1/100s · Stabilisation MAX',
-        d: 'Béton, enseigne, reflet — la matière de la ville. Lumière rasante pour révéler les détails.'
+        n: 'Urban texture', t: 'DJI macro',
+        cadrage: 'ECU — raking light',
+        reglages: 'MF · Expo −0.7 EV · Raking light mandatory · 1/100s · Stabilisation MAX',
+        d: 'Concrete, signage, reflection — the material of the city. Raking light to reveal surface detail.'
       },
       {
-        n: 'Flux humain', t: 'iPhone',
-        cadrage: 'LS — caméra fixe sur trépied',
-        reglages: 'Trépied · 1/50s · ISO auto · Shutter lock · Ne pas zoomer — laisser le mouvement venir',
-        d: 'Foule en mouvement, caméra fixe. Le contraste entre le statique du cadre et le mouvement crée la tension.'
+        n: 'Human flow', t: 'iPhone',
+        cadrage: 'LS — locked off on tripod',
+        reglages: 'Tripod · 1/50s · ISO auto · Shutter lock · No zoom — let the movement come to you',
+        d: 'Crowd in motion, camera still. The contrast between static frame and movement creates tension.'
       },
       {
-        n: 'Architecture contrejour', t: 'DJI',
-        cadrage: 'LS / WS — contre-jour pur',
-        reglages: 'Exposer sur le ciel (pas sur le bâtiment) · EV −1.5 · Golden/Blue hour · 24fps',
-        d: 'Bâtiment ou structure contre la lumière. Silhouette dure. Exposer sur le ciel.'
+        n: 'Backlit architecture', t: 'DJI',
+        cadrage: 'LS / WS — pure backlight',
+        reglages: 'Expose for sky (not building) · EV −1.5 · Golden/Blue hour · 24fps',
+        d: 'Building or structure against the light. Hard silhouette. Expose for the sky, not the subject.'
       },
       {
-        n: 'Street detail inattendu', t: 'iPhone',
-        cadrage: 'CU / MCU — à hauteur d\'objet',
-        reglages: '0.5× grand angle · 1/50s · Tap focus · Expo manuelle si reflets · 4K',
-        d: 'Élément que les passants ne voient plus parce qu\'ils voient trop.'
+        n: 'Unexpected street detail', t: 'iPhone',
+        cadrage: 'CU / MCU — object level',
+        reglages: '0.5× wide lens · 1/50s · Tap focus · Manual expo for reflections · 4K',
+        d: 'An element passers-by no longer see because they see too much. Get low.'
       },
       {
         n: 'Night reveal', t: 'DJI',
-        cadrage: 'MS / LS — nuit assumée',
-        reglages: 'ISO 800-1600 assumé · 1/50s · AF continu · ND retiré · White Balance 3 200K',
-        d: 'Lumières de la ville à la tombée. ISO 800-1600 assumé. Le grain numérique = texture cinéma.'
+        cadrage: 'MS / LS — night committed',
+        reglages: 'ISO 800–1600 accepted · 1/50s · Continuous AF · ND removed · WB 3 200K',
+        d: 'City lights at dusk. Grain is not the enemy — it is the texture. Own it.'
+      },
+      {
+        n: 'Ground level wide', t: 'DJI',
+        cadrage: 'EWS — extreme low angle',
+        reglages: 'Gimbal tilted down · Ground clearance 5cm · 24fps · Slow glide forward · ND4',
+        d: 'Camera at pavement level looking up. Makes the city feel enormous. Shot nobody takes.'
+      },
+      {
+        n: 'Reflection shot', t: 'iPhone',
+        cadrage: 'CU — water, glass or mirror',
+        reglages: '1× lens · Tap focus on reflection · 1/50s · Expo −0.5 EV · Hold steady 3s',
+        d: 'Puddle, shop window, sunglasses. The city doubled. Works as a transition cut.'
+      },
+      {
+        n: 'Crowd isolation', t: 'DJI',
+        cadrage: 'MCU — subject alone in frame',
+        reglages: 'ActiveTrack OFF · Slow pan at 10°/s · 24fps · Shallow depth via distance · Soft BG',
+        d: 'One person in an otherwise crowded space. Creates a lonely-in-the-crowd cinematic beat.'
+      },
+      {
+        n: 'Elevated outro', t: 'DJI',
+        cadrage: 'WS / EWS — elevated or rise',
+        reglages: 'Slow rise or rotate · 24fps · Expose for sky · Run 5s+ · Let the city shrink',
+        d: 'High or rising final shot to close. Subject or street becomes small. The city wins.'
       }
     ]
   },
   tuto: {
-    label: '🎯 Tuto',
-    desc: 'Technique ou apprentissage',
-    pin_question: '💬 Tu veux voir le tuto montage complet ?',
+    label: '🎯 Tutorial',
+    desc: 'Technique or skill breakdown',
+    pin_question: '💬 Want to see the full edit tutorial?',
     subjectTemplates: [
-      s => `${s} — voilà comment ça marche vraiment.`,
-      s => `${s} : le truc que personne n'explique clairement.`,
-      s => `Tout ce qu'il faut savoir sur ${s} en moins de 60 secondes.`,
-      s => `${s} — j'ai mis 6 mois à comprendre ça. Toi 30 secondes.`
+      s => `${s} — here's how it actually works.`,
+      s => `${s}: the thing nobody explains clearly.`,
+      s => `Everything you need to know about ${s} in under 60 seconds.`,
+      s => `${s} — took me 6 months to figure this out. You get it in 30 seconds.`
     ],
     shots: [
       {
-        n: 'Before — le problème', t: 'iPhone',
-        cadrage: 'MS / MCU — plan statique',
-        reglages: 'Lumière douce frontale · 4K 30fps · AF lock · Fond neutre · Pas de mouvement caméra',
-        d: 'Résultat SANS la technique en premier. Le problème évident en <2s.'
+        n: 'Before — the problem', t: 'iPhone',
+        cadrage: 'MS / MCU — static shot',
+        reglages: 'Soft frontal light · 4K 30fps · AF lock · Neutral background · No camera movement',
+        d: 'Result WITHOUT the technique first. The obvious problem in <2s. No explanation yet.'
       },
       {
-        n: 'Le plan clé', t: 'DJI',
-        cadrage: 'MS — angle 45°',
-        reglages: '24fps · Expo auto · ActiveTrack OFF · Un seul plan, pas de cut · Stabilisation ON',
-        d: 'Plan qui illustre la technique de façon irréfutable. Un seul plan, pas de coupe.'
+        n: 'Key demonstration', t: 'DJI',
+        cadrage: 'MS — 45° angle',
+        reglages: '24fps · Auto expo · ActiveTrack OFF · One continuous shot, no cuts · Stabilisation ON',
+        d: 'The shot that proves the technique undeniably. One shot only, no cut.'
       },
       {
-        n: 'Détail du geste', t: 'iPhone macro',
-        cadrage: 'ECU — mains ou matériel',
-        reglages: 'Macro mode · MF · 1/100s · Ring light si sombre · 4K · Pas de zoom numérique',
-        d: 'Les mains ou le geste précis sur le matériel. Overlay texte explique.'
+        n: 'Gesture detail', t: 'iPhone macro',
+        cadrage: 'ECU — hands or gear',
+        reglages: 'Macro mode · MF · 1/100s · Ring light if dark · 4K · No digital zoom',
+        d: 'Hands or the exact movement on the gear. Text overlay goes here.'
       },
       {
-        n: 'After — le résultat', t: 'DJI',
-        cadrage: 'MS — même cadrage exact que Before',
-        reglages: 'Même cadrage que shot 1 — le changement se voit immédiatement sans effort cognitif',
-        d: 'Résultat AVEC la technique. Immédiatement après le before. Même angle obligatoire.'
+        n: 'After — the result', t: 'DJI',
+        cadrage: 'MS — exact same frame as Before',
+        reglages: 'Identical framing to shot 1 — the change is obvious without any mental effort',
+        d: 'Result WITH the technique. Immediately after the before. Same angle is mandatory.'
       },
       {
         n: 'Setup reveal', t: 'iPhone',
-        cadrage: 'WS — setup complet visible',
-        reglages: 'Poser sur table · 4K 30fps · Lumière homogène · Arrière-plan épuré · Plan fixe',
-        d: 'Setup complet DJI + iPhone en plan large. Anticipe les questions de l\'audience.'
+        cadrage: 'WS — full setup visible',
+        reglages: 'Flat lay on table · 4K 30fps · Even light · Clean background · Locked off',
+        d: 'Full DJI + iPhone setup wide shot. Pre-empts the "what gear?" questions.'
       },
       {
-        n: 'Plan de conclusion', t: 'DJI',
-        cadrage: 'MCU / CU — meilleur résultat seul',
-        reglages: 'Slider lent ou orbit 360° · 24fps · LUT appliquée · Expo parfaite · Pas de texte',
-        d: 'Le meilleur résultat, seul à l\'écran. Le motif de sauvegarder la vidéo.'
+        n: 'Screen or dial close-up', t: 'iPhone macro',
+        cadrage: 'ECU — screen, dial or setting',
+        reglages: 'Macro mode · MF on screen · Brightness max on device · 1/100s · No reflections',
+        d: 'The exact setting on the screen or physical dial. Leaves zero ambiguity.'
+      },
+      {
+        n: 'Common mistake', t: 'iPhone',
+        cadrage: 'MCU — demonstrating wrong version',
+        reglages: 'Same framing as key demo · 4K · Show it quickly (2–3s) · Label it clearly',
+        d: 'What NOT to do — shown briefly. Makes the correct technique land harder by contrast.'
+      },
+      {
+        n: 'Side-by-side comparison', t: 'DJI',
+        cadrage: 'MS — two identical framings',
+        reglages: 'Shoot both at same focal + expo · 24fps · Lock WB · Same subject, same angle',
+        d: 'Before and after side by side in edit. Shoot both halves identically framed.'
+      },
+      {
+        n: 'Talking head recap', t: 'iPhone',
+        cadrage: 'MCU — face to camera',
+        reglages: '1× lens · Eye level · Soft light at 45° · 4K 30fps · Lock focus on eyes',
+        d: 'Face to camera for 3–5s recap. "That is the only thing you need to remember." CTA here.'
+      },
+      {
+        n: 'Conclusion showcase', t: 'DJI',
+        cadrage: 'MCU / CU — best result alone',
+        reglages: 'Slow slider or 360° orbit · 24fps · LUT applied · Perfect expo · No text overlay',
+        d: 'The single best result on screen. The reason they save the video.'
       }
     ]
   }
 };
 
 const HOOK_OPTIONS = [
-  'Tu vis dans un film sans le savoir 🎬',
-  'Ta vie mérite d\'être filmée 🎬',
-  'Fais de ta vie un film 🎬',
-  'La vie filmée comme elle devrait l\'être 🎬'
+  'You\'re living in a film without knowing it 🎬',
+  'Your life deserves to be filmed 🎬',
+  'Make your life a film 🎬',
+  'Life filmed the way it should be 🎬'
 ];
 
 const OVERLAY_BANKS = {
   vlog: {
     stop: [
-      '3 plans. 0 voix. Tout l\'essentiel.',
-      'Filmé en une heure, monté en une heure.',
-      'DJI Osmo Pocket + iPhone — rien d\'autre.',
-      'La lumière a duré 11 minutes.'
+      '3 shots. 0 voiceover. Everything that matters.',
+      'Shot in one hour. Edited in one hour.',
+      'DJI Osmo Pocket + iPhone — nothing else.',
+      'The light lasted 11 minutes.'
     ],
     snap: [
-      'Mais personne ne filme comme ça.',
-      'La plupart ratent l\'ouverture.',
-      'Pourtant c\'est le plan le plus simple qui existe.',
-      'Et tu peux faire pareil demain.'
+      'But nobody films like this.',
+      'Most people miss the opening shot.',
+      'Yet it\'s the simplest shot that exists.',
+      'And you can do the same thing tomorrow.'
     ]
   },
   city: {
     stop: [
-      'Cette ville vue comme tu ne l\'as jamais vue.',
-      '3 plans. 1 heure. 0 filtre.',
-      'La même rue — un angle différent — tout change.',
-      'DJI Osmo Pocket + iPhone. Rien d\'autre.'
+      'This city like you\'ve never seen it.',
+      '3 shots. 1 hour. 0 filters.',
+      'Same street — different angle — everything changes.',
+      'DJI Osmo Pocket + iPhone. Nothing else.'
     ],
     snap: [
-      'Pourtant tu passes devant chaque jour.',
-      'Personne ne s\'arrête pour regarder.',
-      'Mais le cinéma est déjà là.',
-      'Le problème ? Personne ne sait regarder.'
+      'Yet you walk past it every single day.',
+      'Nobody stops to actually look.',
+      'But the cinema is already there.',
+      'The problem? Nobody knows how to see.'
     ]
   },
   tuto: {
     stop: [
-      'Un seul réglage. Résultat immédiat.',
-      '6 mois pour comprendre. 30 secondes pour toi.',
-      'Avant / Après — tu vas voir la différence.',
-      'Le truc que les pros ne montrent pas.'
+      'One setting. Immediate result.',
+      '6 months to figure out. 30 seconds for you.',
+      'Before / After — you\'ll see the difference.',
+      'The thing the pros never show.'
     ],
     snap: [
-      'Mais personne n\'explique ça clairement.',
-      'Et c\'est contre-intuitif.',
-      'Pourtant c\'est la base.',
-      'Maintenant tu sais.'
+      'But nobody explains this clearly.',
+      'And it\'s completely counter-intuitive.',
+      'Yet it\'s the most basic thing.',
+      'Now you know.'
     ]
   }
 };
 
 const REWATCH_BANKS = {
   vlog: [
-    'Regarde encore — tu as raté quelque chose.',
-    'Tu as vu le plan à 0:08 ?',
-    'Deuxième visionnage = tu comprends tout.',
-    'Le plan final change tout. Revois depuis le début.'
+    'Watch again — you missed something.',
+    'Did you catch the shot at 0:08?',
+    'Second watch = you understand everything.',
+    'The final shot changes it all. Watch from the start.'
   ],
   city: [
-    'Tu as vu l\'angle caché ?',
-    'Regarde encore — tu as manqué le meilleur plan.',
-    'Deuxième visionnage = tu vois la ville autrement.',
-    'Ce détail à 0:06 — tu l\'as vu ?'
+    'Did you see the hidden angle?',
+    'Watch again — you missed the best shot.',
+    'Second watch = you see the city differently.',
+    'That detail at 0:06 — did you catch it?'
   ],
   tuto: [
-    'Pause. Revois le geste exact.',
-    'Tu as noté les 3 réglages ?',
-    'Revois à 0.5× — le détail est là.',
-    'Si tu l\'as sauvegardé, revois-le maintenant.'
+    'Pause. Watch the exact gesture again.',
+    'Did you write down the 3 settings?',
+    'Rewatch at 0.5× — the detail is right there.',
+    'If you saved this, watch it again right now.'
   ]
 };
 
 const DURATION_GUIDE = {
-  vlog: { rec: '45-60s', target: 55, signal: '55%+ complétion · rewatches prioritaires' },
-  city: { rec: '30-45s', target: 65, signal: '65%+ complétion · shares = signal fort' },
-  tuto: { rec: '25-40s', target: 65, signal: '65%+ complétion · saves = signal fort' }
+  vlog: { rec: '45-60s', target: 55, signal: '55%+ completion · rewatches are priority signal' },
+  city: { rec: '30-45s', target: 65, signal: '65%+ completion · shares = strong signal' },
+  tuto: { rec: '25-40s', target: 65, signal: '65%+ completion · saves = strong signal' }
 };
 
 // Kept for Veille screen compatibility
@@ -1000,13 +1072,13 @@ function initHookVerrouille() {
     box.innerHTML = `
       <div class="hook-selected-box">
         <div class="hook-selected-text">${saved}</div>
-        <button class="hook-reset-btn" onclick="resetHookVerrouille()">Changer</button>
+        <button class="hook-reset-btn" onclick="resetHookVerrouille()">Change</button>
       </div>`;
   } else {
     const opts = HOOK_OPTIONS.map((h, i) => `
       <button class="hook-option" onclick="pickHookVerrouille(${i})">${h}</button>`).join('');
     box.innerHTML = `
-      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Choisis ton hook de marque — il sera répété dans toutes tes vidéos :</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Choose your brand hook — it will repeat in every video:</div>
       <div class="hook-options-list">${opts}</div>`;
   }
 }
@@ -1025,18 +1097,18 @@ function resetHookVerrouille() {
 
 function geoHookForFormat(ville, format) {
   const map = {
-    vlog:  `${ville} — ta vie, filmée comme un film 🎬`,
-    city:  `${ville}, filmée comme elle devrait l'être 🎬`,
-    tuto:  `À ${ville} — ce réglage change tout 🎬`
+    vlog:  `${ville} — your life, filmed like a movie 🎬`,
+    city:  `${ville}, filmed the way it should be 🎬`,
+    tuto:  `In ${ville} — this one setting changes everything 🎬`
   };
-  return map[format] || `${ville} — filmée comme elle devrait l'être 🎬`;
+  return map[format] || `${ville} — filmed the way it should be 🎬`;
 }
 
 function updateGeoPreview() {
   const ville = document.getElementById('inp-ville').value.trim();
   const el = document.getElementById('geo-preview');
   if (!ville) {
-    el.textContent = 'Saisis une ville pour voir le hook';
+    el.textContent = 'Enter a city to preview the hook';
     el.classList.add('empty');
   } else {
     el.textContent = geoHookForFormat(ville, currentFormat);
@@ -1051,7 +1123,7 @@ function updateGeoPreview() {
 function genererProjet() {
   if (currentHookType === 'verrouille') {
     if (!LS.load('locked_hook', null)) {
-      alert('Choisis ton hook verrouillé d\'abord — il définit ton identité de marque.');
+      alert('Pick your locked hook first — it defines your brand identity.');
       document.getElementById('hook-lock-box').scrollIntoView({ behavior: 'smooth' });
       return;
     }
@@ -1105,10 +1177,10 @@ function generateOverlays() {
   const overlays = [hook, stop, snap, rewatch];
   const labels = ['Overlay 1 — Hook', 'Overlay 2 — Stop', 'Overlay 3 — Snap', 'Overlay 4 — Rewatch'];
   const notes = [
-    currentHookType === 'verrouille' ? '🔒 Hook verrouillé — identité Carter.mov' : '📍 Hook géo — ancrage local',
-    'Interjection ou chiffre choc — crée la boucle de curiosité',
-    'Contre-pied — casse l\'attente · tension narrative',
-    '🔄 Rewatch trigger — signal fort algo 2026 · place en fin de vidéo'
+    currentHookType === 'verrouille' ? '🔒 Locked hook — Carter.mov brand identity' : '📍 Geo hook — local anchor',
+    'Interjection or stat — creates the curiosity loop',
+    'Twist — breaks expectation · narrative tension',
+    '🔄 Rewatch trigger — strong algo 2026 signal · place at end of video'
   ];
 
   const overlaysHtml = overlays.map((o, i) => `
@@ -1182,25 +1254,25 @@ function generatePublication() {
   const hook = getActiveHook();
   const lut = document.getElementById('inp-lut').value.trim();
   const musique = document.getElementById('inp-musique').value.trim();
-  const colorgraded = lut || 'À venir 🔄';
+  const colorgraded = lut || 'Coming soon 🔄';
 
-  // 3-5 hashtags niche ciblés — algo 2026 pénalise les listes longues génériques
+  // 3-5 niche hashtags — algo 2026 penalises long generic lists
   const hashtags = {
     vlog: '#cinematiclife #djiosmopocket #vlogcinema #filmmaking #cinematic',
     city: '#cityfilm #cinematiclife #djiosmopocket #urbancinema #cinematic',
     tuto: '#filmtips #djiosmopocket #cinematiclife #cameratips #cinematic'
   };
 
-  const caption = `${hook}\n\nTourné : DJI Osmo Pocket + iPhone\nColorgraded : ${colorgraded}\n\n${hashtags[currentFormat]}`;
+  const caption = `${hook}\n\nShot on: DJI Osmo Pocket + iPhone\nColorgraded: ${colorgraded}\n\n${hashtags[currentFormat]}`;
 
   const fmt = FORMATS[currentFormat];
   const pinItems = [
-    '🎬 Setup :',
+    '🎬 Gear:',
     '→ DJI Osmo Pocket 3',
     '→ iPhone',
-    lut ? `→ LUT : ${lut} (DaVinci Resolve)` : '→ Montage DaVinci Resolve'
+    lut ? `→ LUT: ${lut} (DaVinci Resolve)` : '→ Edit: DaVinci Resolve'
   ];
-  if (musique) pinItems.push(`→ Son : ${musique}`);
+  if (musique) pinItems.push(`→ Music: ${musique}`);
   pinItems.push('');
   pinItems.push(fmt.pin_question);
 
@@ -1211,10 +1283,10 @@ function generatePublication() {
 function renderAlgoBanner() {
   const guide = DURATION_GUIDE[currentFormat];
   document.getElementById('algo-banner').innerHTML = `
-    <div class="algo-pill accent">⏱ Durée cible : ${guide.rec}</div>
+    <div class="algo-pill accent">⏱ Target length: ${guide.rec}</div>
     <div class="algo-pill cyan">🎯 ${guide.signal}</div>
-    <div class="algo-pill warn">🔄 Rewatch = signal prioritaire 2026</div>
-    <div class="algo-pill">📌 3-5 hashtags niche uniquement</div>
+    <div class="algo-pill warn">🔄 Rewatch = #1 priority signal 2026</div>
+    <div class="algo-pill">📌 3–5 niche hashtags only</div>
   `;
 }
 
@@ -1222,9 +1294,9 @@ function copyEl(id, btnId) {
   const text = document.getElementById(id).textContent;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById(btnId);
-    btn.textContent = '✓ Copié';
+    btn.textContent = '✓ Copied';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1500);
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
   });
 }
 
@@ -1237,60 +1309,60 @@ function analyserInspiration() {
   if (!desc) return;
 
   const signals = [];
-  if (/voix|voice|parle|narrateur/.test(desc)) signals.push({ label: 'Hook voix off', cls: 'accent' });
-  if (/texte|overlay|titre|sous.titre/.test(desc)) signals.push({ label: 'Hook texte overlay', cls: 'accent' });
-  if (/son natif|ambiance|nat sound/.test(desc)) signals.push({ label: 'Son natif', cls: 'cyan' });
-  if (/slow.motion|slow mo|ralenti/.test(desc)) signals.push({ label: 'Slow motion', cls: 'cyan' });
+  if (/voix|voice|voiceover|narrator/.test(desc)) signals.push({ label: 'Voiceover hook', cls: 'accent' });
+  if (/text|overlay|title|subtitle|caption/.test(desc)) signals.push({ label: 'Text overlay hook', cls: 'accent' });
+  if (/nat sound|ambient|natural audio/.test(desc)) signals.push({ label: 'Native sound', cls: 'cyan' });
+  if (/slow.motion|slow mo|slomo/.test(desc)) signals.push({ label: 'Slow motion', cls: 'cyan' });
   if (/timelapse|hyperlapse/.test(desc)) signals.push({ label: 'Timelapse', cls: 'cyan' });
-  if (/gimbal|dji|stabilisé/.test(desc)) signals.push({ label: 'Gimbal / DJI', cls: 'cyan' });
-  if (/rapide|quick|fast|dynamique|énergie/.test(desc)) signals.push({ label: 'Rythme rapide', cls: '' });
-  if (/lent|slow|contemplatif|apaisant/.test(desc)) signals.push({ label: 'Rythme lent', cls: '' });
-  if (/nuit|night|low light|sombre/.test(desc)) signals.push({ label: 'Tournage nuit', cls: '' });
-  if (/urbain|ville|street|rue/.test(desc)) signals.push({ label: 'Urbain', cls: '' });
-  if (/nature|forêt|mer|montagne/.test(desc)) signals.push({ label: 'Extérieur nature', cls: '' });
+  if (/gimbal|dji|stabilized|stabilised/.test(desc)) signals.push({ label: 'Gimbal / DJI', cls: 'cyan' });
+  if (/fast|quick|dynamic|energy|rapid/.test(desc)) signals.push({ label: 'Fast paced', cls: '' });
+  if (/slow|calm|contemplative|peaceful/.test(desc)) signals.push({ label: 'Slow paced', cls: '' });
+  if (/night|low light|dark|neon/.test(desc)) signals.push({ label: 'Night shoot', cls: '' });
+  if (/urban|city|street|downtown/.test(desc)) signals.push({ label: 'Urban', cls: '' });
+  if (/nature|forest|ocean|mountain/.test(desc)) signals.push({ label: 'Outdoor nature', cls: '' });
 
   let detectedEmotion = 'contemplation';
-  if (/rapide|énergie|techno|electro|cut|impact/.test(desc)) detectedEmotion = 'acceleration';
-  else if (/triste|mélancolie|sad|pluie|gris|désaturé/.test(desc)) detectedEmotion = 'melancolie';
+  if (/fast|energy|techno|electro|cut|impact/.test(desc)) detectedEmotion = 'acceleration';
+  else if (/sad|melancholy|rain|grey|desaturated/.test(desc)) detectedEmotion = 'melancolie';
   else if (/tension|dark|noir|suspense/.test(desc)) detectedEmotion = 'tension';
-  else if (/joie|fun|happy|coloré|dance|soleil/.test(desc)) detectedEmotion = 'joie';
-  else if (/mystère|ombre|silhouette|caché/.test(desc)) detectedEmotion = 'mystere';
-  else if (/epic|grand|immense|altitude|sacré/.test(desc)) detectedEmotion = 'reverence';
+  else if (/joy|fun|happy|colourful|dance|sunny/.test(desc)) detectedEmotion = 'joie';
+  else if (/mystery|shadow|silhouette|hidden/.test(desc)) detectedEmotion = 'mystere';
+  else if (/epic|grand|vast|altitude|sacred/.test(desc)) detectedEmotion = 'reverence';
 
-  const hasHook = /hook|accrochet|premier|début/.test(desc);
-  const hasBenefit = /bénéfice|résultat|améliore|aide|permet|change/.test(desc);
-  const hasContrast = /mais|pourtant|sauf|contre|paradox/.test(desc);
+  const hasHook = /hook|opening|first|start/.test(desc);
+  const hasBenefit = /benefit|result|improve|helps|allows|changes/.test(desc);
+  const hasContrast = /but|yet|however|against|paradox|twist/.test(desc);
 
   document.getElementById('veille-tags').innerHTML = signals.length
     ? signals.map(s => `<span class="tag ${s.cls}">${s.label}</span>`).join('')
-    : '<span class="tag">Aucun signal fort détecté</span>';
+    : '<span class="tag">No strong signals detected</span>';
 
   const emLabel = EMOTIONS[detectedEmotion].label;
   document.getElementById('veille-kallaway').innerHTML = `
-    <div style="margin-bottom:10px"><span style="color:var(--accent);font-weight:700">Émotion détectée :</span> ${emLabel}</div>
+    <div style="margin-bottom:10px"><span style="color:var(--accent);font-weight:700">Detected emotion:</span> ${emLabel}</div>
     <div class="signal-row">
       <div class="signal-dot ${hasHook ? 'dot-green' : 'dot-orange'}"></div>
-      <div class="signal-label">Hook visible dès l'ouverture</div>
+      <div class="signal-label">Hook visible from the opening</div>
       <div class="signal-val ${hasHook ? 'val-green' : 'val-orange'}">${hasHook ? '✓' : '?'}</div>
     </div>
     <div class="signal-row">
       <div class="signal-dot ${hasBenefit ? 'dot-green' : 'dot-red'}"></div>
-      <div class="signal-label">Bénéfice avant technique</div>
+      <div class="signal-label">Benefit before technique</div>
       <div class="signal-val ${hasBenefit ? 'val-green' : 'val-red'}">${hasBenefit ? '✓' : '✗'}</div>
     </div>
     <div class="signal-row">
       <div class="signal-dot ${hasContrast ? 'dot-green' : 'dot-orange'}"></div>
-      <div class="signal-label">Tension / contre-pied (Snap)</div>
+      <div class="signal-label">Tension / twist (Snap)</div>
       <div class="signal-val ${hasContrast ? 'val-green' : 'val-orange'}">${hasContrast ? '✓' : '?'}</div>
     </div>`;
 
   document.getElementById('veille-angles').innerHTML = [
-    { label: 'Angle direct — même structure', text: `Reprend l'ambiance "${emLabel}" avec ton DJI Osmo Pocket. Même rythme, sujet 100% différent — ton univers cinéma.` },
-    { label: 'Angle contre-pied — Snap Kallaway', text: 'Ce que cette vidéo fait bien → tu fais l\'opposé volontairement. Si rapide, vas ultra-lent. La tension vient du contraste avec les attentes.' },
-    { label: 'Angle cult hop — ancrage DJI/iPhone', text: 'Même structure mais ancré dans la culture DJI / iPhone / DaVinci. Ton audience de créateurs 18-34 ans reconnaît les références → complétion monte.' }
+    { label: 'Direct angle — same structure', text: `Take the "${emLabel}" vibe with your DJI Osmo Pocket. Same rhythm, 100% different subject — your cinematic universe.` },
+    { label: 'Twist angle — Snap Kallaway', text: 'What this video does well → you intentionally do the opposite. If it\'s fast, go ultra-slow. The tension comes from contrast with expectations.' },
+    { label: 'Creator culture angle — DJI/iPhone anchor', text: 'Same structure but anchored in DJI / iPhone / DaVinci culture. Your 18-34 creator audience recognises the references → completion rate goes up.' }
   ].map(a => `<div class="angle-card"><div class="angle-label">${a.label}</div><div class="angle-text">${a.text}</div></div>`).join('');
 
-  document.getElementById('veille-cta').innerHTML = `<button class="btn" onclick="switchTab(0)">→ Ouvrir Projet</button>`;
+  document.getElementById('veille-cta').innerHTML = `<button class="btn" onclick="switchTab(0)">→ Open Project</button>`;
   document.getElementById('veille-result').classList.remove('hidden');
   document.getElementById('veille-result').scrollIntoView({ behavior: 'smooth' });
 }
@@ -1313,11 +1385,11 @@ function lancerDiagnostic() {
 
   const shareRate = views > 0 ? (shares / views) * 100 : 0;
   const signals = [
-    { label: 'Vues',              val: views.toLocaleString(), cls: classify(views, 200, 1000) },
-    { label: 'Watch time moyen',  val: watch + 's',            cls: classify(watch, 5, 7) },
-    { label: 'Taux de complétion',val: compl + '%',            cls: classify(compl, 5, 15) },
-    { label: 'Taux de rewatch',   val: rw + '%',               cls: rw < 5 ? 'red' : rw < 10 ? 'orange' : 'green' },
-    { label: 'Taux de partage',   val: shareRate.toFixed(2) + '%', cls: shareRate < 1 ? 'red' : shareRate < 2 ? 'orange' : 'green' }
+    { label: 'Views',             val: views.toLocaleString(), cls: classify(views, 200, 1000) },
+    { label: 'Avg watch time',    val: watch + 's',            cls: classify(watch, 5, 7) },
+    { label: 'Completion rate',   val: compl + '%',            cls: classify(compl, 5, 15) },
+    { label: 'Rewatch rate',      val: rw + '%',               cls: rw < 5 ? 'red' : rw < 10 ? 'orange' : 'green' },
+    { label: 'Share rate',        val: shareRate.toFixed(2) + '%', cls: shareRate < 1 ? 'red' : shareRate < 2 ? 'orange' : 'green' }
   ];
 
   lastDiagnostic = { views, watch, compl, rw, shares, dur, shareRate };
@@ -1333,14 +1405,14 @@ function lancerDiagnostic() {
   const oranges = signals.filter(s => s.cls === 'orange').length;
   let vCls, vTitle, vText;
   if (reds >= 3) {
-    vCls = 'red'; vTitle = '🚨 Hook / Distribution bloqué';
-    vText = 'Plusieurs signaux critiques. L\'algo a coupé la distribution tôt — probablement à 4 secondes. Priorité : refaire le hook (overlay 1 ≤ 5 mots, benefit-first).';
+    vCls = 'red'; vTitle = '🚨 Hook / Distribution blocked';
+    vText = 'Multiple critical signals. The algo cut distribution early — likely at 4 seconds. Priority: redo the hook (overlay 1 ≤ 5 words, benefit-first).';
   } else if (reds >= 1 || oranges >= 2) {
-    vCls = 'orange'; vTitle = '⚠️ Améliorations nécessaires';
-    vText = 'Distribution partielle. Le hook retient une partie de l\'audience mais quelque chose bloque la rétention après 4s. Vérifier : plan d\'ouverture à 0-2s, value loop.';
+    vCls = 'orange'; vTitle = '⚠️ Improvements needed';
+    vText = 'Partial distribution. The hook holds part of the audience but something blocks retention after 4s. Check: opening shot at 0–2s, value loop structure.';
   } else {
-    vCls = 'green'; vTitle = '✅ Bonne performance';
-    vText = 'Signaux positifs. Continue dans cette direction — amplifie ce qui fonctionne (hook, structure, LUT, son).';
+    vCls = 'green'; vTitle = '✅ Good performance';
+    vText = 'Positive signals. Keep going in this direction — amplify what\'s working (hook, structure, LUT, sound).';
   }
 
   document.getElementById('algo-verdict').innerHTML = `
@@ -1351,11 +1423,11 @@ function lancerDiagnostic() {
 
   let phase, phaseText;
   if (watch < 5 || compl < 5) {
-    phase = '⚡ Priorité — Refaire le hook'; phaseText = 'Watch time critique. Va dans Projet, régénère les overlays avec un nouveau hook verrouillé ou un hook géo plus fort.';
+    phase = '⚡ Priority — Redo the hook'; phaseText = 'Critical watch time. Go to Project, regenerate overlays with a new locked hook or a stronger geo hook.';
   } else if (watch < 7 || compl < 15) {
-    phase = '🎯 Retravailler le hook'; phaseText = 'Le sujet attire mais la rétention lâche. Régénère les overlays 2 & 3, teste le format Tuto pour plus de structure.';
+    phase = '🎯 Rework the hook'; phaseText = 'Subject attracts but retention drops. Regenerate overlays 2 & 3, try Tutorial format for more structure.';
   } else {
-    phase = '🚀 Amplifier'; phaseText = 'Bonne base. Va dans Veille pour analyser des vidéos similaires et emprunte leur structure.';
+    phase = '🚀 Amplify'; phaseText = 'Good foundation. Go to Research to analyse similar videos and borrow their structure.';
   }
 
   document.getElementById('phase-routing').innerHTML = `
@@ -1386,7 +1458,7 @@ function pillClass(val, low, mid) {
 function renderJournal() {
   const container = document.getElementById('journal-list');
   if (!journalEntries.length) {
-    container.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:20px 0;text-align:center">Aucune entrée — publie ta première vidéo et reviens ici.</div>';
+    container.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:20px 0;text-align:center">No entries yet — post your first video and come back here.</div>';
     return;
   }
   container.innerHTML = journalEntries.slice().reverse().map(e => {
@@ -1397,7 +1469,7 @@ function renderJournal() {
     if (guide && compl > 0) {
       const cls = compl >= guide.target ? 'rt-ok' : compl >= guide.target * 0.7 ? 'rt-warn' : 'rt-bad';
       const icon = compl >= guide.target ? '✓' : compl >= guide.target * 0.7 ? '~' : '✗';
-      retentionBadge = `<span class="retention-target ${cls}">${icon} ${compl}% / cible ${guide.target}%</span>`;
+      retentionBadge = `<span class="retention-target ${cls}">${icon} ${compl}% / target ${guide.target}%</span>`;
     }
     return `
       <div class="journal-entry">
@@ -1410,9 +1482,9 @@ function renderJournal() {
         </div>
         <div class="stat-pills">
           ${fmtLabel ? `<span class="stat-pill pill-accent">${fmtLabel}</span>` : ''}
-          <span class="stat-pill ${(e.views||0) > 1000 ? 'pill-green' : (e.views||0) > 200 ? 'pill-orange' : 'pill-red'}">${(e.views||0).toLocaleString()} vues</span>
+          <span class="stat-pill ${(e.views||0) > 1000 ? 'pill-green' : (e.views||0) > 200 ? 'pill-orange' : 'pill-red'}">${(e.views||0).toLocaleString()} views</span>
           <span class="stat-pill ${pillClass(e.watch||0, 5, 7)}">${e.watch||0}s watch</span>
-          <span class="stat-pill ${pillClass(compl, 5, 15)}">${compl}% complétion</span>
+          <span class="stat-pill ${pillClass(compl, 5, 15)}">${compl}% completion</span>
           ${e.rw ? `<span class="stat-pill ${pillClass(e.rw, 5, 10)}">${e.rw}% rewatch</span>` : ''}
           ${e.saves ? `<span class="stat-pill pill-accent">💾 ${e.saves} saves</span>` : ''}
         </div>
@@ -1446,7 +1518,7 @@ function closeModalOnBg(e) {
 
 function saveJournalEntry() {
   const titre = document.getElementById('modal-titre').value.trim();
-  if (!titre) { alert('Donne un titre à cette entrée.'); return; }
+  if (!titre) { alert('Give this entry a title.'); return; }
   const entry = {
     id: Date.now(),
     titre,
@@ -1485,22 +1557,22 @@ function exportBrief() {
 
   let hook;
   if (currentHookType === 'verrouille') {
-    hook = LS.load('locked_hook', null) || '(non sélectionné)';
+    hook = LS.load('locked_hook', null) || '(not selected)';
   } else {
     const ville = document.getElementById('inp-ville').value.trim();
-    hook = ville ? geoHookForFormat(ville, currentFormat) : '(ville non renseignée)';
+    hook = ville ? geoHookForFormat(ville, currentFormat) : '(city not entered)';
   }
 
   const lines = [
-    '═══ BRIEF DE TOURNAGE — CARTER.MOV ═══',
+    '═══ SHOOTING BRIEF — CARTER.MOV ═══',
     '',
     '🎬 FORMAT',
     `${fmt.label} — ${fmt.desc}`,
     '',
     '🎯 HOOK',
-    `[${currentHookType === 'verrouille' ? '🔒 Verrouillé' : '📍 Géo'}] ${hook}`,
+    `[${currentHookType === 'verrouille' ? '🔒 Locked' : '📍 Geo'}] ${hook}`,
     '',
-    '🎵 MUSIQUE',
+    '🎵 MUSIC',
     musique,
     '',
     '🎨 LUT',
@@ -1510,27 +1582,28 @@ function exportBrief() {
   ];
 
   fmt.shots.forEach((s, i) => {
-    lines.push(`  ${i+1}. [${s.t}] ${s.n}`);
+    lines.push(`  ${i+1}. [${s.t}] ${s.n} — ${s.cadrage}`);
     lines.push(`     ${s.d}`);
+    lines.push(`     ⚙️ ${s.reglages}`);
   });
 
   lines.push('');
-  lines.push('🎬 OVERLAYS TEXTE');
+  lines.push('🎬 TEXT OVERLAYS');
   const ovEls = document.querySelectorAll('.overlay-text');
   if (ovEls.length) {
     ['Hook','Stop','Snap'].forEach((l, i) => {
       if (ovEls[i]) lines.push(`  [${l}] ${ovEls[i].textContent.trim()}`);
     });
   } else {
-    lines.push('  Génère le projet d\'abord.');
+    lines.push('  Generate the project first.');
   }
 
-  lines.push('', '✅ 4 TESTS HOOK (Kallaway)');
-  lines.push('  □ Délai zéro — promesse visible en <1s');
-  lines.push('  □ Zéro confusion — un enfant de 10 ans comprend');
-  lines.push('  □ Pertinence (Tu/Ton) — douleur/bénéfice avant technique');
-  lines.push('  □ Contraste — contre-pied ou tension narrative');
-  lines.push('', '⚡ TIMER 4S — Meilleur plan à 0-2s');
+  lines.push('', '✅ 4 HOOK TESTS (Kallaway)');
+  lines.push('  □ Zero delay — promise visible in <1s');
+  lines.push('  □ Zero confusion — a 10-year-old understands');
+  lines.push('  □ Relevance (You/Your) — pain/benefit before technique');
+  lines.push('  □ Contrast — twist or narrative tension');
+  lines.push('', '⚡ 4S TIMER — Best shot at 0-2s');
   lines.push('═══════════════════════════════════════');
 
   const text = lines.join('\n');
@@ -1538,7 +1611,7 @@ function exportBrief() {
   document.getElementById('brief-export-box').classList.remove('hidden');
 
   if (navigator.share) {
-    navigator.share({ title: 'Brief tournage Carter.mov', text }).catch(() => {});
+    navigator.share({ title: 'Shooting Brief — Carter.mov', text }).catch(() => {});
   }
 
   switchTab(3);
