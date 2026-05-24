@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
   <title>Carter.mov — Cinematic Life</title>
+  <script src="api-config.js"></script>
   <style>
     :root {
       --bg: #0a0a0a;
@@ -221,6 +222,27 @@
       font-family: 'SF Mono', monospace;
     }
     .shot-reglages-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 3px; }
+    /* ── AI SHOT LOADING ── */
+    .shots-loading {
+      display: flex; align-items: center; gap: 12px;
+      padding: 20px 16px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .shots-loading-spinner {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      animation: spin .7s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .shots-loading-text { font-size: 13px; color: var(--muted); }
+    .shots-loading-text strong { color: var(--accent2); }
+    .shot-ai-badge {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .8px; color: var(--accent2);
+      background: rgba(77,255,184,.1); border: 1px solid rgba(77,255,184,.2);
+      padding: 2px 7px; border-radius: 999px; margin-left: 8px;
+    }
+
     .sujet-desc-block {
       font-size: 13px; color: var(--accent2); background: rgba(77,255,184,.06);
       border: 1px solid rgba(77,255,184,.2); border-radius: 8px;
@@ -1120,7 +1142,7 @@ function updateGeoPreview() {
 // GENERATION
 // ═══════════════════════════════════════════════════════
 
-function genererProjet() {
+async function genererProjet() {
   if (currentHookType === 'verrouille') {
     if (!LS.load('locked_hook', null)) {
       alert('Pick your locked hook first — it defines your brand identity.');
@@ -1138,7 +1160,6 @@ function genererProjet() {
   }
 
   generateOverlays();
-  generateShots();
   generatePublication();
   renderAlgoBanner();
 
@@ -1146,6 +1167,96 @@ function genererProjet() {
   result.classList.remove('hidden');
   saveLastProject();
   setTimeout(() => result.scrollIntoView({ behavior: 'smooth' }), 100);
+
+  const sujet = document.getElementById('inp-sujet').value.trim();
+  if (sujet && typeof ANTHROPIC_KEY !== 'undefined' && ANTHROPIC_KEY !== 'COLLE_TA_CLÉ_ICI') {
+    await generateShotsAI(sujet);
+  } else {
+    generateShots();
+  }
+}
+
+// ── AI SHOT GENERATION ──
+
+async function generateShotsAI(sujet) {
+  const fmt = FORMATS[currentFormat];
+  document.getElementById('shots-format-label').textContent = fmt.label;
+  document.getElementById('shots-list').innerHTML = `
+    <div class="shots-loading">
+      <div class="shots-loading-spinner"></div>
+      <div class="shots-loading-text">Generating shots for <strong>${sujet}</strong>…</div>
+    </div>`;
+
+  const formatNames = { vlog: 'Vlog (day filmed like a movie)', city: 'City Film (city filmed like a short film)', tuto: 'Tutorial (technique or skill breakdown)' };
+
+  const prompt = `You are a cinematographer assistant for Carter.mov, a creator who shoots with DJI Osmo Pocket 3 and iPhone.
+
+Format: ${formatNames[currentFormat]}
+Subject: ${sujet}
+
+Generate exactly 10 shots for this specific subject. Follow these rules:
+- Start with a Wide Shot (establishing)
+- Alternate WS ↔ MS/CU when on-camera content
+- Use ECU only for scene transitions (location change, time jump)
+- Never put two Wide Shots consecutively (unless establishing a new location)
+- Each shot name and description must be SPECIFIC to the subject "${sujet}", not generic
+
+For each shot return this exact JSON structure:
+{
+  "n": "shot name specific to ${sujet}",
+  "t": "DJI or iPhone or DJI macro or iPhone macro",
+  "cadrage": "shot size — e.g. WS, MS, CU, ECU, MCU, EWS, OTS",
+  "reglages": "camera settings — expo, fps, ISO, tips",
+  "d": "what exactly to film, specific to ${sujet}"
+}
+
+Return ONLY a valid JSON array of 10 objects. No explanation, no markdown, just the array.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const data = await res.json();
+    const text = data.content[0].text.trim();
+    const shots = JSON.parse(text);
+
+    document.getElementById('shots-format-label').innerHTML =
+      `${fmt.label} <span class="shot-ai-badge">✦ AI · ${sujet}</span>`;
+
+    document.getElementById('shots-list').innerHTML = shots.map((s, i) => `
+      <div class="shot-item">
+        <div class="shot-header">
+          <div class="shot-num">${i + 1}</div>
+          <div class="shot-name">${s.n}</div>
+          <div class="shot-tag">${s.t}</div>
+        </div>
+        <div class="shot-meta">
+          <span class="shot-cadrage">📐 ${s.cadrage}</span>
+        </div>
+        <div class="shot-desc">${s.d}</div>
+        <div class="shot-reglages">
+          <div class="shot-reglages-label">⚙️ Settings</div>
+          ${s.reglages}
+        </div>
+      </div>`).join('');
+
+  } catch (err) {
+    console.warn('AI shot generation failed, falling back to defaults:', err);
+    generateShots();
+  }
 }
 
 // ── OVERLAYS ──
